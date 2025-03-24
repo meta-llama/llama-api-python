@@ -277,7 +277,7 @@ class AsyncLlamaAPI(AsyncAPIClient):
             max_retries=max_retries,
             timeout=timeout,
             http_client=http_client,
-            custom_headers=custom_headers,
+            custom_headers=default_headers,
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )

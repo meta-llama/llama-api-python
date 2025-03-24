@@ -57,13 +57,17 @@ class InferenceResource(SyncAPIResource):
         messages: Iterable[inference_chat_completion_params.Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -85,8 +89,6 @@ class InferenceResource(SyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           stream: If True, generate an SSE event stream of the response. Defaults to False.
 
@@ -123,12 +125,16 @@ class InferenceResource(SyncAPIResource):
         model_id: str,
         stream: Literal[True],
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -152,8 +158,6 @@ class InferenceResource(SyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -188,12 +192,16 @@ class InferenceResource(SyncAPIResource):
         model_id: str,
         stream: bool,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -217,8 +225,6 @@ class InferenceResource(SyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -252,13 +258,17 @@ class InferenceResource(SyncAPIResource):
         messages: Iterable[inference_chat_completion_params.Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -275,13 +285,17 @@ class InferenceResource(SyncAPIResource):
                     "messages": messages,
                     "model_id": model_id,
                     "logprobs": logprobs,
+                    "max_completion_tokens": max_completion_tokens,
+                    "repetition_penalty": repetition_penalty,
                     "response_format": response_format,
-                    "sampling_params": sampling_params,
                     "stream": stream,
+                    "temperature": temperature,
                     "tool_choice": tool_choice,
                     "tool_config": tool_config,
                     "tool_prompt_format": tool_prompt_format,
                     "tools": tools,
+                    "top_k": top_k,
+                    "top_p": top_p,
                 },
                 inference_chat_completion_params.InferenceChatCompletionParams,
             ),
@@ -321,13 +335,17 @@ class AsyncInferenceResource(AsyncAPIResource):
         messages: Iterable[inference_chat_completion_params.Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -349,8 +367,6 @@ class AsyncInferenceResource(AsyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           stream: If True, generate an SSE event stream of the response. Defaults to False.
 
@@ -387,12 +403,16 @@ class AsyncInferenceResource(AsyncAPIResource):
         model_id: str,
         stream: Literal[True],
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -416,8 +436,6 @@ class AsyncInferenceResource(AsyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -452,12 +470,16 @@ class AsyncInferenceResource(AsyncAPIResource):
         model_id: str,
         stream: bool,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -481,8 +503,6 @@ class AsyncInferenceResource(AsyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -516,13 +536,17 @@ class AsyncInferenceResource(AsyncAPIResource):
         messages: Iterable[inference_chat_completion_params.Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | NotGiven = NOT_GIVEN,
+        repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: inference_chat_completion_params.SamplingParams | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
+        temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
         tool_prompt_format: Literal["json", "function_tag", "python_list"] | NotGiven = NOT_GIVEN,
         tools: Iterable[inference_chat_completion_params.Tool] | NotGiven = NOT_GIVEN,
+        top_k: int | NotGiven = NOT_GIVEN,
+        top_p: float | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -539,13 +563,17 @@ class AsyncInferenceResource(AsyncAPIResource):
                     "messages": messages,
                     "model_id": model_id,
                     "logprobs": logprobs,
+                    "max_completion_tokens": max_completion_tokens,
+                    "repetition_penalty": repetition_penalty,
                     "response_format": response_format,
-                    "sampling_params": sampling_params,
                     "stream": stream,
+                    "temperature": temperature,
                     "tool_choice": tool_choice,
                     "tool_config": tool_config,
                     "tool_prompt_format": tool_prompt_format,
                     "tools": tools,
+                    "top_k": top_k,
+                    "top_p": top_p,
                 },
                 inference_chat_completion_params.InferenceChatCompletionParams,
             ),

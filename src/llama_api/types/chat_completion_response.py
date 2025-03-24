@@ -9,46 +9,42 @@ from .._models import BaseModel
 __all__ = [
     "ChatCompletionResponse",
     "CompletionMessage",
-    "CompletionMessageContent",
-    "CompletionMessageContentImageContentItem",
-    "CompletionMessageContentImageContentItemImage",
-    "CompletionMessageContentImageContentItemImageURL",
-    "CompletionMessageContentTextContentItem",
-    "CompletionMessageContentUnionMember3",
-    "CompletionMessageContentUnionMember3ImageContentItem",
-    "CompletionMessageContentUnionMember3ImageContentItemImage",
-    "CompletionMessageContentUnionMember3ImageContentItemImageURL",
-    "CompletionMessageContentUnionMember3TextContentItem",
+    "CompletionMessageContentUnionMember1",
+    "CompletionMessageContentUnionMember1ImageContentItem",
+    "CompletionMessageContentUnionMember1ImageContentItemImage",
+    "CompletionMessageContentUnionMember1ImageContentItemImageURL",
+    "CompletionMessageContentUnionMember1TextContentItem",
+    "CompletionMessageContentUnionMember1ReasoningContentItem",
     "CompletionMessageToolCall",
     "Logprob",
     "Metric",
 ]
 
 
-class CompletionMessageContentImageContentItemImageURL(BaseModel):
+class CompletionMessageContentUnionMember1ImageContentItemImageURL(BaseModel):
     uri: str
 
 
-class CompletionMessageContentImageContentItemImage(BaseModel):
+class CompletionMessageContentUnionMember1ImageContentItemImage(BaseModel):
     data: Optional[str] = None
     """base64 encoded image data as string"""
 
-    url: Optional[CompletionMessageContentImageContentItemImageURL] = None
+    url: Optional[CompletionMessageContentUnionMember1ImageContentItemImageURL] = None
     """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
 
     Note that URL could have length limits.
     """
 
 
-class CompletionMessageContentImageContentItem(BaseModel):
-    image: CompletionMessageContentImageContentItemImage
+class CompletionMessageContentUnionMember1ImageContentItem(BaseModel):
+    image: CompletionMessageContentUnionMember1ImageContentItemImage
     """Image as a base64 encoded string or an URL"""
 
     type: Literal["image"]
     """Discriminator type of the content item. Always "image" """
 
 
-class CompletionMessageContentTextContentItem(BaseModel):
+class CompletionMessageContentUnionMember1TextContentItem(BaseModel):
     text: str
     """Text content"""
 
@@ -56,47 +52,24 @@ class CompletionMessageContentTextContentItem(BaseModel):
     """Discriminator type of the content item. Always "text" """
 
 
-class CompletionMessageContentUnionMember3ImageContentItemImageURL(BaseModel):
-    uri: str
+class CompletionMessageContentUnionMember1ReasoningContentItem(BaseModel):
+    answer: str
+    """The final model response"""
+
+    reasoning: str
+    """The CoT reasoning content of the model"""
+
+    type: Literal["reasoning"]
+    """Discriminator type of the content item. Always "reasoning" """
 
 
-class CompletionMessageContentUnionMember3ImageContentItemImage(BaseModel):
-    data: Optional[str] = None
-    """base64 encoded image data as string"""
-
-    url: Optional[CompletionMessageContentUnionMember3ImageContentItemImageURL] = None
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class CompletionMessageContentUnionMember3ImageContentItem(BaseModel):
-    image: CompletionMessageContentUnionMember3ImageContentItemImage
-    """Image as a base64 encoded string or an URL"""
-
-    type: Literal["image"]
-    """Discriminator type of the content item. Always "image" """
-
-
-class CompletionMessageContentUnionMember3TextContentItem(BaseModel):
-    text: str
-    """Text content"""
-
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
-
-
-CompletionMessageContentUnionMember3: TypeAlias = Annotated[
-    Union[CompletionMessageContentUnionMember3ImageContentItem, CompletionMessageContentUnionMember3TextContentItem],
+CompletionMessageContentUnionMember1: TypeAlias = Annotated[
+    Union[
+        CompletionMessageContentUnionMember1ImageContentItem,
+        CompletionMessageContentUnionMember1TextContentItem,
+        CompletionMessageContentUnionMember1ReasoningContentItem,
+    ],
     PropertyInfo(discriminator="type"),
-]
-
-CompletionMessageContent: TypeAlias = Union[
-    str,
-    CompletionMessageContentImageContentItem,
-    CompletionMessageContentTextContentItem,
-    List[CompletionMessageContentUnionMember3],
 ]
 
 
@@ -119,7 +92,7 @@ class CompletionMessageToolCall(BaseModel):
 
 
 class CompletionMessage(BaseModel):
-    content: CompletionMessageContent
+    content: Union[str, List[CompletionMessageContentUnionMember1]]
     """The content of the model's response"""
 
     role: Literal["assistant"]
