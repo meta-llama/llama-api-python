@@ -1,7 +1,13 @@
 # Shared Types
 
 ```python
-from llama_api.types import CompletionMessage, Message, UserMessage
+from llama_api.types import (
+    CompletionMessage,
+    Message,
+    SystemMessage,
+    ToolResponseMessage,
+    UserMessage,
+)
 ```
 
 # Inference
