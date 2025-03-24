@@ -5,12 +5,8 @@ from __future__ import annotations
 from typing import Union, Iterable
 from typing_extensions import TypeAlias
 
-from .text_content_item_param import TextContentItemParam
-from .image_content_item_param import ImageContentItemParam
-from .reasoning_content_item_param import ReasoningContentItemParam
+from .interleaved_content_item_param import InterleavedContentItemParam
 
-__all__ = ["InterleavedContentParam", "UnionMember1"]
+__all__ = ["InterleavedContentParam"]
 
-UnionMember1: TypeAlias = Union[ImageContentItemParam, TextContentItemParam, ReasoningContentItemParam]
-
-InterleavedContentParam: TypeAlias = Union[str, Iterable[UnionMember1]]
+InterleavedContentParam: TypeAlias = Union[str, Iterable[InterleavedContentItemParam]]

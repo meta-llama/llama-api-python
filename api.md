@@ -21,6 +21,7 @@ from llama_api.types import (
     ChatCompletionResponseStreamChunk,
     ImageContentItem,
     InterleavedContent,
+    InterleavedContentItem,
     ReasoningContentItem,
     TextContentItem,
 )
