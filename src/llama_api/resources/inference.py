@@ -24,7 +24,7 @@ from .._response import (
 )
 from .._streaming import Stream, AsyncStream
 from .._base_client import make_request_options
-from ..types.message_param import MessageParam
+from ..types.shared_params.message import Message
 from ..types.chat_completion_response import ChatCompletionResponse
 from ..types.chat_completion_response_stream_chunk import ChatCompletionResponseStreamChunk
 
@@ -55,7 +55,7 @@ class InferenceResource(SyncAPIResource):
     def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
@@ -122,7 +122,7 @@ class InferenceResource(SyncAPIResource):
     def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         stream: Literal[True],
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
@@ -189,7 +189,7 @@ class InferenceResource(SyncAPIResource):
     def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         stream: bool,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
@@ -256,7 +256,7 @@ class InferenceResource(SyncAPIResource):
     def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
@@ -331,7 +331,7 @@ class AsyncInferenceResource(AsyncAPIResource):
     async def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
@@ -398,7 +398,7 @@ class AsyncInferenceResource(AsyncAPIResource):
     async def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         stream: Literal[True],
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
@@ -465,7 +465,7 @@ class AsyncInferenceResource(AsyncAPIResource):
     async def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         stream: bool,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
@@ -532,7 +532,7 @@ class AsyncInferenceResource(AsyncAPIResource):
     async def chat_completion(
         self,
         *,
-        messages: Iterable[MessageParam],
+        messages: Iterable[Message],
         model_id: str,
         logprobs: inference_chat_completion_params.Logprobs | NotGiven = NOT_GIVEN,
         max_completion_tokens: int | NotGiven = NOT_GIVEN,

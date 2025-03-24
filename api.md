@@ -1,3 +1,9 @@
+# Shared Types
+
+```python
+from llama_api.types import CompletionMessage, Message, UserMessage
+```
+
 # Inference
 
 Types:
@@ -7,7 +13,6 @@ from llama_api.types import (
     ChatCompletionRequest,
     ChatCompletionResponse,
     ChatCompletionResponseStreamChunk,
-    Message,
 )
 ```
 

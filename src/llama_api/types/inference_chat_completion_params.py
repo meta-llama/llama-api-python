@@ -5,7 +5,7 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .message_param import MessageParam
+from .shared_params.message import Message
 
 __all__ = [
     "InferenceChatCompletionParamsBase",
@@ -22,7 +22,7 @@ __all__ = [
 
 
 class InferenceChatCompletionParamsBase(TypedDict, total=False):
-    messages: Required[Iterable[MessageParam]]
+    messages: Required[Iterable[Message]]
     """List of messages in the conversation"""
 
     model_id: Required[str]
