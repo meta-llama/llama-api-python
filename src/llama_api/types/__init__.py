@@ -10,8 +10,10 @@ from .shared import (
     CompletionMessage as CompletionMessage,
     ToolResponseMessage as ToolResponseMessage,
 )
+from .interleaved_content import InterleavedContent as InterleavedContent
 from .model_list_response import ModelListResponse as ModelListResponse
 from .chat_completion_response import ChatCompletionResponse as ChatCompletionResponse
+from .interleaved_content_param import InterleavedContentParam as InterleavedContentParam
 from .inference_chat_completion_params import InferenceChatCompletionParams as InferenceChatCompletionParams
 from .chat_completion_response_stream_chunk import (
     ChatCompletionResponseStreamChunk as ChatCompletionResponseStreamChunk,

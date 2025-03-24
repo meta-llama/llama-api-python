@@ -1,71 +1,12 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing_extensions import Literal
 
-from ..._utils import PropertyInfo
 from ..._models import BaseModel
+from ..interleaved_content import InterleavedContent
 
-__all__ = [
-    "CompletionMessage",
-    "ContentUnionMember1",
-    "ContentUnionMember1ImageContentItem",
-    "ContentUnionMember1ImageContentItemImage",
-    "ContentUnionMember1ImageContentItemImageURL",
-    "ContentUnionMember1TextContentItem",
-    "ContentUnionMember1ReasoningContentItem",
-    "ToolCall",
-]
-
-
-class ContentUnionMember1ImageContentItemImageURL(BaseModel):
-    uri: str
-
-
-class ContentUnionMember1ImageContentItemImage(BaseModel):
-    data: Optional[str] = None
-    """base64 encoded image data as string"""
-
-    url: Optional[ContentUnionMember1ImageContentItemImageURL] = None
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class ContentUnionMember1ImageContentItem(BaseModel):
-    image: ContentUnionMember1ImageContentItemImage
-    """Image as a base64 encoded string or an URL"""
-
-    type: Literal["image"]
-    """Discriminator type of the content item. Always "image" """
-
-
-class ContentUnionMember1TextContentItem(BaseModel):
-    text: str
-    """Text content"""
-
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
-
-
-class ContentUnionMember1ReasoningContentItem(BaseModel):
-    answer: str
-    """The final model response"""
-
-    reasoning: str
-    """The CoT reasoning content of the model"""
-
-    type: Literal["reasoning"]
-    """Discriminator type of the content item. Always "reasoning" """
-
-
-ContentUnionMember1: TypeAlias = Annotated[
-    Union[
-        ContentUnionMember1ImageContentItem, ContentUnionMember1TextContentItem, ContentUnionMember1ReasoningContentItem
-    ],
-    PropertyInfo(discriminator="type"),
-]
+__all__ = ["CompletionMessage", "ToolCall"]
 
 
 class ToolCall(BaseModel):
@@ -87,7 +28,7 @@ class ToolCall(BaseModel):
 
 
 class CompletionMessage(BaseModel):
-    content: Union[str, List[ContentUnionMember1]]
+    content: InterleavedContent
     """The content of the model's response"""
 
     role: Literal["assistant"]
