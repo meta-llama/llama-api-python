@@ -49,7 +49,6 @@ class TestInference:
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={},
             stream=False,
             temperature=0,
             tool_choice="auto",
@@ -150,7 +149,6 @@ class TestInference:
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={},
             temperature=0,
             tool_choice="auto",
             tool_config={
@@ -253,7 +251,6 @@ class TestAsyncInference:
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={},
             stream=False,
             temperature=0,
             tool_choice="auto",
@@ -354,7 +351,6 @@ class TestAsyncInference:
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={},
             temperature=0,
             tool_choice="auto",
             tool_config={

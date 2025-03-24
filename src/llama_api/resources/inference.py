@@ -60,7 +60,6 @@ class InferenceResource(SyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
@@ -90,8 +89,6 @@ class InferenceResource(SyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           stream: If True, generate an SSE event stream of the response. Defaults to False.
 
@@ -131,7 +128,6 @@ class InferenceResource(SyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
@@ -162,8 +158,6 @@ class InferenceResource(SyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -201,7 +195,6 @@ class InferenceResource(SyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
@@ -232,8 +225,6 @@ class InferenceResource(SyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -270,7 +261,6 @@ class InferenceResource(SyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
@@ -296,7 +286,6 @@ class InferenceResource(SyncAPIResource):
                     "max_completion_tokens": max_completion_tokens,
                     "repetition_penalty": repetition_penalty,
                     "response_format": response_format,
-                    "sampling_params": sampling_params,
                     "stream": stream,
                     "temperature": temperature,
                     "tool_choice": tool_choice,
@@ -347,7 +336,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
@@ -377,8 +365,6 @@ class AsyncInferenceResource(AsyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           stream: If True, generate an SSE event stream of the response. Defaults to False.
 
@@ -418,7 +404,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
@@ -449,8 +434,6 @@ class AsyncInferenceResource(AsyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -488,7 +471,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
         tool_config: inference_chat_completion_params.ToolConfig | NotGiven = NOT_GIVEN,
@@ -519,8 +501,6 @@ class AsyncInferenceResource(AsyncAPIResource):
               `ResponseFormat.json_schema`: The grammar is a JSON schema. Most providers
               support this format. - `ResponseFormat.grammar`: The grammar is a BNF grammar.
               This format is more flexible, but not all providers support it.
-
-          sampling_params: Parameters to control the sampling strategy
 
           tool_choice: Whether tool use is required or automatic. Defaults to ToolChoice.auto. ..
               deprecated:: Use tool_config instead.
@@ -557,7 +537,6 @@ class AsyncInferenceResource(AsyncAPIResource):
         max_completion_tokens: int | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: inference_chat_completion_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        sampling_params: object | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
         tool_choice: Literal["auto", "required", "none"] | NotGiven = NOT_GIVEN,
@@ -583,7 +562,6 @@ class AsyncInferenceResource(AsyncAPIResource):
                     "max_completion_tokens": max_completion_tokens,
                     "repetition_penalty": repetition_penalty,
                     "response_format": response_format,
-                    "sampling_params": sampling_params,
                     "stream": stream,
                     "temperature": temperature,
                     "tool_choice": tool_choice,
