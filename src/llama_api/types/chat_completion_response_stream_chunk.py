@@ -15,6 +15,7 @@ __all__ = [
     "EventDeltaToolCallDelta",
     "EventDeltaToolCallDeltaToolCall",
     "EventDeltaToolCallDeltaToolCallToolCall",
+    "EventDeltaReasoningContentDelta",
     "EventLogprob",
     "Metric",
 ]
@@ -61,8 +62,17 @@ class EventDeltaToolCallDelta(BaseModel):
     type: Literal["tool_call"]
 
 
+class EventDeltaReasoningContentDelta(BaseModel):
+    answer: str
+
+    reasoning: str
+
+    type: Literal["reasoning"]
+
+
 EventDelta: TypeAlias = Annotated[
-    Union[EventDeltaTextDelta, EventDeltaImageDelta, EventDeltaToolCallDelta], PropertyInfo(discriminator="type")
+    Union[EventDeltaTextDelta, EventDeltaImageDelta, EventDeltaToolCallDelta, EventDeltaReasoningContentDelta],
+    PropertyInfo(discriminator="type"),
 ]
 
 

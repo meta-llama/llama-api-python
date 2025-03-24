@@ -39,21 +39,19 @@ class TestInference:
                 {
                     "content": "string",
                     "role": "user",
-                    "context": "string",
                 }
             ],
             model_id="model_id",
             logprobs={"top_k": 0},
+            max_completion_tokens=0,
+            repetition_penalty=0,
             response_format={
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={
-                "strategy": {"type": "greedy"},
-                "max_tokens": 0,
-                "repetition_penalty": 0,
-            },
+            sampling_params={},
             stream=False,
+            temperature=0,
             tool_choice="auto",
             tool_config={
                 "system_message_behavior": "append",
@@ -75,6 +73,8 @@ class TestInference:
                     },
                 }
             ],
+            top_k=0,
+            top_p=0,
         )
         assert_matches_type(ChatCompletionResponse, inference, path=["response"])
 
@@ -139,21 +139,19 @@ class TestInference:
                 {
                     "content": "string",
                     "role": "user",
-                    "context": "string",
                 }
             ],
             model_id="model_id",
             stream=True,
             logprobs={"top_k": 0},
+            max_completion_tokens=0,
+            repetition_penalty=0,
             response_format={
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={
-                "strategy": {"type": "greedy"},
-                "max_tokens": 0,
-                "repetition_penalty": 0,
-            },
+            sampling_params={},
+            temperature=0,
             tool_choice="auto",
             tool_config={
                 "system_message_behavior": "append",
@@ -175,6 +173,8 @@ class TestInference:
                     },
                 }
             ],
+            top_k=0,
+            top_p=0,
         )
         inference_stream.response.close()
 
@@ -243,21 +243,19 @@ class TestAsyncInference:
                 {
                     "content": "string",
                     "role": "user",
-                    "context": "string",
                 }
             ],
             model_id="model_id",
             logprobs={"top_k": 0},
+            max_completion_tokens=0,
+            repetition_penalty=0,
             response_format={
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={
-                "strategy": {"type": "greedy"},
-                "max_tokens": 0,
-                "repetition_penalty": 0,
-            },
+            sampling_params={},
             stream=False,
+            temperature=0,
             tool_choice="auto",
             tool_config={
                 "system_message_behavior": "append",
@@ -279,6 +277,8 @@ class TestAsyncInference:
                     },
                 }
             ],
+            top_k=0,
+            top_p=0,
         )
         assert_matches_type(ChatCompletionResponse, inference, path=["response"])
 
@@ -343,21 +343,19 @@ class TestAsyncInference:
                 {
                     "content": "string",
                     "role": "user",
-                    "context": "string",
                 }
             ],
             model_id="model_id",
             stream=True,
             logprobs={"top_k": 0},
+            max_completion_tokens=0,
+            repetition_penalty=0,
             response_format={
                 "json_schema": {"foo": True},
                 "type": "json_schema",
             },
-            sampling_params={
-                "strategy": {"type": "greedy"},
-                "max_tokens": 0,
-                "repetition_penalty": 0,
-            },
+            sampling_params={},
+            temperature=0,
             tool_choice="auto",
             tool_config={
                 "system_message_behavior": "append",
@@ -379,6 +377,8 @@ class TestAsyncInference:
                     },
                 }
             ],
+            top_k=0,
+            top_p=0,
         )
         await inference_stream.response.aclose()
 

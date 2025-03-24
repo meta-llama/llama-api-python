@@ -9,69 +9,38 @@ __all__ = [
     "InferenceChatCompletionParamsBase",
     "Message",
     "MessageUserMessage",
-    "MessageUserMessageContent",
-    "MessageUserMessageContentImageContentItem",
-    "MessageUserMessageContentImageContentItemImage",
-    "MessageUserMessageContentImageContentItemImageURL",
-    "MessageUserMessageContentTextContentItem",
-    "MessageUserMessageContentUnionMember3",
-    "MessageUserMessageContentUnionMember3ImageContentItem",
-    "MessageUserMessageContentUnionMember3ImageContentItemImage",
-    "MessageUserMessageContentUnionMember3ImageContentItemImageURL",
-    "MessageUserMessageContentUnionMember3TextContentItem",
-    "MessageUserMessageContext",
-    "MessageUserMessageContextImageContentItem",
-    "MessageUserMessageContextImageContentItemImage",
-    "MessageUserMessageContextImageContentItemImageURL",
-    "MessageUserMessageContextTextContentItem",
-    "MessageUserMessageContextUnionMember3",
-    "MessageUserMessageContextUnionMember3ImageContentItem",
-    "MessageUserMessageContextUnionMember3ImageContentItemImage",
-    "MessageUserMessageContextUnionMember3ImageContentItemImageURL",
-    "MessageUserMessageContextUnionMember3TextContentItem",
+    "MessageUserMessageContentUnionMember1",
+    "MessageUserMessageContentUnionMember1ImageContentItem",
+    "MessageUserMessageContentUnionMember1ImageContentItemImage",
+    "MessageUserMessageContentUnionMember1ImageContentItemImageURL",
+    "MessageUserMessageContentUnionMember1TextContentItem",
+    "MessageUserMessageContentUnionMember1ReasoningContentItem",
     "MessageSystemMessage",
-    "MessageSystemMessageContent",
-    "MessageSystemMessageContentImageContentItem",
-    "MessageSystemMessageContentImageContentItemImage",
-    "MessageSystemMessageContentImageContentItemImageURL",
-    "MessageSystemMessageContentTextContentItem",
-    "MessageSystemMessageContentUnionMember3",
-    "MessageSystemMessageContentUnionMember3ImageContentItem",
-    "MessageSystemMessageContentUnionMember3ImageContentItemImage",
-    "MessageSystemMessageContentUnionMember3ImageContentItemImageURL",
-    "MessageSystemMessageContentUnionMember3TextContentItem",
+    "MessageSystemMessageContentUnionMember1",
+    "MessageSystemMessageContentUnionMember1ImageContentItem",
+    "MessageSystemMessageContentUnionMember1ImageContentItemImage",
+    "MessageSystemMessageContentUnionMember1ImageContentItemImageURL",
+    "MessageSystemMessageContentUnionMember1TextContentItem",
+    "MessageSystemMessageContentUnionMember1ReasoningContentItem",
     "MessageToolResponseMessage",
-    "MessageToolResponseMessageContent",
-    "MessageToolResponseMessageContentImageContentItem",
-    "MessageToolResponseMessageContentImageContentItemImage",
-    "MessageToolResponseMessageContentImageContentItemImageURL",
-    "MessageToolResponseMessageContentTextContentItem",
-    "MessageToolResponseMessageContentUnionMember3",
-    "MessageToolResponseMessageContentUnionMember3ImageContentItem",
-    "MessageToolResponseMessageContentUnionMember3ImageContentItemImage",
-    "MessageToolResponseMessageContentUnionMember3ImageContentItemImageURL",
-    "MessageToolResponseMessageContentUnionMember3TextContentItem",
+    "MessageToolResponseMessageContentUnionMember1",
+    "MessageToolResponseMessageContentUnionMember1ImageContentItem",
+    "MessageToolResponseMessageContentUnionMember1ImageContentItemImage",
+    "MessageToolResponseMessageContentUnionMember1ImageContentItemImageURL",
+    "MessageToolResponseMessageContentUnionMember1TextContentItem",
+    "MessageToolResponseMessageContentUnionMember1ReasoningContentItem",
     "MessageCompletionMessage",
-    "MessageCompletionMessageContent",
-    "MessageCompletionMessageContentImageContentItem",
-    "MessageCompletionMessageContentImageContentItemImage",
-    "MessageCompletionMessageContentImageContentItemImageURL",
-    "MessageCompletionMessageContentTextContentItem",
-    "MessageCompletionMessageContentUnionMember3",
-    "MessageCompletionMessageContentUnionMember3ImageContentItem",
-    "MessageCompletionMessageContentUnionMember3ImageContentItemImage",
-    "MessageCompletionMessageContentUnionMember3ImageContentItemImageURL",
-    "MessageCompletionMessageContentUnionMember3TextContentItem",
+    "MessageCompletionMessageContentUnionMember1",
+    "MessageCompletionMessageContentUnionMember1ImageContentItem",
+    "MessageCompletionMessageContentUnionMember1ImageContentItemImage",
+    "MessageCompletionMessageContentUnionMember1ImageContentItemImageURL",
+    "MessageCompletionMessageContentUnionMember1TextContentItem",
+    "MessageCompletionMessageContentUnionMember1ReasoningContentItem",
     "MessageCompletionMessageToolCall",
     "Logprobs",
     "ResponseFormat",
     "ResponseFormatJsonSchemaResponseFormat",
     "ResponseFormatGrammarResponseFormat",
-    "SamplingParams",
-    "SamplingParamsStrategy",
-    "SamplingParamsStrategyGreedySamplingStrategy",
-    "SamplingParamsStrategyTopPSamplingStrategy",
-    "SamplingParamsStrategyTopKSamplingStrategy",
     "ToolConfig",
     "Tool",
     "ToolParameters",
@@ -90,6 +59,10 @@ class InferenceChatCompletionParamsBase(TypedDict, total=False):
     logprobs: Logprobs
     """If specified, log probabilities for each token position will be returned."""
 
+    max_completion_tokens: int
+
+    repetition_penalty: float
+
     response_format: ResponseFormat
     """Grammar specification for guided (structured) decoding.
 
@@ -99,8 +72,10 @@ class InferenceChatCompletionParamsBase(TypedDict, total=False):
     support it.
     """
 
-    sampling_params: SamplingParams
+    sampling_params: object
     """Parameters to control the sampling strategy"""
+
+    temperature: float
 
     tool_choice: Literal["auto", "required", "none"]
     """Whether tool use is required or automatic.
@@ -125,31 +100,35 @@ class InferenceChatCompletionParamsBase(TypedDict, total=False):
     tools: Iterable[Tool]
     """List of tool definitions available to the model"""
 
+    top_k: int
 
-class MessageUserMessageContentImageContentItemImageURL(TypedDict, total=False):
+    top_p: float
+
+
+class MessageUserMessageContentUnionMember1ImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
 
 
-class MessageUserMessageContentImageContentItemImage(TypedDict, total=False):
+class MessageUserMessageContentUnionMember1ImageContentItemImage(TypedDict, total=False):
     data: str
     """base64 encoded image data as string"""
 
-    url: MessageUserMessageContentImageContentItemImageURL
+    url: MessageUserMessageContentUnionMember1ImageContentItemImageURL
     """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
 
     Note that URL could have length limits.
     """
 
 
-class MessageUserMessageContentImageContentItem(TypedDict, total=False):
-    image: Required[MessageUserMessageContentImageContentItemImage]
+class MessageUserMessageContentUnionMember1ImageContentItem(TypedDict, total=False):
+    image: Required[MessageUserMessageContentUnionMember1ImageContentItemImage]
     """Image as a base64 encoded string or an URL"""
 
     type: Required[Literal["image"]]
     """Discriminator type of the content item. Always "image" """
 
 
-class MessageUserMessageContentTextContentItem(TypedDict, total=False):
+class MessageUserMessageContentUnionMember1TextContentItem(TypedDict, total=False):
     text: Required[str]
     """Text content"""
 
@@ -157,158 +136,56 @@ class MessageUserMessageContentTextContentItem(TypedDict, total=False):
     """Discriminator type of the content item. Always "text" """
 
 
-class MessageUserMessageContentUnionMember3ImageContentItemImageURL(TypedDict, total=False):
-    uri: Required[str]
+class MessageUserMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
 
 
-class MessageUserMessageContentUnionMember3ImageContentItemImage(TypedDict, total=False):
-    data: str
-    """base64 encoded image data as string"""
-
-    url: MessageUserMessageContentUnionMember3ImageContentItemImageURL
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class MessageUserMessageContentUnionMember3ImageContentItem(TypedDict, total=False):
-    image: Required[MessageUserMessageContentUnionMember3ImageContentItemImage]
-    """Image as a base64 encoded string or an URL"""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
-class MessageUserMessageContentUnionMember3TextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-MessageUserMessageContentUnionMember3: TypeAlias = Union[
-    MessageUserMessageContentUnionMember3ImageContentItem, MessageUserMessageContentUnionMember3TextContentItem
-]
-
-MessageUserMessageContent: TypeAlias = Union[
-    str,
-    MessageUserMessageContentImageContentItem,
-    MessageUserMessageContentTextContentItem,
-    Iterable[MessageUserMessageContentUnionMember3],
-]
-
-
-class MessageUserMessageContextImageContentItemImageURL(TypedDict, total=False):
-    uri: Required[str]
-
-
-class MessageUserMessageContextImageContentItemImage(TypedDict, total=False):
-    data: str
-    """base64 encoded image data as string"""
-
-    url: MessageUserMessageContextImageContentItemImageURL
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class MessageUserMessageContextImageContentItem(TypedDict, total=False):
-    image: Required[MessageUserMessageContextImageContentItemImage]
-    """Image as a base64 encoded string or an URL"""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
-class MessageUserMessageContextTextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-class MessageUserMessageContextUnionMember3ImageContentItemImageURL(TypedDict, total=False):
-    uri: Required[str]
-
-
-class MessageUserMessageContextUnionMember3ImageContentItemImage(TypedDict, total=False):
-    data: str
-    """base64 encoded image data as string"""
-
-    url: MessageUserMessageContextUnionMember3ImageContentItemImageURL
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class MessageUserMessageContextUnionMember3ImageContentItem(TypedDict, total=False):
-    image: Required[MessageUserMessageContextUnionMember3ImageContentItemImage]
-    """Image as a base64 encoded string or an URL"""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
-class MessageUserMessageContextUnionMember3TextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-MessageUserMessageContextUnionMember3: TypeAlias = Union[
-    MessageUserMessageContextUnionMember3ImageContentItem, MessageUserMessageContextUnionMember3TextContentItem
-]
-
-MessageUserMessageContext: TypeAlias = Union[
-    str,
-    MessageUserMessageContextImageContentItem,
-    MessageUserMessageContextTextContentItem,
-    Iterable[MessageUserMessageContextUnionMember3],
+MessageUserMessageContentUnionMember1: TypeAlias = Union[
+    MessageUserMessageContentUnionMember1ImageContentItem,
+    MessageUserMessageContentUnionMember1TextContentItem,
+    MessageUserMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
 class MessageUserMessage(TypedDict, total=False):
-    content: Required[MessageUserMessageContent]
+    content: Required[Union[str, Iterable[MessageUserMessageContentUnionMember1]]]
     """The content of the message, which can include text and other media"""
 
     role: Required[Literal["user"]]
     """Must be "user" to identify this as a user message"""
 
-    context: MessageUserMessageContext
-    """This field is used to pass RAG context."""
 
-
-class MessageSystemMessageContentImageContentItemImageURL(TypedDict, total=False):
+class MessageSystemMessageContentUnionMember1ImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
 
 
-class MessageSystemMessageContentImageContentItemImage(TypedDict, total=False):
+class MessageSystemMessageContentUnionMember1ImageContentItemImage(TypedDict, total=False):
     data: str
     """base64 encoded image data as string"""
 
-    url: MessageSystemMessageContentImageContentItemImageURL
+    url: MessageSystemMessageContentUnionMember1ImageContentItemImageURL
     """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
 
     Note that URL could have length limits.
     """
 
 
-class MessageSystemMessageContentImageContentItem(TypedDict, total=False):
-    image: Required[MessageSystemMessageContentImageContentItemImage]
+class MessageSystemMessageContentUnionMember1ImageContentItem(TypedDict, total=False):
+    image: Required[MessageSystemMessageContentUnionMember1ImageContentItemImage]
     """Image as a base64 encoded string or an URL"""
 
     type: Required[Literal["image"]]
     """Discriminator type of the content item. Always "image" """
 
 
-class MessageSystemMessageContentTextContentItem(TypedDict, total=False):
+class MessageSystemMessageContentUnionMember1TextContentItem(TypedDict, total=False):
     text: Required[str]
     """Text content"""
 
@@ -316,51 +193,26 @@ class MessageSystemMessageContentTextContentItem(TypedDict, total=False):
     """Discriminator type of the content item. Always "text" """
 
 
-class MessageSystemMessageContentUnionMember3ImageContentItemImageURL(TypedDict, total=False):
-    uri: Required[str]
+class MessageSystemMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
 
 
-class MessageSystemMessageContentUnionMember3ImageContentItemImage(TypedDict, total=False):
-    data: str
-    """base64 encoded image data as string"""
-
-    url: MessageSystemMessageContentUnionMember3ImageContentItemImageURL
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class MessageSystemMessageContentUnionMember3ImageContentItem(TypedDict, total=False):
-    image: Required[MessageSystemMessageContentUnionMember3ImageContentItemImage]
-    """Image as a base64 encoded string or an URL"""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
-class MessageSystemMessageContentUnionMember3TextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-MessageSystemMessageContentUnionMember3: TypeAlias = Union[
-    MessageSystemMessageContentUnionMember3ImageContentItem, MessageSystemMessageContentUnionMember3TextContentItem
-]
-
-MessageSystemMessageContent: TypeAlias = Union[
-    str,
-    MessageSystemMessageContentImageContentItem,
-    MessageSystemMessageContentTextContentItem,
-    Iterable[MessageSystemMessageContentUnionMember3],
+MessageSystemMessageContentUnionMember1: TypeAlias = Union[
+    MessageSystemMessageContentUnionMember1ImageContentItem,
+    MessageSystemMessageContentUnionMember1TextContentItem,
+    MessageSystemMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
 class MessageSystemMessage(TypedDict, total=False):
-    content: Required[MessageSystemMessageContent]
+    content: Required[Union[str, Iterable[MessageSystemMessageContentUnionMember1]]]
     """The content of the "system prompt".
 
     If multiple system messages are provided, they are concatenated.
@@ -370,30 +222,30 @@ class MessageSystemMessage(TypedDict, total=False):
     """Must be "system" to identify this as a system message"""
 
 
-class MessageToolResponseMessageContentImageContentItemImageURL(TypedDict, total=False):
+class MessageToolResponseMessageContentUnionMember1ImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
 
 
-class MessageToolResponseMessageContentImageContentItemImage(TypedDict, total=False):
+class MessageToolResponseMessageContentUnionMember1ImageContentItemImage(TypedDict, total=False):
     data: str
     """base64 encoded image data as string"""
 
-    url: MessageToolResponseMessageContentImageContentItemImageURL
+    url: MessageToolResponseMessageContentUnionMember1ImageContentItemImageURL
     """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
 
     Note that URL could have length limits.
     """
 
 
-class MessageToolResponseMessageContentImageContentItem(TypedDict, total=False):
-    image: Required[MessageToolResponseMessageContentImageContentItemImage]
+class MessageToolResponseMessageContentUnionMember1ImageContentItem(TypedDict, total=False):
+    image: Required[MessageToolResponseMessageContentUnionMember1ImageContentItemImage]
     """Image as a base64 encoded string or an URL"""
 
     type: Required[Literal["image"]]
     """Discriminator type of the content item. Always "image" """
 
 
-class MessageToolResponseMessageContentTextContentItem(TypedDict, total=False):
+class MessageToolResponseMessageContentUnionMember1TextContentItem(TypedDict, total=False):
     text: Required[str]
     """Text content"""
 
@@ -401,47 +253,21 @@ class MessageToolResponseMessageContentTextContentItem(TypedDict, total=False):
     """Discriminator type of the content item. Always "text" """
 
 
-class MessageToolResponseMessageContentUnionMember3ImageContentItemImageURL(TypedDict, total=False):
-    uri: Required[str]
+class MessageToolResponseMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
 
 
-class MessageToolResponseMessageContentUnionMember3ImageContentItemImage(TypedDict, total=False):
-    data: str
-    """base64 encoded image data as string"""
-
-    url: MessageToolResponseMessageContentUnionMember3ImageContentItemImageURL
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class MessageToolResponseMessageContentUnionMember3ImageContentItem(TypedDict, total=False):
-    image: Required[MessageToolResponseMessageContentUnionMember3ImageContentItemImage]
-    """Image as a base64 encoded string or an URL"""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
-class MessageToolResponseMessageContentUnionMember3TextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-MessageToolResponseMessageContentUnionMember3: TypeAlias = Union[
-    MessageToolResponseMessageContentUnionMember3ImageContentItem,
-    MessageToolResponseMessageContentUnionMember3TextContentItem,
-]
-
-MessageToolResponseMessageContent: TypeAlias = Union[
-    str,
-    MessageToolResponseMessageContentImageContentItem,
-    MessageToolResponseMessageContentTextContentItem,
-    Iterable[MessageToolResponseMessageContentUnionMember3],
+MessageToolResponseMessageContentUnionMember1: TypeAlias = Union[
+    MessageToolResponseMessageContentUnionMember1ImageContentItem,
+    MessageToolResponseMessageContentUnionMember1TextContentItem,
+    MessageToolResponseMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
@@ -449,37 +275,37 @@ class MessageToolResponseMessage(TypedDict, total=False):
     call_id: Required[str]
     """Unique identifier for the tool call this response is for"""
 
-    content: Required[MessageToolResponseMessageContent]
+    content: Required[Union[str, Iterable[MessageToolResponseMessageContentUnionMember1]]]
     """The response content from the tool"""
 
     role: Required[Literal["tool"]]
     """Must be "tool" to identify this as a tool response"""
 
 
-class MessageCompletionMessageContentImageContentItemImageURL(TypedDict, total=False):
+class MessageCompletionMessageContentUnionMember1ImageContentItemImageURL(TypedDict, total=False):
     uri: Required[str]
 
 
-class MessageCompletionMessageContentImageContentItemImage(TypedDict, total=False):
+class MessageCompletionMessageContentUnionMember1ImageContentItemImage(TypedDict, total=False):
     data: str
     """base64 encoded image data as string"""
 
-    url: MessageCompletionMessageContentImageContentItemImageURL
+    url: MessageCompletionMessageContentUnionMember1ImageContentItemImageURL
     """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
 
     Note that URL could have length limits.
     """
 
 
-class MessageCompletionMessageContentImageContentItem(TypedDict, total=False):
-    image: Required[MessageCompletionMessageContentImageContentItemImage]
+class MessageCompletionMessageContentUnionMember1ImageContentItem(TypedDict, total=False):
+    image: Required[MessageCompletionMessageContentUnionMember1ImageContentItemImage]
     """Image as a base64 encoded string or an URL"""
 
     type: Required[Literal["image"]]
     """Discriminator type of the content item. Always "image" """
 
 
-class MessageCompletionMessageContentTextContentItem(TypedDict, total=False):
+class MessageCompletionMessageContentUnionMember1TextContentItem(TypedDict, total=False):
     text: Required[str]
     """Text content"""
 
@@ -487,47 +313,21 @@ class MessageCompletionMessageContentTextContentItem(TypedDict, total=False):
     """Discriminator type of the content item. Always "text" """
 
 
-class MessageCompletionMessageContentUnionMember3ImageContentItemImageURL(TypedDict, total=False):
-    uri: Required[str]
+class MessageCompletionMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
 
 
-class MessageCompletionMessageContentUnionMember3ImageContentItemImage(TypedDict, total=False):
-    data: str
-    """base64 encoded image data as string"""
-
-    url: MessageCompletionMessageContentUnionMember3ImageContentItemImageURL
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class MessageCompletionMessageContentUnionMember3ImageContentItem(TypedDict, total=False):
-    image: Required[MessageCompletionMessageContentUnionMember3ImageContentItemImage]
-    """Image as a base64 encoded string or an URL"""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
-class MessageCompletionMessageContentUnionMember3TextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-MessageCompletionMessageContentUnionMember3: TypeAlias = Union[
-    MessageCompletionMessageContentUnionMember3ImageContentItem,
-    MessageCompletionMessageContentUnionMember3TextContentItem,
-]
-
-MessageCompletionMessageContent: TypeAlias = Union[
-    str,
-    MessageCompletionMessageContentImageContentItem,
-    MessageCompletionMessageContentTextContentItem,
-    Iterable[MessageCompletionMessageContentUnionMember3],
+MessageCompletionMessageContentUnionMember1: TypeAlias = Union[
+    MessageCompletionMessageContentUnionMember1ImageContentItem,
+    MessageCompletionMessageContentUnionMember1TextContentItem,
+    MessageCompletionMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
@@ -557,7 +357,7 @@ class MessageCompletionMessageToolCall(TypedDict, total=False):
 
 
 class MessageCompletionMessage(TypedDict, total=False):
-    content: Required[MessageCompletionMessageContent]
+    content: Required[Union[str, Iterable[MessageCompletionMessageContentUnionMember1]]]
     """The content of the model's response"""
 
     role: Required[Literal["assistant"]]
@@ -607,39 +407,6 @@ class ResponseFormatGrammarResponseFormat(TypedDict, total=False):
 
 
 ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchemaResponseFormat, ResponseFormatGrammarResponseFormat]
-
-
-class SamplingParamsStrategyGreedySamplingStrategy(TypedDict, total=False):
-    type: Required[Literal["greedy"]]
-
-
-class SamplingParamsStrategyTopPSamplingStrategy(TypedDict, total=False):
-    type: Required[Literal["top_p"]]
-
-    temperature: float
-
-    top_p: float
-
-
-class SamplingParamsStrategyTopKSamplingStrategy(TypedDict, total=False):
-    top_k: Required[int]
-
-    type: Required[Literal["top_k"]]
-
-
-SamplingParamsStrategy: TypeAlias = Union[
-    SamplingParamsStrategyGreedySamplingStrategy,
-    SamplingParamsStrategyTopPSamplingStrategy,
-    SamplingParamsStrategyTopKSamplingStrategy,
-]
-
-
-class SamplingParams(TypedDict, total=False):
-    strategy: Required[SamplingParamsStrategy]
-
-    max_tokens: int
-
-    repetition_penalty: float
 
 
 class ToolConfig(TypedDict, total=False):
