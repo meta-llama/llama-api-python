@@ -14,24 +14,28 @@ __all__ = [
     "MessageUserMessageContentUnionMember1ImageContentItemImage",
     "MessageUserMessageContentUnionMember1ImageContentItemImageURL",
     "MessageUserMessageContentUnionMember1TextContentItem",
+    "MessageUserMessageContentUnionMember1ReasoningContentItem",
     "MessageSystemMessage",
     "MessageSystemMessageContentUnionMember1",
     "MessageSystemMessageContentUnionMember1ImageContentItem",
     "MessageSystemMessageContentUnionMember1ImageContentItemImage",
     "MessageSystemMessageContentUnionMember1ImageContentItemImageURL",
     "MessageSystemMessageContentUnionMember1TextContentItem",
+    "MessageSystemMessageContentUnionMember1ReasoningContentItem",
     "MessageToolResponseMessage",
     "MessageToolResponseMessageContentUnionMember1",
     "MessageToolResponseMessageContentUnionMember1ImageContentItem",
     "MessageToolResponseMessageContentUnionMember1ImageContentItemImage",
     "MessageToolResponseMessageContentUnionMember1ImageContentItemImageURL",
     "MessageToolResponseMessageContentUnionMember1TextContentItem",
+    "MessageToolResponseMessageContentUnionMember1ReasoningContentItem",
     "MessageCompletionMessage",
     "MessageCompletionMessageContentUnionMember1",
     "MessageCompletionMessageContentUnionMember1ImageContentItem",
     "MessageCompletionMessageContentUnionMember1ImageContentItemImage",
     "MessageCompletionMessageContentUnionMember1ImageContentItemImageURL",
     "MessageCompletionMessageContentUnionMember1TextContentItem",
+    "MessageCompletionMessageContentUnionMember1ReasoningContentItem",
     "MessageCompletionMessageToolCall",
     "Logprobs",
     "ResponseFormat",
@@ -129,8 +133,21 @@ class MessageUserMessageContentUnionMember1TextContentItem(TypedDict, total=Fals
     """Discriminator type of the content item. Always "text" """
 
 
+class MessageUserMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
 MessageUserMessageContentUnionMember1: TypeAlias = Union[
-    MessageUserMessageContentUnionMember1ImageContentItem, MessageUserMessageContentUnionMember1TextContentItem
+    MessageUserMessageContentUnionMember1ImageContentItem,
+    MessageUserMessageContentUnionMember1TextContentItem,
+    MessageUserMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
@@ -173,8 +190,21 @@ class MessageSystemMessageContentUnionMember1TextContentItem(TypedDict, total=Fa
     """Discriminator type of the content item. Always "text" """
 
 
+class MessageSystemMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
 MessageSystemMessageContentUnionMember1: TypeAlias = Union[
-    MessageSystemMessageContentUnionMember1ImageContentItem, MessageSystemMessageContentUnionMember1TextContentItem
+    MessageSystemMessageContentUnionMember1ImageContentItem,
+    MessageSystemMessageContentUnionMember1TextContentItem,
+    MessageSystemMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
@@ -220,9 +250,21 @@ class MessageToolResponseMessageContentUnionMember1TextContentItem(TypedDict, to
     """Discriminator type of the content item. Always "text" """
 
 
+class MessageToolResponseMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
 MessageToolResponseMessageContentUnionMember1: TypeAlias = Union[
     MessageToolResponseMessageContentUnionMember1ImageContentItem,
     MessageToolResponseMessageContentUnionMember1TextContentItem,
+    MessageToolResponseMessageContentUnionMember1ReasoningContentItem,
 ]
 
 
@@ -268,9 +310,21 @@ class MessageCompletionMessageContentUnionMember1TextContentItem(TypedDict, tota
     """Discriminator type of the content item. Always "text" """
 
 
+class MessageCompletionMessageContentUnionMember1ReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
 MessageCompletionMessageContentUnionMember1: TypeAlias = Union[
     MessageCompletionMessageContentUnionMember1ImageContentItem,
     MessageCompletionMessageContentUnionMember1TextContentItem,
+    MessageCompletionMessageContentUnionMember1ReasoningContentItem,
 ]
 
 

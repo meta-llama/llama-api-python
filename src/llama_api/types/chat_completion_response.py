@@ -14,6 +14,7 @@ __all__ = [
     "CompletionMessageContentUnionMember1ImageContentItemImage",
     "CompletionMessageContentUnionMember1ImageContentItemImageURL",
     "CompletionMessageContentUnionMember1TextContentItem",
+    "CompletionMessageContentUnionMember1ReasoningContentItem",
     "CompletionMessageToolCall",
     "Logprob",
     "Metric",
@@ -51,8 +52,23 @@ class CompletionMessageContentUnionMember1TextContentItem(BaseModel):
     """Discriminator type of the content item. Always "text" """
 
 
+class CompletionMessageContentUnionMember1ReasoningContentItem(BaseModel):
+    answer: str
+    """The final model response"""
+
+    reasoning: str
+    """The CoT reasoning content of the model"""
+
+    type: Literal["reasoning"]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
 CompletionMessageContentUnionMember1: TypeAlias = Annotated[
-    Union[CompletionMessageContentUnionMember1ImageContentItem, CompletionMessageContentUnionMember1TextContentItem],
+    Union[
+        CompletionMessageContentUnionMember1ImageContentItem,
+        CompletionMessageContentUnionMember1TextContentItem,
+        CompletionMessageContentUnionMember1ReasoningContentItem,
+    ],
     PropertyInfo(discriminator="type"),
 ]
 
