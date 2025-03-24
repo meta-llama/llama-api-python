@@ -34,7 +34,7 @@ client = LlamaAPI(
     api_key=os.environ.get("LLAMA_API_API_KEY"),  # This is the default and can be omitted
 )
 
-response = client.inference.generate_chat_completion(
+chat_completion_response = client.inference.chat_completion(
     messages=[
         {
             "content": "string",
@@ -43,7 +43,7 @@ response = client.inference.generate_chat_completion(
     ],
     model_id="model_id",
 )
-print(response.completion_message)
+print(chat_completion_response.completion_message)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -66,7 +66,7 @@ client = AsyncLlamaAPI(
 
 
 async def main() -> None:
-    response = await client.inference.generate_chat_completion(
+    chat_completion_response = await client.inference.chat_completion(
         messages=[
             {
                 "content": "string",
@@ -75,13 +75,57 @@ async def main() -> None:
         ],
         model_id="model_id",
     )
-    print(response.completion_message)
+    print(chat_completion_response.completion_message)
 
 
 asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+## Streaming responses
+
+We provide support for streaming responses using Server Side Events (SSE).
+
+```python
+from llama_api import LlamaAPI
+
+client = LlamaAPI()
+
+stream = client.inference.chat_completion(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model_id="model_id",
+    stream=True,
+)
+for chat_completion_response in stream:
+    print(chat_completion_response.completion_message)
+```
+
+The async client uses the exact same interface.
+
+```python
+from llama_api import AsyncLlamaAPI
+
+client = AsyncLlamaAPI()
+
+stream = await client.inference.chat_completion(
+    messages=[
+        {
+            "content": "string",
+            "role": "user",
+        }
+    ],
+    model_id="model_id",
+    stream=True,
+)
+async for chat_completion_response in stream:
+    print(chat_completion_response.completion_message)
+```
 
 ## Using types
 
@@ -101,7 +145,7 @@ from llama_api import LlamaAPI
 
 client = LlamaAPI()
 
-response = client.inference.generate_chat_completion(
+chat_completion_response = client.inference.chat_completion(
     messages=[
         {
             "content": "string",
@@ -111,7 +155,7 @@ response = client.inference.generate_chat_completion(
     model_id="model_id",
     logprobs={"top_k": 0},
 )
-print(response.logprobs)
+print(chat_completion_response.logprobs)
 ```
 
 ## Handling errors
@@ -130,7 +174,7 @@ from llama_api import LlamaAPI
 client = LlamaAPI()
 
 try:
-    client.inference.generate_chat_completion(
+    client.inference.chat_completion(
         messages=[
             {
                 "content": "string",
@@ -181,7 +225,7 @@ client = LlamaAPI(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).inference.generate_chat_completion(
+client.with_options(max_retries=5).inference.chat_completion(
     messages=[
         {
             "content": "string",
@@ -212,7 +256,7 @@ client = LlamaAPI(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).inference.generate_chat_completion(
+client.with_options(timeout=5.0).inference.chat_completion(
     messages=[
         {
             "content": "string",
@@ -261,7 +305,7 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from llama_api import LlamaAPI
 
 client = LlamaAPI()
-response = client.inference.with_raw_response.generate_chat_completion(
+response = client.inference.with_raw_response.chat_completion(
     messages=[{
         "content": "string",
         "role": "user",
@@ -270,7 +314,7 @@ response = client.inference.with_raw_response.generate_chat_completion(
 )
 print(response.headers.get('X-My-Header'))
 
-inference = response.parse()  # get the object that `inference.generate_chat_completion()` would have returned
+inference = response.parse()  # get the object that `inference.chat_completion()` would have returned
 print(inference.completion_message)
 ```
 
@@ -285,7 +329,7 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.inference.with_streaming_response.generate_chat_completion(
+with client.inference.with_streaming_response.chat_completion(
     messages=[
         {
             "content": "string",

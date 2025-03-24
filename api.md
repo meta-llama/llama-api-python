@@ -4,16 +4,15 @@ Types:
 
 ```python
 from llama_api.types import (
-    CompletionMessage,
-    InterleavedContent,
-    InterleavedContentItem,
-    InferenceGenerateChatCompletionResponse,
+    ChatCompletionRequest,
+    ChatCompletionResponse,
+    ChatCompletionResponseStreamChunk,
 )
 ```
 
 Methods:
 
-- <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_api/resources/inference.py">generate_chat_completion</a>(\*\*<a href="src/llama_api/types/inference_generate_chat_completion_params.py">params</a>) -> <a href="./src/llama_api/types/inference_generate_chat_completion_response.py">InferenceGenerateChatCompletionResponse</a></code>
+- <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_api/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_api/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_api/types/chat_completion_response.py">ChatCompletionResponse</a></code>
 
 # Models
 

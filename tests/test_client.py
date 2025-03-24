@@ -33,7 +33,7 @@ from llama_api._base_client import (
     BaseClient,
     make_request_options,
 )
-from llama_api.types.inference_generate_chat_completion_params import InferenceGenerateChatCompletionParams
+from llama_api.types.inference_chat_completion_params import InferenceChatCompletionParamsNonStreaming
 
 from .utils import update_env
 
@@ -740,7 +740,7 @@ class TestLlamaAPI:
                             ],
                             model_id="model_id",
                         ),
-                        InferenceGenerateChatCompletionParams,
+                        InferenceChatCompletionParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -769,7 +769,7 @@ class TestLlamaAPI:
                             ],
                             model_id="model_id",
                         ),
-                        InferenceGenerateChatCompletionParams,
+                        InferenceChatCompletionParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -804,7 +804,7 @@ class TestLlamaAPI:
 
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
-        response = client.inference.with_raw_response.generate_chat_completion(
+        response = client.inference.with_raw_response.chat_completion(
             messages=[
                 {
                     "content": "string",
@@ -836,7 +836,7 @@ class TestLlamaAPI:
 
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
-        response = client.inference.with_raw_response.generate_chat_completion(
+        response = client.inference.with_raw_response.chat_completion(
             messages=[
                 {
                     "content": "string",
@@ -868,7 +868,7 @@ class TestLlamaAPI:
 
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
-        response = client.inference.with_raw_response.generate_chat_completion(
+        response = client.inference.with_raw_response.chat_completion(
             messages=[
                 {
                     "content": "string",
@@ -1579,7 +1579,7 @@ class TestAsyncLlamaAPI:
                             ],
                             model_id="model_id",
                         ),
-                        InferenceGenerateChatCompletionParams,
+                        InferenceChatCompletionParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1608,7 +1608,7 @@ class TestAsyncLlamaAPI:
                             ],
                             model_id="model_id",
                         ),
-                        InferenceGenerateChatCompletionParams,
+                        InferenceChatCompletionParamsNonStreaming,
                     ),
                 ),
                 cast_to=httpx.Response,
@@ -1644,7 +1644,7 @@ class TestAsyncLlamaAPI:
 
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
-        response = await client.inference.with_raw_response.generate_chat_completion(
+        response = await client.inference.with_raw_response.chat_completion(
             messages=[
                 {
                     "content": "string",
@@ -1677,7 +1677,7 @@ class TestAsyncLlamaAPI:
 
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
-        response = await client.inference.with_raw_response.generate_chat_completion(
+        response = await client.inference.with_raw_response.chat_completion(
             messages=[
                 {
                     "content": "string",
@@ -1710,7 +1710,7 @@ class TestAsyncLlamaAPI:
 
         respx_mock.post("/v1/inference/chat-completion").mock(side_effect=retry_handler)
 
-        response = await client.inference.with_raw_response.generate_chat_completion(
+        response = await client.inference.with_raw_response.chat_completion(
             messages=[
                 {
                     "content": "string",
