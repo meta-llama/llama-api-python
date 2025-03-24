@@ -1,67 +1,17 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import List, Union, Optional
-from typing_extensions import Literal, Annotated, TypeAlias
+from typing import List, Union
+from typing_extensions import Annotated, TypeAlias
 
 from .._utils import PropertyInfo
-from .._models import BaseModel
+from .text_content_item import TextContentItem
+from .image_content_item import ImageContentItem
+from .reasoning_content_item import ReasoningContentItem
 
-__all__ = [
-    "InterleavedContent",
-    "UnionMember1",
-    "UnionMember1ImageContentItem",
-    "UnionMember1ImageContentItemImage",
-    "UnionMember1ImageContentItemImageURL",
-    "UnionMember1TextContentItem",
-    "UnionMember1ReasoningContentItem",
-]
-
-
-class UnionMember1ImageContentItemImageURL(BaseModel):
-    uri: str
-
-
-class UnionMember1ImageContentItemImage(BaseModel):
-    data: Optional[str] = None
-    """base64 encoded image data as string"""
-
-    url: Optional[UnionMember1ImageContentItemImageURL] = None
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class UnionMember1ImageContentItem(BaseModel):
-    image: UnionMember1ImageContentItemImage
-    """Image as a base64 encoded string or an URL"""
-
-    type: Literal["image"]
-    """Discriminator type of the content item. Always "image" """
-
-
-class UnionMember1TextContentItem(BaseModel):
-    text: str
-    """Text content"""
-
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
-
-
-class UnionMember1ReasoningContentItem(BaseModel):
-    answer: str
-    """The final model response"""
-
-    reasoning: str
-    """The CoT reasoning content of the model"""
-
-    type: Literal["reasoning"]
-    """Discriminator type of the content item. Always "reasoning" """
-
+__all__ = ["InterleavedContent", "UnionMember1"]
 
 UnionMember1: TypeAlias = Annotated[
-    Union[UnionMember1ImageContentItem, UnionMember1TextContentItem, UnionMember1ReasoningContentItem],
-    PropertyInfo(discriminator="type"),
+    Union[ImageContentItem, TextContentItem, ReasoningContentItem], PropertyInfo(discriminator="type")
 ]
 
 InterleavedContent: TypeAlias = Union[str, List[UnionMember1]]
