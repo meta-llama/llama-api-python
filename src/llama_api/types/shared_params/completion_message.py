@@ -5,13 +5,61 @@ from __future__ import annotations
 from typing import Dict, List, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..text_content_item_param import TextContentItemParam
-from ..image_content_item_param import ImageContentItemParam
-from ..reasoning_content_item_param import ReasoningContentItemParam
+__all__ = [
+    "CompletionMessage",
+    "Content",
+    "ContentImageContentItem",
+    "ContentImageContentItemImage",
+    "ContentImageContentItemImageURL",
+    "ContentTextContentItem",
+    "ContentReasoningContentItem",
+    "ToolCall",
+]
 
-__all__ = ["CompletionMessage", "Content", "ToolCall"]
 
-Content: TypeAlias = Union[str, ImageContentItemParam, TextContentItemParam, ReasoningContentItemParam]
+class ContentImageContentItemImageURL(TypedDict, total=False):
+    uri: Required[str]
+
+
+class ContentImageContentItemImage(TypedDict, total=False):
+    data: str
+    """base64 encoded image data as string"""
+
+    url: ContentImageContentItemImageURL
+    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
+
+    Note that URL could have length limits.
+    """
+
+
+class ContentImageContentItem(TypedDict, total=False):
+    image: Required[ContentImageContentItemImage]
+    """Image as a base64 encoded string or an URL"""
+
+    type: Required[Literal["image"]]
+    """Discriminator type of the content item. Always "image" """
+
+
+class ContentTextContentItem(TypedDict, total=False):
+    text: Required[str]
+    """Text content"""
+
+    type: Required[Literal["text"]]
+    """Discriminator type of the content item. Always "text" """
+
+
+class ContentReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
+Content: TypeAlias = Union[str, ContentImageContentItem, ContentTextContentItem, ContentReasoningContentItem]
 
 
 class ToolCall(TypedDict, total=False):
