@@ -2,15 +2,16 @@
 
 from __future__ import annotations
 
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-from ..interleaved_content_param import InterleavedContentParam
+from ..interleaved_content_item_param import InterleavedContentItemParam
 
 __all__ = ["SystemMessage"]
 
 
 class SystemMessage(TypedDict, total=False):
-    content: Required[InterleavedContentParam]
+    content: Required[Union[str, Iterable[InterleavedContentItemParam]]]
     """The content of the "system prompt".
 
     If multiple system messages are provided, they are concatenated.

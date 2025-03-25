@@ -2,9 +2,10 @@
 
 from __future__ import annotations
 
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-from ..interleaved_content_param import InterleavedContentParam
+from ..interleaved_content_item_param import InterleavedContentItemParam
 
 __all__ = ["ToolResponseMessage"]
 
@@ -13,7 +14,7 @@ class ToolResponseMessage(TypedDict, total=False):
     call_id: Required[str]
     """Unique identifier for the tool call this response is for"""
 
-    content: Required[InterleavedContentParam]
+    content: Required[Union[str, Iterable[InterleavedContentItemParam]]]
     """The response content from the tool"""
 
     role: Required[Literal["tool"]]

@@ -2,15 +2,16 @@
 
 from __future__ import annotations
 
+from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypedDict
 
-from ..interleaved_content_param import InterleavedContentParam
+from ..interleaved_content_item_param import InterleavedContentItemParam
 
 __all__ = ["UserMessage"]
 
 
 class UserMessage(TypedDict, total=False):
-    content: Required[InterleavedContentParam]
+    content: Required[Union[str, Iterable[InterleavedContentItemParam]]]
     """The content of the message, which can include text and other media"""
 
     role: Required[Literal["user"]]
