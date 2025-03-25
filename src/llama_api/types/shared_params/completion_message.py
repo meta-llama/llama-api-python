@@ -3,11 +3,15 @@
 from __future__ import annotations
 
 from typing import Dict, List, Union, Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..interleaved_content_param import InterleavedContentParam
+from ..text_content_item_param import TextContentItemParam
+from ..image_content_item_param import ImageContentItemParam
+from ..reasoning_content_item_param import ReasoningContentItemParam
 
-__all__ = ["CompletionMessage", "ToolCall"]
+__all__ = ["CompletionMessage", "Content", "ToolCall"]
+
+Content: TypeAlias = Union[str, ImageContentItemParam, TextContentItemParam, ReasoningContentItemParam]
 
 
 class ToolCall(TypedDict, total=False):
@@ -36,7 +40,7 @@ class ToolCall(TypedDict, total=False):
 
 
 class CompletionMessage(TypedDict, total=False):
-    content: Required[InterleavedContentParam]
+    content: Required[Content]
     """The content of the model's response"""
 
     role: Required[Literal["assistant"]]

@@ -1,12 +1,16 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 from typing import Dict, List, Union, Optional
-from typing_extensions import Literal
+from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
-from ..interleaved_content import InterleavedContent
+from ..text_content_item import TextContentItem
+from ..image_content_item import ImageContentItem
+from ..reasoning_content_item import ReasoningContentItem
 
-__all__ = ["CompletionMessage", "ToolCall"]
+__all__ = ["CompletionMessage", "Content", "ToolCall"]
+
+Content: TypeAlias = Union[str, ImageContentItem, TextContentItem, ReasoningContentItem]
 
 
 class ToolCall(BaseModel):
@@ -28,7 +32,7 @@ class ToolCall(BaseModel):
 
 
 class CompletionMessage(BaseModel):
-    content: InterleavedContent
+    content: Content
     """The content of the model's response"""
 
     role: Literal["assistant"]
