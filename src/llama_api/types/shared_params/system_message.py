@@ -3,15 +3,19 @@
 from __future__ import annotations
 
 from typing import Union, Iterable
-from typing_extensions import Literal, Required, TypedDict
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..interleaved_content_item_param import InterleavedContentItemParam
+from ..text_content_item_param import TextContentItemParam
+from ..image_content_item_param import ImageContentItemParam
+from ..reasoning_content_item_param import ReasoningContentItemParam
 
-__all__ = ["SystemMessage"]
+__all__ = ["SystemMessage", "ContentUnionMember1"]
+
+ContentUnionMember1: TypeAlias = Union[ImageContentItemParam, TextContentItemParam, ReasoningContentItemParam]
 
 
 class SystemMessage(TypedDict, total=False):
-    content: Required[Union[str, Iterable[InterleavedContentItemParam]]]
+    content: Required[Union[str, Iterable[ContentUnionMember1]]]
     """The content of the "system prompt".
 
     If multiple system messages are provided, they are concatenated.

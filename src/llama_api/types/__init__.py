@@ -20,7 +20,6 @@ from .chat_completion_response import ChatCompletionResponse as ChatCompletionRe
 from .image_content_item_param import ImageContentItemParam as ImageContentItemParam
 from .reasoning_content_item_param import ReasoningContentItemParam as ReasoningContentItemParam
 from .chat_completion_response_event import ChatCompletionResponseEvent as ChatCompletionResponseEvent
-from .interleaved_content_item_param import InterleavedContentItemParam as InterleavedContentItemParam
 from .inference_chat_completion_params import InferenceChatCompletionParams as InferenceChatCompletionParams
 from .chat_completion_response_stream_chunk import (
     ChatCompletionResponseStreamChunk as ChatCompletionResponseStreamChunk,
