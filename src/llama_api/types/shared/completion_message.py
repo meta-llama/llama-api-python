@@ -4,62 +4,13 @@ from typing import Dict, List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from ..._models import BaseModel
+from ..text_content_item import TextContentItem
+from ..image_content_item import ImageContentItem
+from ..reasoning_content_item import ReasoningContentItem
 
-__all__ = [
-    "CompletionMessage",
-    "Content",
-    "ContentImageContentItem",
-    "ContentImageContentItemImage",
-    "ContentImageContentItemImageURL",
-    "ContentTextContentItem",
-    "ContentReasoningContentItem",
-    "ToolCall",
-]
+__all__ = ["CompletionMessage", "Content", "ToolCall"]
 
-
-class ContentImageContentItemImageURL(BaseModel):
-    uri: str
-
-
-class ContentImageContentItemImage(BaseModel):
-    data: Optional[str] = None
-    """base64 encoded image data as string"""
-
-    url: Optional[ContentImageContentItemImageURL] = None
-    """A URL of the image or data URL in the format of data:image/{type};base64,{data}.
-
-    Note that URL could have length limits.
-    """
-
-
-class ContentImageContentItem(BaseModel):
-    image: ContentImageContentItemImage
-    """Image as a base64 encoded string or an URL"""
-
-    type: Literal["image"]
-    """Discriminator type of the content item. Always "image" """
-
-
-class ContentTextContentItem(BaseModel):
-    text: str
-    """Text content"""
-
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
-
-
-class ContentReasoningContentItem(BaseModel):
-    answer: str
-    """The final model response"""
-
-    reasoning: str
-    """The CoT reasoning content of the model"""
-
-    type: Literal["reasoning"]
-    """Discriminator type of the content item. Always "reasoning" """
-
-
-Content: TypeAlias = Union[str, ContentImageContentItem, ContentTextContentItem, ContentReasoningContentItem]
+Content: TypeAlias = Union[str, ImageContentItem, TextContentItem, ReasoningContentItem]
 
 
 class ToolCall(BaseModel):
