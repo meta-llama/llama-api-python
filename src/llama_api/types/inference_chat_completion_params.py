@@ -80,7 +80,7 @@ class Logprobs(TypedDict, total=False):
 
 
 class ResponseFormatJsonSchemaResponseFormat(TypedDict, total=False):
-    json_schema: Required[Dict[str, Union[bool, float, str, Iterable[object], object, None]]]
+    json_schema: Required[object]
     """The JSON schema the response should conform to.
 
     In a Python SDK, this is often a `pydantic` model.
