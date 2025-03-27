@@ -2,7 +2,6 @@
 
 from __future__ import annotations
 
-from .model import Model as Model
 from .shared import (
     Message as Message,
     UserMessage as UserMessage,
@@ -10,6 +9,7 @@ from .shared import (
     CompletionMessage as CompletionMessage,
     ToolResponseMessage as ToolResponseMessage,
 )
+from .ai_model import AIModel as AIModel
 from .content_delta import ContentDelta as ContentDelta
 from .text_content_item import TextContentItem as TextContentItem
 from .image_content_item import ImageContentItem as ImageContentItem

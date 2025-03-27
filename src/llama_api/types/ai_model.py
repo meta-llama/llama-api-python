@@ -7,10 +7,10 @@ from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
-__all__ = ["Model"]
+__all__ = ["AIModel"]
 
 
-class Model(BaseModel):
+class AIModel(BaseModel):
     identifier: str
 
     metadata: Dict[str, Union[bool, float, str, List[object], object, None]]

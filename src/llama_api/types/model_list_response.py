@@ -2,11 +2,11 @@
 
 from typing import List
 
-from .model import Model
 from .._models import BaseModel
+from .ai_model import AIModel
 
 __all__ = ["ModelListResponse"]
 
 
 class ModelListResponse(BaseModel):
-    data: List[Model]
+    data: List[AIModel]
