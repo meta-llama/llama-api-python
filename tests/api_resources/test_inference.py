@@ -46,7 +46,7 @@ class TestInference:
             max_completion_tokens=0,
             repetition_penalty=0,
             response_format={
-                "json_schema": {"foo": True},
+                "json_schema": {},
                 "type": "json_schema",
             },
             stream=False,
@@ -146,7 +146,7 @@ class TestInference:
             max_completion_tokens=0,
             repetition_penalty=0,
             response_format={
-                "json_schema": {"foo": True},
+                "json_schema": {},
                 "type": "json_schema",
             },
             temperature=0,
@@ -248,7 +248,7 @@ class TestAsyncInference:
             max_completion_tokens=0,
             repetition_penalty=0,
             response_format={
-                "json_schema": {"foo": True},
+                "json_schema": {},
                 "type": "json_schema",
             },
             stream=False,
@@ -348,7 +348,7 @@ class TestAsyncInference:
             max_completion_tokens=0,
             repetition_penalty=0,
             response_format={
-                "json_schema": {"foo": True},
+                "json_schema": {},
                 "type": "json_schema",
             },
             temperature=0,
