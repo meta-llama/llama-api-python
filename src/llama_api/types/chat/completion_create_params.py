@@ -1,0 +1,323 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+from typing import Dict, Union, Iterable, Optional
+from typing_extensions import Literal, Required, TypeAlias, TypedDict
+
+__all__ = [
+    "CompletionCreateParamsBase",
+    "Message",
+    "MessageUserMessage",
+    "MessageUserMessageContentArrayOfContentItem",
+    "MessageUserMessageContentArrayOfContentItemMessageTextContentItem",
+    "MessageUserMessageContentArrayOfContentItemMessageImageContentItem",
+    "MessageUserMessageContentArrayOfContentItemMessageImageContentItemImageURL",
+    "MessageSystemMessage",
+    "MessageSystemMessageContentArrayOfContentItem",
+    "MessageToolResponseMessage",
+    "MessageToolResponseMessageContentArrayOfContentItem",
+    "MessageAssistantMessage",
+    "MessageAssistantMessageContent",
+    "MessageAssistantMessageContentMessageTextContentItem",
+    "MessageAssistantMessageContentMessageReasoningContentItem",
+    "MessageAssistantMessageToolCall",
+    "MessageAssistantMessageToolCallFunction",
+    "ResponseFormat",
+    "ResponseFormatJsonSchemaResponseFormat",
+    "ResponseFormatJsonSchemaResponseFormatJsonSchema",
+    "ResponseFormatTextResponseFormat",
+    "ToolChoice",
+    "ToolChoiceChatCompletionNamedToolChoice",
+    "ToolChoiceChatCompletionNamedToolChoiceFunction",
+    "Tool",
+    "ToolFunction",
+    "CompletionCreateParamsNonStreaming",
+    "CompletionCreateParamsStreaming",
+]
+
+
+class CompletionCreateParamsBase(TypedDict, total=False):
+    messages: Required[Iterable[Message]]
+    """List of messages in the conversation."""
+
+    model: Required[str]
+    """The identifier of the model to use."""
+
+    max_completion_tokens: Optional[int]
+    """The maximum number of tokens to generate."""
+
+    repetition_penalty: float
+    """Controls the likelyhood and generating repetitive responses."""
+
+    response_format: ResponseFormat
+    """
+    An object specifying the format that the model must output. Setting to
+    `{ "type": "json_schema", "json_schema": {...} }` enables Structured Outputs
+    which ensures the model will match your supplied JSON schema. If not specified,
+    the default is {"type": "text"}, and model will return a free-form text
+    response.
+    """
+
+    temperature: Optional[float]
+    """Controls randomness of the response by setting a temperature.
+
+    Higher value leads to more creative responses. Lower values will make the
+    response more focused and deterministic.
+    """
+
+    tool_choice: ToolChoice
+    """
+    Controls which (if any) tool is called by the model. `none` means the model will
+    not call any tool and instead generates a message. `auto` means the model can
+    pick between generating a message or calling one or more tools. `required` means
+    the model must call one or more tools. Specifying a particular tool via
+    `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+    call that tool.
+
+    `none` is the default when no tools are present. `auto` is the default if tools
+    are present.
+    """
+
+    tools: Iterable[Tool]
+    """List of tool definitions available to the model"""
+
+    top_k: int
+    """Only sample from the top K options for each subsequent token."""
+
+    top_p: Optional[float]
+    """
+    Controls diversity of the response by setting a probability threshold when
+    choosing the next token.
+    """
+
+
+class MessageUserMessageContentArrayOfContentItemMessageTextContentItem(TypedDict, total=False):
+    text: Required[str]
+    """Text content"""
+
+    type: Required[Literal["text"]]
+    """Discriminator type of the content item. Always "text" """
+
+
+class MessageUserMessageContentArrayOfContentItemMessageImageContentItemImageURL(TypedDict, total=False):
+    url: Required[str]
+    """Either a URL of the image or the base64 encoded image data."""
+
+
+class MessageUserMessageContentArrayOfContentItemMessageImageContentItem(TypedDict, total=False):
+    image_url: Required[MessageUserMessageContentArrayOfContentItemMessageImageContentItemImageURL]
+    """Contains either an image URL or a data URL for a base64 encoded image."""
+
+    type: Required[Literal["image"]]
+    """Discriminator type of the content item. Always "image" """
+
+
+MessageUserMessageContentArrayOfContentItem: TypeAlias = Union[
+    MessageUserMessageContentArrayOfContentItemMessageTextContentItem,
+    MessageUserMessageContentArrayOfContentItemMessageImageContentItem,
+]
+
+
+class MessageUserMessage(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageUserMessageContentArrayOfContentItem]]]
+    """The content of the user message, which can include text and other media."""
+
+    role: Required[Literal["user"]]
+    """Must be "user" to identify this as a user message."""
+
+
+class MessageSystemMessageContentArrayOfContentItem(TypedDict, total=False):
+    text: Required[str]
+    """Text content"""
+
+    type: Required[Literal["text"]]
+    """Discriminator type of the content item. Always "text" """
+
+
+class MessageSystemMessage(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageSystemMessageContentArrayOfContentItem]]]
+    """The content of the system message."""
+
+    role: Required[Literal["system"]]
+    """Must be "system" to identify this as a system message"""
+
+
+class MessageToolResponseMessageContentArrayOfContentItem(TypedDict, total=False):
+    text: Required[str]
+    """Text content"""
+
+    type: Required[Literal["text"]]
+    """Discriminator type of the content item. Always "text" """
+
+
+class MessageToolResponseMessage(TypedDict, total=False):
+    content: Required[Union[str, Iterable[MessageToolResponseMessageContentArrayOfContentItem]]]
+    """The content of the user message, which can include text and other media."""
+
+    role: Required[Literal["tool"]]
+    """Must be "tool" to identify this as a tool response"""
+
+    tool_call_id: Required[str]
+    """Unique identifier for the tool call this response is for"""
+
+
+class MessageAssistantMessageContentMessageTextContentItem(TypedDict, total=False):
+    text: Required[str]
+    """Text content"""
+
+    type: Required[Literal["text"]]
+    """Discriminator type of the content item. Always "text" """
+
+
+class MessageAssistantMessageContentMessageReasoningContentItem(TypedDict, total=False):
+    answer: Required[str]
+    """The final model response"""
+
+    reasoning: Required[str]
+    """The CoT reasoning content of the model"""
+
+    type: Required[Literal["reasoning"]]
+    """Discriminator type of the content item. Always "reasoning" """
+
+
+MessageAssistantMessageContent: TypeAlias = Union[
+    str, MessageAssistantMessageContentMessageTextContentItem, MessageAssistantMessageContentMessageReasoningContentItem
+]
+
+
+class MessageAssistantMessageToolCallFunction(TypedDict, total=False):
+    arguments: Required[str]
+    """
+    The arguments to call the function with, as generated by the model in JSON
+    format. Note that the model does not always generate valid JSON, and may
+    hallucinate parameters not defined by your function schema. Validate the
+    arguments in your code before calling your function.
+    """
+
+    name: Required[str]
+    """The name of the function to call."""
+
+
+class MessageAssistantMessageToolCall(TypedDict, total=False):
+    id: Required[str]
+    """The ID of the tool call."""
+
+    function: Required[MessageAssistantMessageToolCallFunction]
+    """The function that the model called."""
+
+
+class MessageAssistantMessage(TypedDict, total=False):
+    content: Required[MessageAssistantMessageContent]
+    """The content of the model's response."""
+
+    role: Required[Literal["assistant"]]
+    """Must be "assistant" to identify this as the model's response"""
+
+    stop_reason: Required[Literal["stop", "tool_calls", "length"]]
+    """The reason why we stopped.
+
+    Options are: - "stop": The model reached a natural stopping point. -
+    "tool_calls": The model finished generating and invoked a tool call. - "length":
+    The model reached the maxinum number of tokens specified in the request.
+    """
+
+    tool_calls: Iterable[MessageAssistantMessageToolCall]
+    """The tool calls generated by the model, such as function calls."""
+
+
+Message: TypeAlias = Union[
+    MessageUserMessage, MessageSystemMessage, MessageToolResponseMessage, MessageAssistantMessage
+]
+
+
+class ResponseFormatJsonSchemaResponseFormatJsonSchema(TypedDict, total=False):
+    name: Required[str]
+    """The name of the response format."""
+
+    schema: Required[object]
+    """The JSON schema the response should conform to.
+
+    In a Python SDK, this is often a `pydantic` model.
+    """
+
+
+class ResponseFormatJsonSchemaResponseFormat(TypedDict, total=False):
+    json_schema: Required[ResponseFormatJsonSchemaResponseFormatJsonSchema]
+    """The JSON schema the response should conform to."""
+
+    type: Required[Literal["json_schema"]]
+    """The type of response format being defined. Always `json_schema`."""
+
+
+class ResponseFormatTextResponseFormat(TypedDict, total=False):
+    type: Required[Literal["text"]]
+    """The type of response format being defined. Always `text`."""
+
+
+ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchemaResponseFormat, ResponseFormatTextResponseFormat]
+
+
+class ToolChoiceChatCompletionNamedToolChoiceFunction(TypedDict, total=False):
+    name: Required[str]
+    """The name of the function to call."""
+
+
+class ToolChoiceChatCompletionNamedToolChoice(TypedDict, total=False):
+    function: Required[ToolChoiceChatCompletionNamedToolChoiceFunction]
+
+    type: Required[Literal["function"]]
+    """The type of the tool. Currently, only `function` is supported."""
+
+
+ToolChoice: TypeAlias = Union[Literal["none", "auto", "required"], ToolChoiceChatCompletionNamedToolChoice]
+
+
+class ToolFunction(TypedDict, total=False):
+    name: Required[str]
+    """The name of the function to be called.
+
+    Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length
+    of 64.
+    """
+
+    description: str
+    """
+    A description of what the function does, used by the model to choose when and
+    how to call the function.
+    """
+
+    parameters: Dict[str, object]
+    """The parameters the functions accepts, described as a JSON Schema object.
+
+    Omitting `parameters` defines a function with an empty parameter list.
+    """
+
+    strict: Optional[bool]
+    """Whether to enable strict schema adherence when generating the function call.
+
+    If set to true, the model will follow the exact schema defined in the
+    `parameters` field. Only a subset of JSON Schema is supported when `strict` is
+    `true`. Learn more about Structured Outputs in the
+    [function calling guide](docs/guides/function-calling).
+    """
+
+
+class Tool(TypedDict, total=False):
+    function: Required[ToolFunction]
+
+    type: Required[Literal["function"]]
+    """The type of the tool. Currently, only `function` is supported."""
+
+
+class CompletionCreateParamsNonStreaming(CompletionCreateParamsBase, total=False):
+    stream: Literal[False]
+    """If True, generate an SSE event stream of the response. Defaults to False."""
+
+
+class CompletionCreateParamsStreaming(CompletionCreateParamsBase):
+    stream: Required[Literal[True]]
+    """If True, generate an SSE event stream of the response. Defaults to False."""
+
+
+CompletionCreateParams = Union[CompletionCreateParamsNonStreaming, CompletionCreateParamsStreaming]

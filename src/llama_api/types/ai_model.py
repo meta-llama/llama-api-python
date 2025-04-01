@@ -1,9 +1,6 @@
 # File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-from typing import Dict, List, Union
 from typing_extensions import Literal
-
-from pydantic import Field as FieldInfo
 
 from .._models import BaseModel
 
@@ -11,14 +8,14 @@ __all__ = ["AIModel"]
 
 
 class AIModel(BaseModel):
-    identifier: str
+    id: str
+    """The unique model identifier, which can be referenced in the API."""
 
-    metadata: Dict[str, Union[bool, float, str, List[object], object, None]]
+    created: int
+    """The creation time of the model."""
 
-    api_model_type: Literal["llm", "embedding"] = FieldInfo(alias="model_type")
+    object: Literal["model"]
+    """The object type, which is always "model" """
 
-    provider_id: str
-
-    provider_resource_id: str
-
-    type: Literal["model"]
+    owned_by: str
+    """The owner of the model."""

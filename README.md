@@ -31,24 +31,24 @@ import os
 from llama_api import LlamaAPI
 
 client = LlamaAPI(
-    api_key=os.environ.get("LLAMA_API_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
 )
 
-chat_completion_response = client.inference.chat_completion(
+create_chat_completion_response = client.chat.completions.create(
     messages=[
         {
             "content": "string",
             "role": "user",
         }
     ],
-    model_id="model_id",
+    model="model",
 )
-print(chat_completion_response.completion_message)
+print(create_chat_completion_response.completion_message)
 ```
 
 While you can provide an `api_key` keyword argument,
 we recommend using [python-dotenv](https://pypi.org/project/python-dotenv/)
-to add `LLAMA_API_API_KEY="My API Key"` to your `.env` file
+to add `LLAMA_API_KEY="My API Key"` to your `.env` file
 so that your API Key is not stored in source control.
 
 ## Async usage
@@ -61,21 +61,21 @@ import asyncio
 from llama_api import AsyncLlamaAPI
 
 client = AsyncLlamaAPI(
-    api_key=os.environ.get("LLAMA_API_API_KEY"),  # This is the default and can be omitted
+    api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
 )
 
 
 async def main() -> None:
-    chat_completion_response = await client.inference.chat_completion(
+    create_chat_completion_response = await client.chat.completions.create(
         messages=[
             {
                 "content": "string",
                 "role": "user",
             }
         ],
-        model_id="model_id",
+        model="model",
     )
-    print(chat_completion_response.completion_message)
+    print(create_chat_completion_response.completion_message)
 
 
 asyncio.run(main())
@@ -92,18 +92,18 @@ from llama_api import LlamaAPI
 
 client = LlamaAPI()
 
-stream = client.inference.chat_completion(
+stream = client.chat.completions.create(
     messages=[
         {
             "content": "string",
             "role": "user",
         }
     ],
-    model_id="model_id",
+    model="model",
     stream=True,
 )
-for chat_completion_response in stream:
-    print(chat_completion_response.completion_message)
+for create_chat_completion_response in stream:
+    print(create_chat_completion_response.completion_message)
 ```
 
 The async client uses the exact same interface.
@@ -113,18 +113,18 @@ from llama_api import AsyncLlamaAPI
 
 client = AsyncLlamaAPI()
 
-stream = await client.inference.chat_completion(
+stream = await client.chat.completions.create(
     messages=[
         {
             "content": "string",
             "role": "user",
         }
     ],
-    model_id="model_id",
+    model="model",
     stream=True,
 )
-async for chat_completion_response in stream:
-    print(chat_completion_response.completion_message)
+async for create_chat_completion_response in stream:
+    print(create_chat_completion_response.completion_message)
 ```
 
 ## Using types
@@ -135,28 +135,6 @@ Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typ
 - Converting to a dictionary, `model.to_dict()`
 
 Typed requests and responses provide autocomplete and documentation within your editor. If you would like to see type errors in VS Code to help catch bugs earlier, set `python.analysis.typeCheckingMode` to `basic`.
-
-## Nested params
-
-Nested parameters are dictionaries, typed using `TypedDict`, for example:
-
-```python
-from llama_api import LlamaAPI
-
-client = LlamaAPI()
-
-chat_completion_response = client.inference.chat_completion(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model_id="model_id",
-    logprobs={"top_k": 0},
-)
-print(chat_completion_response.logprobs)
-```
 
 ## Handling errors
 
@@ -174,14 +152,14 @@ from llama_api import LlamaAPI
 client = LlamaAPI()
 
 try:
-    client.inference.chat_completion(
+    client.chat.completions.create(
         messages=[
             {
                 "content": "string",
                 "role": "user",
             }
         ],
-        model_id="model_id",
+        model="model",
     )
 except llama_api.APIConnectionError as e:
     print("The server could not be reached")
@@ -225,14 +203,14 @@ client = LlamaAPI(
 )
 
 # Or, configure per-request:
-client.with_options(max_retries=5).inference.chat_completion(
+client.with_options(max_retries=5).chat.completions.create(
     messages=[
         {
             "content": "string",
             "role": "user",
         }
     ],
-    model_id="model_id",
+    model="model",
 )
 ```
 
@@ -256,14 +234,14 @@ client = LlamaAPI(
 )
 
 # Override per-request:
-client.with_options(timeout=5.0).inference.chat_completion(
+client.with_options(timeout=5.0).chat.completions.create(
     messages=[
         {
             "content": "string",
             "role": "user",
         }
     ],
-    model_id="model_id",
+    model="model",
 )
 ```
 
@@ -305,17 +283,17 @@ The "raw" Response object can be accessed by prefixing `.with_raw_response.` to 
 from llama_api import LlamaAPI
 
 client = LlamaAPI()
-response = client.inference.with_raw_response.chat_completion(
+response = client.chat.completions.with_raw_response.create(
     messages=[{
         "content": "string",
         "role": "user",
     }],
-    model_id="model_id",
+    model="model",
 )
 print(response.headers.get('X-My-Header'))
 
-inference = response.parse()  # get the object that `inference.chat_completion()` would have returned
-print(inference.completion_message)
+completion = response.parse()  # get the object that `chat.completions.create()` would have returned
+print(completion.completion_message)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api/_response.py) object.
@@ -329,14 +307,14 @@ The above interface eagerly reads the full response body when you make the reque
 To stream the response body, use `.with_streaming_response` instead, which requires a context manager and only reads the response body once you call `.read()`, `.text()`, `.json()`, `.iter_bytes()`, `.iter_text()`, `.iter_lines()` or `.parse()`. In the async client, these are async methods.
 
 ```python
-with client.inference.with_streaming_response.chat_completion(
+with client.chat.completions.with_streaming_response.create(
     messages=[
         {
             "content": "string",
             "role": "user",
         }
     ],
-    model_id="model_id",
+    model="model",
 ) as response:
     print(response.headers.get("X-My-Header"))
 
