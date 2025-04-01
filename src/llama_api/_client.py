@@ -26,7 +26,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import models, inference
+from .resources import models
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -34,6 +34,7 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
+from .resources.chat import chat
 
 __all__ = [
     "Timeout",
@@ -48,7 +49,7 @@ __all__ = [
 
 
 class LlamaAPI(SyncAPIClient):
-    inference: inference.InferenceResource
+    chat: chat.ChatResource
     models: models.ModelsResource
     with_raw_response: LlamaAPIWithRawResponse
     with_streaming_response: LlamaAPIWithStreamedResponse
@@ -81,10 +82,10 @@ class LlamaAPI(SyncAPIClient):
     ) -> None:
         """Construct a new synchronous LlamaAPI client instance.
 
-        This automatically infers the `api_key` argument from the `LLAMA_API_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `LLAMA_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("LLAMA_API_API_KEY")
+            api_key = os.environ.get("LLAMA_API_KEY")
         self.api_key = api_key
 
         if base_url is None:
@@ -103,7 +104,7 @@ class LlamaAPI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.inference = inference.InferenceResource(self)
+        self.chat = chat.ChatResource(self)
         self.models = models.ModelsResource(self)
         self.with_raw_response = LlamaAPIWithRawResponse(self)
         self.with_streaming_response = LlamaAPIWithStreamedResponse(self)
@@ -227,7 +228,7 @@ class LlamaAPI(SyncAPIClient):
 
 
 class AsyncLlamaAPI(AsyncAPIClient):
-    inference: inference.AsyncInferenceResource
+    chat: chat.AsyncChatResource
     models: models.AsyncModelsResource
     with_raw_response: AsyncLlamaAPIWithRawResponse
     with_streaming_response: AsyncLlamaAPIWithStreamedResponse
@@ -260,10 +261,10 @@ class AsyncLlamaAPI(AsyncAPIClient):
     ) -> None:
         """Construct a new async AsyncLlamaAPI client instance.
 
-        This automatically infers the `api_key` argument from the `LLAMA_API_API_KEY` environment variable if it is not provided.
+        This automatically infers the `api_key` argument from the `LLAMA_API_KEY` environment variable if it is not provided.
         """
         if api_key is None:
-            api_key = os.environ.get("LLAMA_API_API_KEY")
+            api_key = os.environ.get("LLAMA_API_KEY")
         self.api_key = api_key
 
         if base_url is None:
@@ -282,7 +283,7 @@ class AsyncLlamaAPI(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.inference = inference.AsyncInferenceResource(self)
+        self.chat = chat.AsyncChatResource(self)
         self.models = models.AsyncModelsResource(self)
         self.with_raw_response = AsyncLlamaAPIWithRawResponse(self)
         self.with_streaming_response = AsyncLlamaAPIWithStreamedResponse(self)
@@ -407,25 +408,25 @@ class AsyncLlamaAPI(AsyncAPIClient):
 
 class LlamaAPIWithRawResponse:
     def __init__(self, client: LlamaAPI) -> None:
-        self.inference = inference.InferenceResourceWithRawResponse(client.inference)
+        self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.models = models.ModelsResourceWithRawResponse(client.models)
 
 
 class AsyncLlamaAPIWithRawResponse:
     def __init__(self, client: AsyncLlamaAPI) -> None:
-        self.inference = inference.AsyncInferenceResourceWithRawResponse(client.inference)
+        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.models = models.AsyncModelsResourceWithRawResponse(client.models)
 
 
 class LlamaAPIWithStreamedResponse:
     def __init__(self, client: LlamaAPI) -> None:
-        self.inference = inference.InferenceResourceWithStreamingResponse(client.inference)
+        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.models = models.ModelsResourceWithStreamingResponse(client.models)
 
 
 class AsyncLlamaAPIWithStreamedResponse:
     def __init__(self, client: AsyncLlamaAPI) -> None:
-        self.inference = inference.AsyncInferenceResourceWithStreamingResponse(client.inference)
+        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
 
 

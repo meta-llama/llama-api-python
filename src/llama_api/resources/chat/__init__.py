@@ -8,26 +8,26 @@ from .chat import (
     ChatResourceWithStreamingResponse,
     AsyncChatResourceWithStreamingResponse,
 )
-from .models import (
-    ModelsResource,
-    AsyncModelsResource,
-    ModelsResourceWithRawResponse,
-    AsyncModelsResourceWithRawResponse,
-    ModelsResourceWithStreamingResponse,
-    AsyncModelsResourceWithStreamingResponse,
+from .completions import (
+    CompletionsResource,
+    AsyncCompletionsResource,
+    CompletionsResourceWithRawResponse,
+    AsyncCompletionsResourceWithRawResponse,
+    CompletionsResourceWithStreamingResponse,
+    AsyncCompletionsResourceWithStreamingResponse,
 )
 
 __all__ = [
+    "CompletionsResource",
+    "AsyncCompletionsResource",
+    "CompletionsResourceWithRawResponse",
+    "AsyncCompletionsResourceWithRawResponse",
+    "CompletionsResourceWithStreamingResponse",
+    "AsyncCompletionsResourceWithStreamingResponse",
     "ChatResource",
     "AsyncChatResource",
     "ChatResourceWithRawResponse",
     "AsyncChatResourceWithRawResponse",
     "ChatResourceWithStreamingResponse",
     "AsyncChatResourceWithStreamingResponse",
-    "ModelsResource",
-    "AsyncModelsResource",
-    "ModelsResourceWithRawResponse",
-    "AsyncModelsResourceWithRawResponse",
-    "ModelsResourceWithStreamingResponse",
-    "AsyncModelsResourceWithStreamingResponse",
 ]
