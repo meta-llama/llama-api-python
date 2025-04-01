@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from .ai_model import AIModel as AIModel
+from .llama_model import LlamaModel as LlamaModel
 from .model_list_response import ModelListResponse as ModelListResponse
 from .create_chat_completion_response import CreateChatCompletionResponse as CreateChatCompletionResponse
 from .create_chat_completion_response_stream_chunk import (
