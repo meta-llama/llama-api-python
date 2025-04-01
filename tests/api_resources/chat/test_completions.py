@@ -1,0 +1,390 @@
+# File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+from __future__ import annotations
+
+import os
+from typing import Any, cast
+
+import pytest
+
+from llama_api import LlamaAPI, AsyncLlamaAPI
+from tests.utils import assert_matches_type
+from llama_api.types import CreateChatCompletionResponse
+
+base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
+
+
+class TestCompletions:
+    parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_overload_1(self, client: LlamaAPI) -> None:
+        completion = client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+        assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_with_all_params_overload_1(self, client: LlamaAPI) -> None:
+        completion = client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            max_completion_tokens=256,
+            repetition_penalty=0,
+            response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                },
+                "type": "json_schema",
+            },
+            stream=False,
+            temperature=1,
+            tool_choice="none",
+            tools=[
+                {
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
+                        "strict": True,
+                    },
+                    "type": "function",
+                }
+            ],
+            top_k=0,
+            top_p=1,
+        )
+        assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_create_overload_1(self, client: LlamaAPI) -> None:
+        response = client.chat.completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        completion = response.parse()
+        assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_create_overload_1(self, client: LlamaAPI) -> None:
+        with client.chat.completions.with_streaming_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            completion = response.parse()
+            assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_overload_2(self, client: LlamaAPI) -> None:
+        completion_stream = client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+        )
+        completion_stream.response.close()
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_method_create_with_all_params_overload_2(self, client: LlamaAPI) -> None:
+        completion_stream = client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+            max_completion_tokens=256,
+            repetition_penalty=0,
+            response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                },
+                "type": "json_schema",
+            },
+            temperature=1,
+            tool_choice="none",
+            tools=[
+                {
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
+                        "strict": True,
+                    },
+                    "type": "function",
+                }
+            ],
+            top_k=0,
+            top_p=1,
+        )
+        completion_stream.response.close()
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_raw_response_create_overload_2(self, client: LlamaAPI) -> None:
+        response = client.chat.completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+        )
+
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stream = response.parse()
+        stream.close()
+
+    @pytest.mark.skip()
+    @parametrize
+    def test_streaming_response_create_overload_2(self, client: LlamaAPI) -> None:
+        with client.chat.completions.with_streaming_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stream = response.parse()
+            stream.close()
+
+        assert cast(Any, response.is_closed) is True
+
+
+class TestAsyncCompletions:
+    parametrize = pytest.mark.parametrize("async_client", [False, True], indirect=True, ids=["loose", "strict"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_overload_1(self, async_client: AsyncLlamaAPI) -> None:
+        completion = await async_client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+        assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaAPI) -> None:
+        completion = await async_client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            max_completion_tokens=256,
+            repetition_penalty=0,
+            response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                },
+                "type": "json_schema",
+            },
+            stream=False,
+            temperature=1,
+            tool_choice="none",
+            tools=[
+                {
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
+                        "strict": True,
+                    },
+                    "type": "function",
+                }
+            ],
+            top_k=0,
+            top_p=1,
+        )
+        assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaAPI) -> None:
+        response = await async_client.chat.completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+
+        assert response.is_closed is True
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        completion = await response.parse()
+        assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaAPI) -> None:
+        async with async_client.chat.completions.with_streaming_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            completion = await response.parse()
+            assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
+
+        assert cast(Any, response.is_closed) is True
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_overload_2(self, async_client: AsyncLlamaAPI) -> None:
+        completion_stream = await async_client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+        )
+        await completion_stream.response.aclose()
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaAPI) -> None:
+        completion_stream = await async_client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+            max_completion_tokens=256,
+            repetition_penalty=0,
+            response_format={
+                "json_schema": {
+                    "name": "name",
+                    "schema": {},
+                },
+                "type": "json_schema",
+            },
+            temperature=1,
+            tool_choice="none",
+            tools=[
+                {
+                    "function": {
+                        "name": "name",
+                        "description": "description",
+                        "parameters": {"foo": "bar"},
+                        "strict": True,
+                    },
+                    "type": "function",
+                }
+            ],
+            top_k=0,
+            top_p=1,
+        )
+        await completion_stream.response.aclose()
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaAPI) -> None:
+        response = await async_client.chat.completions.with_raw_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+        )
+
+        assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+        stream = await response.parse()
+        await stream.close()
+
+    @pytest.mark.skip()
+    @parametrize
+    async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaAPI) -> None:
+        async with async_client.chat.completions.with_streaming_response.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+            stream=True,
+        ) as response:
+            assert not response.is_closed
+            assert response.http_request.headers.get("X-Stainless-Lang") == "python"
+
+            stream = await response.parse()
+            await stream.close()
+
+        assert cast(Any, response.is_closed) is True

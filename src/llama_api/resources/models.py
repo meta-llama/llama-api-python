@@ -13,8 +13,8 @@ from .._response import (
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
 )
-from ..types.model import Model
 from .._base_client import make_request_options
+from ..types.ai_model import AIModel
 from ..types.model_list_response import ModelListResponse
 
 __all__ = ["ModelsResource", "AsyncModelsResource"]
@@ -42,7 +42,7 @@ class ModelsResource(SyncAPIResource):
 
     def retrieve(
         self,
-        model_id: str,
+        model: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -50,7 +50,7 @@ class ModelsResource(SyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Model:
+    ) -> AIModel:
         """
         Args:
           extra_headers: Send extra headers
@@ -61,14 +61,14 @@ class ModelsResource(SyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not model_id:
-            raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
+        if not model:
+            raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
         return self._get(
-            f"/v1/models/{model_id}",
+            f"/v1/models/{model}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Model,
+            cast_to=AIModel,
         )
 
     def list(
@@ -81,6 +81,10 @@ class ModelsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ModelListResponse:
+        """
+        Lists the currently available models, and provides basic information about each
+        one.
+        """
         return self._get(
             "/v1/models",
             options=make_request_options(
@@ -112,7 +116,7 @@ class AsyncModelsResource(AsyncAPIResource):
 
     async def retrieve(
         self,
-        model_id: str,
+        model: str,
         *,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
@@ -120,7 +124,7 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> Model:
+    ) -> AIModel:
         """
         Args:
           extra_headers: Send extra headers
@@ -131,14 +135,14 @@ class AsyncModelsResource(AsyncAPIResource):
 
           timeout: Override the client-level default timeout for this request, in seconds
         """
-        if not model_id:
-            raise ValueError(f"Expected a non-empty value for `model_id` but received {model_id!r}")
+        if not model:
+            raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
         return await self._get(
-            f"/v1/models/{model_id}",
+            f"/v1/models/{model}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
-            cast_to=Model,
+            cast_to=AIModel,
         )
 
     async def list(
@@ -151,6 +155,10 @@ class AsyncModelsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> ModelListResponse:
+        """
+        Lists the currently available models, and provides basic information about each
+        one.
+        """
         return await self._get(
             "/v1/models",
             options=make_request_options(
