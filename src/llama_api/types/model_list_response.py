@@ -3,8 +3,8 @@
 from typing import List
 from typing_extensions import TypeAlias
 
-from .ai_model import AIModel
+from .llama_model import LlamaModel
 
 __all__ = ["ModelListResponse"]
 
-ModelListResponse: TypeAlias = List[AIModel]
+ModelListResponse: TypeAlias = List[LlamaModel]

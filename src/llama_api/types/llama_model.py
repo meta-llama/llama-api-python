@@ -4,10 +4,10 @@ from typing_extensions import Literal
 
 from .._models import BaseModel
 
-__all__ = ["AIModel"]
+__all__ = ["LlamaModel"]
 
 
-class AIModel(BaseModel):
+class LlamaModel(BaseModel):
     id: str
     """The unique model identifier, which can be referenced in the API."""
 

@@ -21,10 +21,10 @@ Methods:
 Types:
 
 ```python
-from llama_api.types import AIModel, ModelListResponse
+from llama_api.types import LlamaModel, ModelListResponse
 ```
 
 Methods:
 
-- <code title="get /v1/models/{model}">client.models.<a href="./src/llama_api/resources/models.py">retrieve</a>(model) -> <a href="./src/llama_api/types/ai_model.py">AIModel</a></code>
+- <code title="get /v1/models/{model}">client.models.<a href="./src/llama_api/resources/models.py">retrieve</a>(model) -> <a href="./src/llama_api/types/llama_model.py">LlamaModel</a></code>
 - <code title="get /v1/models">client.models.<a href="./src/llama_api/resources/models.py">list</a>() -> <a href="./src/llama_api/types/model_list_response.py">ModelListResponse</a></code>
