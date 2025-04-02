@@ -4,41 +4,19 @@ from typing import List, Union, Optional
 from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
+from .message_text_content_item import MessageTextContentItem
+from .message_reasoning_content_item import MessageReasoningContentItem
 
 __all__ = [
     "CreateChatCompletionResponse",
     "CompletionMessage",
     "CompletionMessageContent",
-    "CompletionMessageContentMessageTextContentItem",
-    "CompletionMessageContentMessageReasoningContentItem",
     "CompletionMessageToolCall",
     "CompletionMessageToolCallFunction",
     "Metric",
 ]
 
-
-class CompletionMessageContentMessageTextContentItem(BaseModel):
-    text: str
-    """Text content"""
-
-    type: Literal["text"]
-    """Discriminator type of the content item. Always "text" """
-
-
-class CompletionMessageContentMessageReasoningContentItem(BaseModel):
-    answer: str
-    """The final model response"""
-
-    reasoning: str
-    """The CoT reasoning content of the model"""
-
-    type: Literal["reasoning"]
-    """Discriminator type of the content item. Always "reasoning" """
-
-
-CompletionMessageContent: TypeAlias = Union[
-    str, CompletionMessageContentMessageTextContentItem, CompletionMessageContentMessageReasoningContentItem
-]
+CompletionMessageContent: TypeAlias = Union[str, MessageTextContentItem, MessageReasoningContentItem]
 
 
 class CompletionMessageToolCallFunction(BaseModel):
