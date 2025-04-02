@@ -4,7 +4,12 @@ from __future__ import annotations
 
 from .llama_model import LlamaModel as LlamaModel
 from .model_list_response import ModelListResponse as ModelListResponse
+from .message_text_content_item import MessageTextContentItem as MessageTextContentItem
+from .message_reasoning_content_item import MessageReasoningContentItem as MessageReasoningContentItem
 from .create_chat_completion_response import CreateChatCompletionResponse as CreateChatCompletionResponse
+from .message_text_content_item_param import MessageTextContentItemParam as MessageTextContentItemParam
+from .message_image_content_item_param import MessageImageContentItemParam as MessageImageContentItemParam
+from .message_reasoning_content_item_param import MessageReasoningContentItemParam as MessageReasoningContentItemParam
 from .create_chat_completion_response_stream_chunk import (
     CreateChatCompletionResponseStreamChunk as CreateChatCompletionResponseStreamChunk,
 )
