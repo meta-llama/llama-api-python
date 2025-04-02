@@ -5,22 +5,19 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
+from ..message_text_content_item_param import MessageTextContentItemParam
+from ..message_image_content_item_param import MessageImageContentItemParam
+from ..message_reasoning_content_item_param import MessageReasoningContentItemParam
+
 __all__ = [
     "CompletionCreateParamsBase",
     "Message",
     "MessageUserMessage",
     "MessageUserMessageContentArrayOfContentItem",
-    "MessageUserMessageContentArrayOfContentItemMessageTextContentItem",
-    "MessageUserMessageContentArrayOfContentItemMessageImageContentItem",
-    "MessageUserMessageContentArrayOfContentItemMessageImageContentItemImageURL",
     "MessageSystemMessage",
-    "MessageSystemMessageContentArrayOfContentItem",
     "MessageToolResponseMessage",
-    "MessageToolResponseMessageContentArrayOfContentItem",
     "MessageAssistantMessage",
     "MessageAssistantMessageContent",
-    "MessageAssistantMessageContentMessageTextContentItem",
-    "MessageAssistantMessageContentMessageReasoningContentItem",
     "MessageAssistantMessageToolCall",
     "MessageAssistantMessageToolCallFunction",
     "ResponseFormat",
@@ -92,30 +89,8 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
 
 
-class MessageUserMessageContentArrayOfContentItemMessageTextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-class MessageUserMessageContentArrayOfContentItemMessageImageContentItemImageURL(TypedDict, total=False):
-    url: Required[str]
-    """Either a URL of the image or the base64 encoded image data."""
-
-
-class MessageUserMessageContentArrayOfContentItemMessageImageContentItem(TypedDict, total=False):
-    image_url: Required[MessageUserMessageContentArrayOfContentItemMessageImageContentItemImageURL]
-    """Contains either an image URL or a data URL for a base64 encoded image."""
-
-    type: Required[Literal["image"]]
-    """Discriminator type of the content item. Always "image" """
-
-
 MessageUserMessageContentArrayOfContentItem: TypeAlias = Union[
-    MessageUserMessageContentArrayOfContentItemMessageTextContentItem,
-    MessageUserMessageContentArrayOfContentItemMessageImageContentItem,
+    MessageTextContentItemParam, MessageImageContentItemParam
 ]
 
 
@@ -127,32 +102,16 @@ class MessageUserMessage(TypedDict, total=False):
     """Must be "user" to identify this as a user message."""
 
 
-class MessageSystemMessageContentArrayOfContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
 class MessageSystemMessage(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageSystemMessageContentArrayOfContentItem]]]
+    content: Required[Union[str, Iterable[MessageTextContentItemParam]]]
     """The content of the system message."""
 
     role: Required[Literal["system"]]
     """Must be "system" to identify this as a system message"""
 
 
-class MessageToolResponseMessageContentArrayOfContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
 class MessageToolResponseMessage(TypedDict, total=False):
-    content: Required[Union[str, Iterable[MessageToolResponseMessageContentArrayOfContentItem]]]
+    content: Required[Union[str, Iterable[MessageTextContentItemParam]]]
     """The content of the user message, which can include text and other media."""
 
     role: Required[Literal["tool"]]
@@ -162,28 +121,7 @@ class MessageToolResponseMessage(TypedDict, total=False):
     """Unique identifier for the tool call this response is for"""
 
 
-class MessageAssistantMessageContentMessageTextContentItem(TypedDict, total=False):
-    text: Required[str]
-    """Text content"""
-
-    type: Required[Literal["text"]]
-    """Discriminator type of the content item. Always "text" """
-
-
-class MessageAssistantMessageContentMessageReasoningContentItem(TypedDict, total=False):
-    answer: Required[str]
-    """The final model response"""
-
-    reasoning: Required[str]
-    """The CoT reasoning content of the model"""
-
-    type: Required[Literal["reasoning"]]
-    """Discriminator type of the content item. Always "reasoning" """
-
-
-MessageAssistantMessageContent: TypeAlias = Union[
-    str, MessageAssistantMessageContentMessageTextContentItem, MessageAssistantMessageContentMessageReasoningContentItem
-]
+MessageAssistantMessageContent: TypeAlias = Union[str, MessageTextContentItemParam, MessageReasoningContentItemParam]
 
 
 class MessageAssistantMessageToolCallFunction(TypedDict, total=False):
