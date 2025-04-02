@@ -5,12 +5,12 @@ from typing_extensions import override
 
 from ._base_client import BasePage, BaseSyncPage, BaseAsyncPage
 
-__all__ = ["SyncModelsListPage", "AsyncModelsListPage"]
+__all__ = ["SyncModelsPage", "AsyncModelsPage"]
 
 _T = TypeVar("_T")
 
 
-class SyncModelsListPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
+class SyncModelsPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
     data: List[_T]
 
     @override
@@ -29,7 +29,7 @@ class SyncModelsListPage(BaseSyncPage[_T], BasePage[_T], Generic[_T]):
         return None
 
 
-class AsyncModelsListPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
+class AsyncModelsPage(BaseAsyncPage[_T], BasePage[_T], Generic[_T]):
     data: List[_T]
 
     @override
