@@ -144,7 +144,6 @@ exclude = [
     "_dev",
     ".venv",
     ".nox",
-    "examples/**.py",
 ]
 
 reportImplicitOverride = true
@@ -156,6 +155,7 @@ reportPrivateUsage = false
 line-length = 120
 output-format = "grouped"
 target-version = "py37"
+exclude = ["examples"]
 
 [tool.ruff.format]
 docstring-code-format = true
