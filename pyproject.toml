@@ -155,7 +155,7 @@ reportPrivateUsage = false
 line-length = 120
 output-format = "grouped"
 target-version = "py37"
-exclude = ["examples"]
+exclude = ["examples/**.py"]
 
 [tool.ruff.format]
 docstring-code-format = true
