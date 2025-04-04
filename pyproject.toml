@@ -1,5 +1,5 @@
 [project]
-name = "llama_api"
+name = "llama-api"
 version = "0.0.1-alpha.0"
 description = "The official Python library for the llama-api API"
 dynamic = ["readme"]
