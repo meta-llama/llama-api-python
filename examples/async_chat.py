@@ -12,7 +12,6 @@ async def main() -> None:
         stream=True,
     )
     async for chunk in response:
-        assert chunk.event.delta.type == "text"
         print(chunk.event.delta.text, end="", flush=True)
 
     print()
