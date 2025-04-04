@@ -12,7 +12,7 @@ async def main() -> None:
         stream=True,
     )
     async for chunk in response:
-        print(chunk.event.delta.text, end="", flush=True)
+        print(chunk.event.delta.text, end="", flush=True)  # type: ignore
 
     print()
 

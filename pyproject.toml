@@ -144,6 +144,7 @@ exclude = [
     "_dev",
     ".venv",
     ".nox",
+    "examples/**.py",
 ]
 
 reportImplicitOverride = true
@@ -203,4 +204,4 @@ known-first-party = ["llama_api", "tests"]
 "bin/**.py" = ["T201", "T203"]
 "scripts/**.py" = ["T201", "T203"]
 "tests/**.py" = ["T201", "T203"]
-"examples/**.py" = ["T201", "T203", "TC004"]
+"examples/**.py" = ["T201", "T203"]

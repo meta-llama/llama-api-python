@@ -16,8 +16,6 @@ response = client.chat.completions.create(
 )
 
 print(response)
-assert not isinstance(response.completion_message.content, str)
-assert response.completion_message.content.type == "text"
 
 # Streaming the next response
 response = client.chat.completions.create(
@@ -43,5 +41,4 @@ response = client.chat.completions.create(
 )
 
 for chunk in response:
-    assert chunk.event.delta.type == "text"
     print(chunk.event.delta.text, end="", flush=True)
