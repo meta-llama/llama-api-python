@@ -15,7 +15,7 @@ response = client.chat.completions.create(
     temperature=0.7,
 )
 
-print(response.completion_message.content.text)
+print(response.completion_message.content)
 
 # Streaming the next response
 response = client.chat.completions.create(
@@ -23,7 +23,7 @@ response = client.chat.completions.create(
     messages=[
         {
             "role": "user",
-            "content": "Hello, tell me a joke. ",
+            "content": "Hello again",
         },
     ],
     max_completion_tokens=1024,
@@ -32,4 +32,4 @@ response = client.chat.completions.create(
 )
 
 for chunk in response:
-    print(chunk.event.delta.text, end="", flush=True)
+    print(chunk, end="", flush=True)
