@@ -15,7 +15,7 @@ response = client.chat.completions.create(
     temperature=0.7,
 )
 
-print(response.completion_message.content)
+print(response)
 
 # Streaming the next response
 response = client.chat.completions.create(
@@ -32,4 +32,5 @@ response = client.chat.completions.create(
 )
 
 for chunk in response:
-    print(chunk, end="", flush=True)
+    assert chunk.event.delta.type == "text"
+    print(chunk.event.delta.text, end="", flush=True)
