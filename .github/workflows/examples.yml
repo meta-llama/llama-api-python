@@ -35,3 +35,6 @@ jobs:
       run: |
         python examples/chat.py
         python examples/async_chat.py
+        python examples/vision.py
+        python examples/structured.py
+        python examples/tool_call.py
