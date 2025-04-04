@@ -1,3 +1,5 @@
+# type: ignore
+
 import asyncio
 
 from llama_api import AsyncLlamaAPI
@@ -12,7 +14,7 @@ async def main() -> None:
         stream=True,
     )
     async for chunk in response:
-        print(chunk.event.delta.text, end="", flush=True)  # type: ignore
+        print(chunk.event.delta.text, end="", flush=True)
 
     print()
 

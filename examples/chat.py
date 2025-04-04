@@ -1,3 +1,5 @@
+# type: ignore
+
 from llama_api import LlamaAPI
 
 client = LlamaAPI()
