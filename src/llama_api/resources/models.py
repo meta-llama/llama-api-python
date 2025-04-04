@@ -2,22 +2,21 @@
 
 from __future__ import annotations
 
-from typing import cast, Type
+from typing import Type, cast
 
 import httpx
 
-from .._base_client import make_request_options
+from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
 from .._compat import cached_property
-from .._resource import AsyncAPIResource, SyncAPIResource
+from .._resource import SyncAPIResource, AsyncAPIResource
 from .._response import (
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
 )
-
-from .._types import Body, Headers, NOT_GIVEN, NotGiven, Query
 from .._wrappers import DataWrapper
+from .._base_client import make_request_options
 from ..types.llama_model import LlamaModel
 from ..types.model_list_response import ModelListResponse
 
@@ -66,16 +65,11 @@ class ModelsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not model:
-            raise ValueError(
-                f"Expected a non-empty value for `model` but received {model!r}"
-            )
+            raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
         return self._get(
             f"/v1/models/{model}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=LlamaModel,
         )
@@ -149,16 +143,11 @@ class AsyncModelsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not model:
-            raise ValueError(
-                f"Expected a non-empty value for `model` but received {model!r}"
-            )
+            raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
         return await self._get(
             f"/v1/models/{model}",
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=LlamaModel,
         )

@@ -3,14 +3,14 @@
 from __future__ import annotations
 
 from ..._compat import cached_property
-from ..._resource import AsyncAPIResource, SyncAPIResource
+from ..._resource import SyncAPIResource, AsyncAPIResource
 from .completions import (
-    AsyncCompletionsResource,
-    AsyncCompletionsResourceWithRawResponse,
-    AsyncCompletionsResourceWithStreamingResponse,
     CompletionsResource,
+    AsyncCompletionsResource,
     CompletionsResourceWithRawResponse,
+    AsyncCompletionsResourceWithRawResponse,
     CompletionsResourceWithStreamingResponse,
+    AsyncCompletionsResourceWithStreamingResponse,
 )
 
 __all__ = ["ChatResource", "AsyncChatResource"]

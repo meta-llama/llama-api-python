@@ -3,28 +3,29 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-
-import httpx
 from typing_extensions import Literal, overload
 
-from ..._base_client import make_request_options
+import httpx
+
+from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._utils import (
+    required_args,
+    maybe_transform,
+    async_maybe_transform,
+)
 from ..._compat import cached_property
-from ..._resource import AsyncAPIResource, SyncAPIResource
+from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
-    async_to_raw_response_wrapper,
-    async_to_streamed_response_wrapper,
     to_raw_response_wrapper,
     to_streamed_response_wrapper,
+    async_to_raw_response_wrapper,
+    async_to_streamed_response_wrapper,
 )
-from ..._streaming import AsyncStream, Stream
-
-from ..._types import Body, Headers, NOT_GIVEN, NotGiven, Query
-from ..._utils import async_maybe_transform, maybe_transform, required_args
+from ..._streaming import Stream, AsyncStream
 from ...types.chat import completion_create_params
+from ..._base_client import make_request_options
 from ...types.create_chat_completion_response import CreateChatCompletionResponse
-from ...types.create_chat_completion_response_stream_chunk import (
-    CreateChatCompletionResponseStreamChunk,
-)
+from ...types.create_chat_completion_response_stream_chunk import CreateChatCompletionResponseStreamChunk
 
 __all__ = ["CompletionsResource", "AsyncCompletionsResource"]
 
@@ -311,10 +312,7 @@ class CompletionsResource(SyncAPIResource):
                 completion_create_params.CompletionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CreateChatCompletionResponse,
             stream=stream or False,
@@ -509,10 +507,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> (
-        CreateChatCompletionResponse
-        | AsyncStream[CreateChatCompletionResponseStreamChunk]
-    ):
+    ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
 
@@ -585,10 +580,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> (
-        CreateChatCompletionResponse
-        | AsyncStream[CreateChatCompletionResponseStreamChunk]
-    ):
+    ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
@@ -610,10 +602,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 completion_create_params.CompletionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers,
-                extra_query=extra_query,
-                extra_body=extra_body,
-                timeout=timeout,
+                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
             cast_to=CreateChatCompletionResponse,
             stream=stream or False,
