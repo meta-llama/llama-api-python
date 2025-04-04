@@ -16,11 +16,22 @@ response = client.chat.completions.create(
 )
 
 print(response)
+assert not isinstance(response.completion_message.content, str)
+assert response.completion_message.content.type == "text"
 
 # Streaming the next response
 response = client.chat.completions.create(
     model="Llama-3.3-70B-Instruct",
     messages=[
+        {
+            "role": "user",
+            "content": "Hello, how are you?",
+        },
+        {
+            "role": response.completion_message.role,
+            "content": response.completion_message.content.text,
+            "stop_reason": response.completion_message.stop_reason,
+        },
         {
             "role": "user",
             "content": "Hello again",
