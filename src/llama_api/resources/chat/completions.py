@@ -3,29 +3,28 @@
 from __future__ import annotations
 
 from typing import Iterable, Optional
-from typing_extensions import Literal, overload
 
 import httpx
+from typing_extensions import Literal, overload
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    required_args,
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..._base_client import make_request_options
 from ..._compat import cached_property
-from ..._resource import SyncAPIResource, AsyncAPIResource
+from ..._resource import AsyncAPIResource, SyncAPIResource
 from ..._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
 )
-from ..._streaming import Stream, AsyncStream
+from ..._streaming import AsyncStream, Stream
+
+from ..._types import Body, Headers, NOT_GIVEN, NotGiven, Query
+from ..._utils import async_maybe_transform, maybe_transform, required_args
 from ...types.chat import completion_create_params
-from ..._base_client import make_request_options
 from ...types.create_chat_completion_response import CreateChatCompletionResponse
-from ...types.create_chat_completion_response_stream_chunk import CreateChatCompletionResponseStreamChunk
+from ...types.create_chat_completion_response_stream_chunk import (
+    CreateChatCompletionResponseStreamChunk,
+)
 
 __all__ = ["CompletionsResource", "AsyncCompletionsResource"]
 
@@ -37,7 +36,7 @@ class CompletionsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/meta-llama/llama-api-python#accessing-raw-response-data-eg-headers
         """
         return CompletionsResourceWithRawResponse(self)
 
@@ -46,7 +45,7 @@ class CompletionsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#with_streaming_response
+        For more information, see https://www.github.com/meta-llama/llama-api-python#with_streaming_response
         """
         return CompletionsResourceWithStreamingResponse(self)
 
@@ -312,7 +311,10 @@ class CompletionsResource(SyncAPIResource):
                 completion_create_params.CompletionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
             ),
             cast_to=CreateChatCompletionResponse,
             stream=stream or False,
@@ -327,7 +329,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/meta-llama/llama-api-python#accessing-raw-response-data-eg-headers
         """
         return AsyncCompletionsResourceWithRawResponse(self)
 
@@ -336,7 +338,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#with_streaming_response
+        For more information, see https://www.github.com/meta-llama/llama-api-python#with_streaming_response
         """
         return AsyncCompletionsResourceWithStreamingResponse(self)
 
@@ -507,7 +509,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
+    ) -> (
+        CreateChatCompletionResponse
+        | AsyncStream[CreateChatCompletionResponseStreamChunk]
+    ):
         """
         Generate a chat completion for the given messages using the specified model.
 
@@ -580,7 +585,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_query: Query | None = None,
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
-    ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
+    ) -> (
+        CreateChatCompletionResponse
+        | AsyncStream[CreateChatCompletionResponseStreamChunk]
+    ):
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
@@ -602,7 +610,10 @@ class AsyncCompletionsResource(AsyncAPIResource):
                 completion_create_params.CompletionCreateParams,
             ),
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
             ),
             cast_to=CreateChatCompletionResponse,
             stream=stream or False,

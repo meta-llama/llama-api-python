@@ -2,21 +2,22 @@
 
 from __future__ import annotations
 
-from typing import Type, cast
+from typing import cast, Type
 
 import httpx
 
-from .._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from .._base_client import make_request_options
 from .._compat import cached_property
-from .._resource import SyncAPIResource, AsyncAPIResource
+from .._resource import AsyncAPIResource, SyncAPIResource
 from .._response import (
-    to_raw_response_wrapper,
-    to_streamed_response_wrapper,
     async_to_raw_response_wrapper,
     async_to_streamed_response_wrapper,
+    to_raw_response_wrapper,
+    to_streamed_response_wrapper,
 )
+
+from .._types import Body, Headers, NOT_GIVEN, NotGiven, Query
 from .._wrappers import DataWrapper
-from .._base_client import make_request_options
 from ..types.llama_model import LlamaModel
 from ..types.model_list_response import ModelListResponse
 
@@ -30,7 +31,7 @@ class ModelsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/meta-llama/llama-api-python#accessing-raw-response-data-eg-headers
         """
         return ModelsResourceWithRawResponse(self)
 
@@ -39,7 +40,7 @@ class ModelsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#with_streaming_response
+        For more information, see https://www.github.com/meta-llama/llama-api-python#with_streaming_response
         """
         return ModelsResourceWithStreamingResponse(self)
 
@@ -65,11 +66,16 @@ class ModelsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not model:
-            raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
+            raise ValueError(
+                f"Expected a non-empty value for `model` but received {model!r}"
+            )
         return self._get(
             f"/v1/models/{model}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
             ),
             cast_to=LlamaModel,
         )
@@ -108,7 +114,7 @@ class AsyncModelsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/meta-llama/llama-api-python#accessing-raw-response-data-eg-headers
         """
         return AsyncModelsResourceWithRawResponse(self)
 
@@ -117,7 +123,7 @@ class AsyncModelsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/stainless-sdks/llama-api-python#with_streaming_response
+        For more information, see https://www.github.com/meta-llama/llama-api-python#with_streaming_response
         """
         return AsyncModelsResourceWithStreamingResponse(self)
 
@@ -143,11 +149,16 @@ class AsyncModelsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         if not model:
-            raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
+            raise ValueError(
+                f"Expected a non-empty value for `model` but received {model!r}"
+            )
         return await self._get(
             f"/v1/models/{model}",
             options=make_request_options(
-                extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
+                extra_headers=extra_headers,
+                extra_query=extra_query,
+                extra_body=extra_body,
+                timeout=timeout,
             ),
             cast_to=LlamaModel,
         )
