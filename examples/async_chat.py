@@ -6,12 +6,12 @@ client = AsyncLlamaAPI()
 
 
 async def main() -> None:
-    stream = await client.chat.completions.create(
+    response = await client.chat.completions.create(
         model="Llama-3.3-70B-Instruct",
         messages=[{"role": "user", "content": "Hello"}],
         stream=True,
     )
-    async for chunk in stream:
+    async for chunk in response:
         assert chunk.event.delta.type == "text"
         print(chunk.event.delta.text, end="", flush=True)
 
