@@ -32,3 +32,4 @@ jobs:
         LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
       run: |
         python examples/chat.py
+        python examples/async_chat.py
