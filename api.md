@@ -4,12 +4,16 @@ Types:
 
 ```python
 from llama_api.types import (
+    CompletionMessage,
     CreateChatCompletionRequest,
     CreateChatCompletionResponse,
     CreateChatCompletionResponseStreamChunk,
     MessageImageContentItem,
     MessageReasoningContentItem,
     MessageTextContentItem,
+    SystemMessage,
+    ToolResponseMessage,
+    UserMessage,
 )
 ```
 
