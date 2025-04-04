@@ -27,11 +27,7 @@ response = client.chat.completions.create(
             "role": "user",
             "content": "Hello, how are you?",
         },
-        {
-            "role": response.completion_message.role,
-            "content": response.completion_message.content.text,
-            "stop_reason": response.completion_message.stop_reason,
-        },
+        response.completion_message,
         {
             "role": "user",
             "content": "Hello again",
