@@ -29,12 +29,27 @@ jobs:
         git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
         pip install -e .
 
-    - name: Run scripts
+    - name: Run chat.py
       env:
         LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
       run: |
         python examples/chat.py
         python examples/async_chat.py
+
+    - name: Run vision.py
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
         python examples/vision.py
+    
+    - name: Run structured.py
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
         python examples/structured.py
+
+    - name: Run tool_call.py
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
         python examples/tool_call.py
