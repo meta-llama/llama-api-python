@@ -10,7 +10,7 @@ on:
     - cron: '0 * * * *' # every hour
 
 jobs:
-  chat:
+  setup:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -24,6 +24,23 @@ jobs:
       run: |
         git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
         pip install -e .
+    - name: Cache pip dependencies
+      uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+
+  chat:
+    needs: setup
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - uses: actions/cache@v3
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
     - name: Run chat examples
       env:
         LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
@@ -32,19 +49,14 @@ jobs:
         python examples/async_chat.py
 
   vision:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: actions/cache@v3
       with:
-        python-version: '3.10'
-    - name: Install dependencies
-      env:
-        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-      run: |
-        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-        pip install -e .
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
     - name: Run vision example
       env:
         LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
@@ -52,19 +64,14 @@ jobs:
         python examples/vision.py
 
   structured:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: actions/cache@v3
       with:
-        python-version: '3.10'
-    - name: Install dependencies
-      env:
-        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-      run: |
-        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-        pip install -e .
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
     - name: Run structured example
       env:
         LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
@@ -72,19 +79,14 @@ jobs:
         python examples/structured.py
 
   tool_call:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v4
+    - uses: actions/cache@v3
       with:
-        python-version: '3.10'
-    - name: Install dependencies
-      env:
-        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
-      run: |
-        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
-        pip install -e .
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/setup.py') }}
     - name: Run tool_call example
       env:
         LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
