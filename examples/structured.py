@@ -1,8 +1,7 @@
 # type: ignore
 
-from pydantic import BaseModel
-
 from llama_api import LlamaAPI
+from pydantic import BaseModel
 
 client = LlamaAPI()
 
@@ -16,7 +15,7 @@ class Address(BaseModel):
 
 def run(stream: bool = False) -> None:
     response = client.chat.completions.create(
-        model="Llama-3.3-70B-Instruct",
+        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
         messages=[
             {
                 "role": "system",

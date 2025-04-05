@@ -6,7 +6,7 @@ client = LlamaAPI()
 
 # Non-Streaming
 response = client.chat.completions.create(
-    model="Llama-3.3-70B-Instruct",
+    model="Llama-4-Maverick-17B-128E-Instruct-FP8",
     messages=[
         {
             "role": "user",
@@ -21,7 +21,7 @@ print(response)
 
 # Streaming the next response
 response = client.chat.completions.create(
-    model="Llama-3.3-70B-Instruct",
+    model="Llama-4-Maverick-17B-128E-Instruct-FP8",
     messages=[
         {
             "role": "user",

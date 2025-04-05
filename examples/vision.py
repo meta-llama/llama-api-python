@@ -1,7 +1,7 @@
 # type: ignore
 
-import os
 import base64
+import os
 
 from llama_api import LlamaAPI
 
@@ -18,7 +18,7 @@ def run(stream: bool = False) -> None:
     encoded_image2 = encode_image(os.path.join(os.path.dirname(__file__), "logo2.png"))
 
     response = client.chat.completions.create(
-        model="Llama-4-17B-128E-Omni",
+        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
         messages=[
             {
                 "role": "user",
