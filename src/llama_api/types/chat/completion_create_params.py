@@ -5,14 +5,10 @@ from __future__ import annotations
 from typing import Dict, Union, Iterable, Optional
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from ..user_message_param import UserMessageParam
-from ..system_message_param import SystemMessageParam
-from ..completion_message_param import CompletionMessageParam
-from ..tool_response_message_param import ToolResponseMessageParam
+from ..message_param import MessageParam
 
 __all__ = [
     "CompletionCreateParamsBase",
-    "Message",
     "ResponseFormat",
     "ResponseFormatJsonSchemaResponseFormat",
     "ResponseFormatJsonSchemaResponseFormatJsonSchema",
@@ -28,7 +24,7 @@ __all__ = [
 
 
 class CompletionCreateParamsBase(TypedDict, total=False):
-    messages: Required[Iterable[Message]]
+    messages: Required[Iterable[MessageParam]]
     """List of messages in the conversation."""
 
     model: Required[str]
@@ -80,9 +76,6 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     Controls diversity of the response by setting a probability threshold when
     choosing the next token.
     """
-
-
-Message: TypeAlias = Union[UserMessageParam, SystemMessageParam, ToolResponseMessageParam, CompletionMessageParam]
 
 
 class ResponseFormatJsonSchemaResponseFormatJsonSchema(TypedDict, total=False):
