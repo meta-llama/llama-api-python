@@ -8,6 +8,7 @@ from llama_api.types import (
     CreateChatCompletionRequest,
     CreateChatCompletionResponse,
     CreateChatCompletionResponseStreamChunk,
+    Message,
     MessageImageContentItem,
     MessageReasoningContentItem,
     MessageTextContentItem,

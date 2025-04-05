@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from .llama_model import LlamaModel as LlamaModel
+from .message_param import MessageParam as MessageParam
 from .completion_message import CompletionMessage as CompletionMessage
 from .user_message_param import UserMessageParam as UserMessageParam
 from .model_list_response import ModelListResponse as ModelListResponse
