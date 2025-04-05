@@ -42,14 +42,7 @@ Methods:
 Types:
 
 ```python
-from llama_api.types import (
-    CompletionMessage,
-    Message,
-    SystemMessage,
-    ToolResponseMessage,
-    UserMessage,
-    ModerationCreateResponse,
-)
+from llama_api.types import ModerationCreateResponse
 ```
 
 Methods:
