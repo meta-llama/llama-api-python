@@ -1,7 +1,7 @@
 # type: ignore
 
-import base64
 import os
+import base64
 
 from llama_api import LlamaAPI
 
