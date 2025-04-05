@@ -5,15 +5,15 @@ from __future__ import annotations
 from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
-from .message_text_content_item_param import MessageTextContentItemParam
-from .message_image_content_item_param import MessageImageContentItemParam
+from ..message_text_content_item_param import MessageTextContentItemParam
+from ..message_image_content_item_param import MessageImageContentItemParam
 
-__all__ = ["UserMessageParam", "ContentArrayOfContentItem"]
+__all__ = ["UserMessage", "ContentArrayOfContentItem"]
 
 ContentArrayOfContentItem: TypeAlias = Union[MessageTextContentItemParam, MessageImageContentItemParam]
 
 
-class UserMessageParam(TypedDict, total=False):
+class UserMessage(TypedDict, total=False):
     content: Required[Union[str, Iterable[ContentArrayOfContentItem]]]
     """The content of the user message, which can include text and other media."""
 

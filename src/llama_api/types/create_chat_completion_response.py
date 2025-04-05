@@ -3,7 +3,7 @@
 from typing import List, Optional
 
 from .._models import BaseModel
-from .completion_message import CompletionMessage
+from .shared.completion_message import CompletionMessage
 
 __all__ = ["CreateChatCompletionResponse", "Metric"]
 

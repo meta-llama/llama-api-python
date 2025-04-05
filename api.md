@@ -1,20 +1,27 @@
+# Shared Types
+
+```python
+from llama_api.types import (
+    CompletionMessage,
+    Message,
+    SystemMessage,
+    ToolResponseMessage,
+    UserMessage,
+)
+```
+
 # Chat
 
 Types:
 
 ```python
 from llama_api.types import (
-    CompletionMessage,
     CreateChatCompletionRequest,
     CreateChatCompletionResponse,
     CreateChatCompletionResponseStreamChunk,
-    Message,
     MessageImageContentItem,
     MessageReasoningContentItem,
     MessageTextContentItem,
-    SystemMessage,
-    ToolResponseMessage,
-    UserMessage,
 )
 ```
 
