@@ -25,7 +25,7 @@ from ._utils import (
     get_async_library,
 )
 from ._version import __version__
-from .resources import models
+from .resources import models, moderations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError
 from ._base_client import (
@@ -50,6 +50,7 @@ __all__ = [
 class LlamaAPI(SyncAPIClient):
     chat: chat.ChatResource
     models: models.ModelsResource
+    moderations: moderations.ModerationsResource
     with_raw_response: LlamaAPIWithRawResponse
     with_streaming_response: LlamaAPIWithStreamedResponse
 
@@ -105,6 +106,7 @@ class LlamaAPI(SyncAPIClient):
 
         self.chat = chat.ChatResource(self)
         self.models = models.ModelsResource(self)
+        self.moderations = moderations.ModerationsResource(self)
         self.with_raw_response = LlamaAPIWithRawResponse(self)
         self.with_streaming_response = LlamaAPIWithStreamedResponse(self)
 
@@ -229,6 +231,7 @@ class LlamaAPI(SyncAPIClient):
 class AsyncLlamaAPI(AsyncAPIClient):
     chat: chat.AsyncChatResource
     models: models.AsyncModelsResource
+    moderations: moderations.AsyncModerationsResource
     with_raw_response: AsyncLlamaAPIWithRawResponse
     with_streaming_response: AsyncLlamaAPIWithStreamedResponse
 
@@ -284,6 +287,7 @@ class AsyncLlamaAPI(AsyncAPIClient):
 
         self.chat = chat.AsyncChatResource(self)
         self.models = models.AsyncModelsResource(self)
+        self.moderations = moderations.AsyncModerationsResource(self)
         self.with_raw_response = AsyncLlamaAPIWithRawResponse(self)
         self.with_streaming_response = AsyncLlamaAPIWithStreamedResponse(self)
 
@@ -409,24 +413,28 @@ class LlamaAPIWithRawResponse:
     def __init__(self, client: LlamaAPI) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.models = models.ModelsResourceWithRawResponse(client.models)
+        self.moderations = moderations.ModerationsResourceWithRawResponse(client.moderations)
 
 
 class AsyncLlamaAPIWithRawResponse:
     def __init__(self, client: AsyncLlamaAPI) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.models = models.AsyncModelsResourceWithRawResponse(client.models)
+        self.moderations = moderations.AsyncModerationsResourceWithRawResponse(client.moderations)
 
 
 class LlamaAPIWithStreamedResponse:
     def __init__(self, client: LlamaAPI) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.models = models.ModelsResourceWithStreamingResponse(client.models)
+        self.moderations = moderations.ModerationsResourceWithStreamingResponse(client.moderations)
 
 
 class AsyncLlamaAPIWithStreamedResponse:
     def __init__(self, client: AsyncLlamaAPI) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
+        self.moderations = moderations.AsyncModerationsResourceWithStreamingResponse(client.moderations)
 
 
 Client = LlamaAPI

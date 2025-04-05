@@ -24,6 +24,7 @@ from ..._response import (
 from ..._streaming import Stream, AsyncStream
 from ...types.chat import completion_create_params
 from ..._base_client import make_request_options
+from ...types.message_param import MessageParam
 from ...types.create_chat_completion_response import CreateChatCompletionResponse
 from ...types.create_chat_completion_response_stream_chunk import CreateChatCompletionResponseStreamChunk
 
@@ -54,7 +55,7 @@ class CompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
@@ -127,7 +128,7 @@ class CompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         stream: Literal[True],
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -200,7 +201,7 @@ class CompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         stream: bool,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -273,7 +274,7 @@ class CompletionsResource(SyncAPIResource):
     def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
@@ -344,7 +345,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,
@@ -417,7 +418,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         stream: Literal[True],
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -490,7 +491,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         stream: bool,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
@@ -563,7 +564,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
     async def create(
         self,
         *,
-        messages: Iterable[completion_create_params.Message],
+        messages: Iterable[MessageParam],
         model: str,
         max_completion_tokens: Optional[int] | NotGiven = NOT_GIVEN,
         repetition_penalty: float | NotGiven = NOT_GIVEN,

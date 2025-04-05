@@ -1735,7 +1735,7 @@ class TestAsyncLlamaAPI:
         import threading
 
         from llama_api._utils import asyncify
-        from llama_api._base_client import get_platform 
+        from llama_api._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()

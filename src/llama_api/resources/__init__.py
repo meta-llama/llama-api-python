@@ -16,6 +16,14 @@ from .models import (
     ModelsResourceWithStreamingResponse,
     AsyncModelsResourceWithStreamingResponse,
 )
+from .moderations import (
+    ModerationsResource,
+    AsyncModerationsResource,
+    ModerationsResourceWithRawResponse,
+    AsyncModerationsResourceWithRawResponse,
+    ModerationsResourceWithStreamingResponse,
+    AsyncModerationsResourceWithStreamingResponse,
+)
 
 __all__ = [
     "ChatResource",
@@ -30,4 +38,10 @@ __all__ = [
     "AsyncModelsResourceWithRawResponse",
     "ModelsResourceWithStreamingResponse",
     "AsyncModelsResourceWithStreamingResponse",
+    "ModerationsResource",
+    "AsyncModerationsResource",
+    "ModerationsResourceWithRawResponse",
+    "AsyncModerationsResourceWithRawResponse",
+    "ModerationsResourceWithStreamingResponse",
+    "AsyncModerationsResourceWithStreamingResponse",
 ]
