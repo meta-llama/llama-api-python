@@ -1,8 +1,14 @@
 # type: ignore
 
+import json
+
 from llama_api import LlamaAPI
 
 client = LlamaAPI()
+
+
+def get_weather(location: str) -> str:
+    return f"The weather in {location} is sunny."
 
 
 def run(stream: bool = False) -> None:
@@ -37,7 +43,7 @@ def run(stream: bool = False) -> None:
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
-        temperature=0.9,
+        temperature=0.6,
         stream=stream,
     )
 
@@ -78,20 +84,25 @@ def run(stream: bool = False) -> None:
 
     # Next Turn
     messages.append(completion_message)
-    messages.append(
-        {
-            "role": "tool",
-            "tool_call_id": completion_message["tool_calls"][0]["id"],
-            "content": "raining",
-        },
-    )
+    for tool_call in completion_message["tool_calls"]:
+        if tool_call["function"]["name"] == "get_weather":
+            parse_args = json.loads(tool_call["function"]["arguments"])
+            result = get_weather(**parse_args)
+
+            messages.append(
+                {
+                    "role": "tool",
+                    "tool_call_id": tool_call["id"],
+                    "content": result,
+                },
+            )
 
     response = client.chat.completions.create(
         model="Llama-3.3-70B-Instruct",
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
-        temperature=0.9,
+        temperature=0.6,
         stream=stream,
     )
 
