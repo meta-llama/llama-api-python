@@ -38,7 +38,7 @@ def run(stream: bool = False) -> None:
     ]
 
     response = client.chat.completions.create(
-        model="Llama-3.3-70B-Instruct",
+        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
@@ -97,7 +97,7 @@ def run(stream: bool = False) -> None:
             )
 
     response = client.chat.completions.create(
-        model="Llama-3.3-70B-Instruct",
+        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
