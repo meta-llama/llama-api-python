@@ -34,7 +34,6 @@ def run(stream: bool = False) -> None:
         }
     ]
     messages = [
-        {"role": "system", "content": "You are a helpful assistant."},
         {"role": "user", "content": "Is it raining in Bellevue?"},
     ]
 
