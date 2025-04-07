@@ -1,28 +1,50 @@
-# Inference
+# Chat
 
 Types:
 
 ```python
 from llama_api.types import (
-    ChatCompletionRequest,
-    ChatCompletionResponse,
-    ChatCompletionResponseStreamChunk,
+    CompletionMessage,
+    CreateChatCompletionRequest,
+    CreateChatCompletionResponse,
+    CreateChatCompletionResponseStreamChunk,
+    Message,
+    MessageImageContentItem,
+    MessageReasoningContentItem,
+    MessageTextContentItem,
+    SystemMessage,
+    ToolResponseMessage,
+    UserMessage,
 )
 ```
 
+## Completions
+
 Methods:
 
-- <code title="post /v1/inference/chat-completion">client.inference.<a href="./src/llama_api/resources/inference.py">chat_completion</a>(\*\*<a href="src/llama_api/types/inference_chat_completion_params.py">params</a>) -> <a href="./src/llama_api/types/chat_completion_response.py">ChatCompletionResponse</a></code>
+- <code title="post /v1/chat/completions">client.chat.completions.<a href="./src/llama_api/resources/chat/completions.py">create</a>(\*\*<a href="src/llama_api/types/chat/completion_create_params.py">params</a>) -> <a href="./src/llama_api/types/create_chat_completion_response.py">CreateChatCompletionResponse</a></code>
 
 # Models
 
 Types:
 
 ```python
-from llama_api.types import Model, ModelListResponse
+from llama_api.types import LlamaModel, ModelListResponse
 ```
 
 Methods:
 
-- <code title="get /v1/models/{model_id}">client.models.<a href="./src/llama_api/resources/models.py">retrieve</a>(model_id) -> <a href="./src/llama_api/types/model.py">Model</a></code>
+- <code title="get /v1/models/{model}">client.models.<a href="./src/llama_api/resources/models.py">retrieve</a>(model) -> <a href="./src/llama_api/types/llama_model.py">LlamaModel</a></code>
 - <code title="get /v1/models">client.models.<a href="./src/llama_api/resources/models.py">list</a>() -> <a href="./src/llama_api/types/model_list_response.py">ModelListResponse</a></code>
+
+# Moderations
+
+Types:
+
+```python
+from llama_api.types import ModerationCreateResponse
+```
+
+Methods:
+
+- <code title="post /v1/moderations">client.moderations.<a href="./src/llama_api/resources/moderations.py">create</a>(\*\*<a href="src/llama_api/types/moderation_create_params.py">params</a>) -> <a href="./src/llama_api/types/moderation_create_response.py">ModerationCreateResponse</a></code>
