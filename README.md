@@ -1,8 +1,8 @@
-# Llama API Python API library
+# Llama API Client Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/llama_api.svg)](https://pypi.org/project/llama_api/)
+[![PyPI version](https://img.shields.io/pypi/v/llama_api_client.svg)](https://pypi.org/project/llama_api_client/)
 
-The Llama API Python library provides convenient access to the Llama API REST API from any Python 3.8+
+The Llama API Client Python library provides convenient access to the Llama API Client REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
@@ -20,7 +20,7 @@ pip install git+ssh://git@github.com/stainless-sdks/llama-api-python.git
 ```
 
 > [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre llama_api`
+> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre llama_api_client`
 
 ## Usage
 
@@ -28,9 +28,9 @@ The full API of this library can be found in [api.md](api.md).
 
 ```python
 import os
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
-client = LlamaAPI(
+client = LlamaAPIClient(
     api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -53,14 +53,14 @@ so that your API Key is not stored in source control.
 
 ## Async usage
 
-Simply import `AsyncLlamaAPI` instead of `LlamaAPI` and use `await` with each API call:
+Simply import `AsyncLlamaAPIClient` instead of `LlamaAPIClient` and use `await` with each API call:
 
 ```python
 import os
 import asyncio
-from llama_api import AsyncLlamaAPI
+from llama_api_client import AsyncLlamaAPIClient
 
-client = AsyncLlamaAPI(
+client = AsyncLlamaAPIClient(
     api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
 )
 
@@ -88,9 +88,9 @@ Functionality between the synchronous and asynchronous clients is otherwise iden
 We provide support for streaming responses using Server Side Events (SSE).
 
 ```python
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
-client = LlamaAPI()
+client = LlamaAPIClient()
 
 stream = client.chat.completions.create(
     messages=[
@@ -109,9 +109,9 @@ for create_chat_completion_response in stream:
 The async client uses the exact same interface.
 
 ```python
-from llama_api import AsyncLlamaAPI
+from llama_api_client import AsyncLlamaAPIClient
 
-client = AsyncLlamaAPI()
+client = AsyncLlamaAPIClient()
 
 stream = await client.chat.completions.create(
     messages=[
@@ -138,18 +138,18 @@ Typed requests and responses provide autocomplete and documentation within your 
 
 ## Handling errors
 
-When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `llama_api.APIConnectionError` is raised.
+When the library is unable to connect to the API (for example, due to network connection problems or a timeout), a subclass of `llama_api_client.APIConnectionError` is raised.
 
 When the API returns a non-success status code (that is, 4xx or 5xx
-response), a subclass of `llama_api.APIStatusError` is raised, containing `status_code` and `response` properties.
+response), a subclass of `llama_api_client.APIStatusError` is raised, containing `status_code` and `response` properties.
 
-All errors inherit from `llama_api.APIError`.
+All errors inherit from `llama_api_client.APIError`.
 
 ```python
-import llama_api
-from llama_api import LlamaAPI
+import llama_api_client
+from llama_api_client import LlamaAPIClient
 
-client = LlamaAPI()
+client = LlamaAPIClient()
 
 try:
     client.chat.completions.create(
@@ -161,12 +161,12 @@ try:
         ],
         model="model",
     )
-except llama_api.APIConnectionError as e:
+except llama_api_client.APIConnectionError as e:
     print("The server could not be reached")
     print(e.__cause__)  # an underlying Exception, likely raised within httpx.
-except llama_api.RateLimitError as e:
+except llama_api_client.RateLimitError as e:
     print("A 429 status code was received; we should back off a bit.")
-except llama_api.APIStatusError as e:
+except llama_api_client.APIStatusError as e:
     print("Another non-200-range status code was received")
     print(e.status_code)
     print(e.response)
@@ -194,10 +194,10 @@ Connection errors (for example, due to a network connectivity problem), 408 Requ
 You can use the `max_retries` option to configure or disable retry settings:
 
 ```python
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
 # Configure the default for all requests:
-client = LlamaAPI(
+client = LlamaAPIClient(
     # default is 2
     max_retries=0,
 )
@@ -220,16 +220,16 @@ By default requests time out after 1 minute. You can configure this with a `time
 which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
 
 ```python
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
 # Configure the default for all requests:
-client = LlamaAPI(
+client = LlamaAPIClient(
     # 20 seconds (default is 1 minute)
     timeout=20.0,
 )
 
 # More granular control:
-client = LlamaAPI(
+client = LlamaAPIClient(
     timeout=httpx.Timeout(60.0, read=5.0, write=10.0, connect=2.0),
 )
 
@@ -255,10 +255,10 @@ Note that requests that time out are [retried twice by default](#retries).
 
 We use the standard library [`logging`](https://docs.python.org/3/library/logging.html) module.
 
-You can enable logging by setting the environment variable `LLAMA_API_LOG` to `info`.
+You can enable logging by setting the environment variable `LLAMA_API_CLIENT_LOG` to `info`.
 
 ```shell
-$ export LLAMA_API_LOG=info
+$ export LLAMA_API_CLIENT_LOG=info
 ```
 
 Or to `debug` for more verbose logging.
@@ -280,9 +280,9 @@ if response.my_field is None:
 The "raw" Response object can be accessed by prefixing `.with_raw_response.` to any HTTP method call, e.g.,
 
 ```py
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
-client = LlamaAPI()
+client = LlamaAPIClient()
 response = client.chat.completions.with_raw_response.create(
     messages=[{
         "content": "string",
@@ -296,9 +296,9 @@ completion = response.parse()  # get the object that `chat.completions.create()`
 print(completion.completion_message)
 ```
 
-These methods return an [`APIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api_client/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -368,10 +368,10 @@ You can directly override the [httpx client](https://www.python-httpx.org/api/#c
 
 ```python
 import httpx
-from llama_api import LlamaAPI, DefaultHttpxClient
+from llama_api_client import LlamaAPIClient, DefaultHttpxClient
 
-client = LlamaAPI(
-    # Or use the `LLAMA_API_BASE_URL` env var
+client = LlamaAPIClient(
+    # Or use the `LLAMA_API_CLIENT_BASE_URL` env var
     base_url="http://my.test.server.example.com:8083",
     http_client=DefaultHttpxClient(
         proxy="http://my.test.proxy.example.com",
@@ -391,9 +391,9 @@ client.with_options(http_client=DefaultHttpxClient(...))
 By default the library closes underlying HTTP connections whenever the client is [garbage collected](https://docs.python.org/3/reference/datamodel.html#object.__del__). You can manually close the client using the `.close()` method if desired, or with a context manager that closes when exiting.
 
 ```py
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
-with LlamaAPI() as client:
+with LlamaAPIClient() as client:
   # make requests here
   ...
 
@@ -419,8 +419,8 @@ If you've upgraded to the latest version but aren't seeing any new features you 
 You can determine the version that is being used at runtime with:
 
 ```py
-import llama_api
-print(llama_api.__version__)
+import llama_api_client
+print(llama_api_client.__version__)
 ```
 
 ## Requirements

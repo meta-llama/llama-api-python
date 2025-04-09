@@ -7,12 +7,12 @@ from ._client import (
     Client,
     Stream,
     Timeout,
-    LlamaAPI,
     Transport,
     AsyncClient,
     AsyncStream,
-    AsyncLlamaAPI,
+    LlamaAPIClient,
     RequestOptions,
+    AsyncLlamaAPIClient,
 )
 from ._models import BaseModel
 from ._version import __title__, __version__
@@ -21,7 +21,6 @@ from ._constants import DEFAULT_TIMEOUT, DEFAULT_MAX_RETRIES, DEFAULT_CONNECTION
 from ._exceptions import (
     APIError,
     ConflictError,
-    LlamaAPIError,
     NotFoundError,
     APIStatusError,
     RateLimitError,
@@ -30,6 +29,7 @@ from ._exceptions import (
     APIConnectionError,
     AuthenticationError,
     InternalServerError,
+    LlamaAPIClientError,
     PermissionDeniedError,
     UnprocessableEntityError,
     APIResponseValidationError,
@@ -47,7 +47,7 @@ __all__ = [
     "NotGiven",
     "NOT_GIVEN",
     "Omit",
-    "LlamaAPIError",
+    "LlamaAPIClientError",
     "APIError",
     "APIStatusError",
     "APITimeoutError",
@@ -67,8 +67,8 @@ __all__ = [
     "AsyncClient",
     "Stream",
     "AsyncStream",
-    "LlamaAPI",
-    "AsyncLlamaAPI",
+    "LlamaAPIClient",
+    "AsyncLlamaAPIClient",
     "file_from_path",
     "BaseModel",
     "DEFAULT_TIMEOUT",
@@ -83,12 +83,12 @@ _setup_logging()
 # Update the __module__ attribute for exported symbols so that
 # error messages point to this module instead of the module
 # it was originally defined in, e.g.
-# llama_api._exceptions.NotFoundError -> llama_api.NotFoundError
+# llama_api_client._exceptions.NotFoundError -> llama_api_client.NotFoundError
 __locals = locals()
 for __name in __all__:
     if not __name.startswith("__"):
         try:
-            __locals[__name].__module__ = "llama_api"
+            __locals[__name].__module__ = "llama_api_client"
         except (TypeError, AttributeError):
             # Some of our exported symbols are builtins which we can't set attributes for.
             pass
