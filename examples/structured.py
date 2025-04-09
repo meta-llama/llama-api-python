@@ -1,9 +1,9 @@
 # type: ignore
 
-from llama_api_client import LlamaApiClient
+from llama_api_client import LlamaAPIClient
 from pydantic import BaseModel
 
-client = LlamaApiClient()
+client = LlamaAPIClient()
 
 
 class Address(BaseModel):

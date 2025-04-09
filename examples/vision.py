@@ -3,9 +3,9 @@
 import base64
 import os
 
-from llama_api_client import LlamaApiClient
+from llama_api_client import LlamaAPIClient
 
-client = LlamaApiClient()
+client = LlamaAPIClient()
 
 
 def encode_image(image_path: str) -> str:
