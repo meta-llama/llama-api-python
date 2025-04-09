@@ -2,9 +2,9 @@
 
 import asyncio
 
-from llama_api import AsyncLlamaAPI
+from llama_api_client import AsyncLlamaApiClient
 
-client = AsyncLlamaAPI()
+client = AsyncLlamaApiClient()
 
 
 async def main() -> None:

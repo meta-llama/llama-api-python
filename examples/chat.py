@@ -1,8 +1,8 @@
 # type: ignore
 
-from llama_api import LlamaAPI
+from llama_api_client import LlamaApiClient
 
-client = LlamaAPI()
+client = LlamaApiClient()
 
 # Non-Streaming
 response = client.chat.completions.create(

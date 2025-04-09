@@ -2,9 +2,9 @@
 
 import json
 
-from llama_api import LlamaAPI
+from llama_api_client import LlamaApiClient
 
-client = LlamaAPI()
+client = LlamaApiClient()
 
 
 def get_weather(location: str) -> str:
