@@ -8,13 +8,13 @@ from typing import TYPE_CHECKING
 import anyio
 
 if TYPE_CHECKING:
-    from ._client import LlamaAPI, AsyncLlamaAPI
+    from ._client import LlamaAPIClient, AsyncLlamaAPIClient
 
 
 class SyncAPIResource:
-    _client: LlamaAPI
+    _client: LlamaAPIClient
 
-    def __init__(self, client: LlamaAPI) -> None:
+    def __init__(self, client: LlamaAPIClient) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post
@@ -28,9 +28,9 @@ class SyncAPIResource:
 
 
 class AsyncAPIResource:
-    _client: AsyncLlamaAPI
+    _client: AsyncLlamaAPIClient
 
-    def __init__(self, client: AsyncLlamaAPI) -> None:
+    def __init__(self, client: AsyncLlamaAPIClient) -> None:
         self._client = client
         self._get = client.get
         self._post = client.post

@@ -4,7 +4,7 @@ from urllib.parse import unquote
 
 import pytest
 
-from llama_api._qs import Querystring, stringify
+from llama_api_client._qs import Querystring, stringify
 
 
 def test_empty() -> None:

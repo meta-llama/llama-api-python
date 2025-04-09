@@ -40,19 +40,19 @@ __all__ = [
     "Transport",
     "ProxiesTypes",
     "RequestOptions",
-    "LlamaAPI",
-    "AsyncLlamaAPI",
+    "LlamaAPIClient",
+    "AsyncLlamaAPIClient",
     "Client",
     "AsyncClient",
 ]
 
 
-class LlamaAPI(SyncAPIClient):
+class LlamaAPIClient(SyncAPIClient):
     chat: chat.ChatResource
     models: models.ModelsResource
     moderations: moderations.ModerationsResource
-    with_raw_response: LlamaAPIWithRawResponse
-    with_streaming_response: LlamaAPIWithStreamedResponse
+    with_raw_response: LlamaAPIClientWithRawResponse
+    with_streaming_response: LlamaAPIClientWithStreamedResponse
 
     # client options
     api_key: str | None
@@ -80,7 +80,7 @@ class LlamaAPI(SyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new synchronous LlamaAPI client instance.
+        """Construct a new synchronous LlamaAPIClient client instance.
 
         This automatically infers the `api_key` argument from the `LLAMA_API_KEY` environment variable if it is not provided.
         """
@@ -89,7 +89,7 @@ class LlamaAPI(SyncAPIClient):
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("LLAMA_API_BASE_URL")
+            base_url = os.environ.get("LLAMA_API_CLIENT_BASE_URL")
         if base_url is None:
             base_url = f"https://api.llama.com"
 
@@ -107,8 +107,8 @@ class LlamaAPI(SyncAPIClient):
         self.chat = chat.ChatResource(self)
         self.models = models.ModelsResource(self)
         self.moderations = moderations.ModerationsResource(self)
-        self.with_raw_response = LlamaAPIWithRawResponse(self)
-        self.with_streaming_response = LlamaAPIWithStreamedResponse(self)
+        self.with_raw_response = LlamaAPIClientWithRawResponse(self)
+        self.with_streaming_response = LlamaAPIClientWithStreamedResponse(self)
 
     @property
     @override
@@ -228,12 +228,12 @@ class LlamaAPI(SyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class AsyncLlamaAPI(AsyncAPIClient):
+class AsyncLlamaAPIClient(AsyncAPIClient):
     chat: chat.AsyncChatResource
     models: models.AsyncModelsResource
     moderations: moderations.AsyncModerationsResource
-    with_raw_response: AsyncLlamaAPIWithRawResponse
-    with_streaming_response: AsyncLlamaAPIWithStreamedResponse
+    with_raw_response: AsyncLlamaAPIClientWithRawResponse
+    with_streaming_response: AsyncLlamaAPIClientWithStreamedResponse
 
     # client options
     api_key: str | None
@@ -261,7 +261,7 @@ class AsyncLlamaAPI(AsyncAPIClient):
         # part of our public interface in the future.
         _strict_response_validation: bool = False,
     ) -> None:
-        """Construct a new async AsyncLlamaAPI client instance.
+        """Construct a new async AsyncLlamaAPIClient client instance.
 
         This automatically infers the `api_key` argument from the `LLAMA_API_KEY` environment variable if it is not provided.
         """
@@ -270,7 +270,7 @@ class AsyncLlamaAPI(AsyncAPIClient):
         self.api_key = api_key
 
         if base_url is None:
-            base_url = os.environ.get("LLAMA_API_BASE_URL")
+            base_url = os.environ.get("LLAMA_API_CLIENT_BASE_URL")
         if base_url is None:
             base_url = f"https://api.llama.com"
 
@@ -288,8 +288,8 @@ class AsyncLlamaAPI(AsyncAPIClient):
         self.chat = chat.AsyncChatResource(self)
         self.models = models.AsyncModelsResource(self)
         self.moderations = moderations.AsyncModerationsResource(self)
-        self.with_raw_response = AsyncLlamaAPIWithRawResponse(self)
-        self.with_streaming_response = AsyncLlamaAPIWithStreamedResponse(self)
+        self.with_raw_response = AsyncLlamaAPIClientWithRawResponse(self)
+        self.with_streaming_response = AsyncLlamaAPIClientWithStreamedResponse(self)
 
     @property
     @override
@@ -409,34 +409,34 @@ class AsyncLlamaAPI(AsyncAPIClient):
         return APIStatusError(err_msg, response=response, body=body)
 
 
-class LlamaAPIWithRawResponse:
-    def __init__(self, client: LlamaAPI) -> None:
+class LlamaAPIClientWithRawResponse:
+    def __init__(self, client: LlamaAPIClient) -> None:
         self.chat = chat.ChatResourceWithRawResponse(client.chat)
         self.models = models.ModelsResourceWithRawResponse(client.models)
         self.moderations = moderations.ModerationsResourceWithRawResponse(client.moderations)
 
 
-class AsyncLlamaAPIWithRawResponse:
-    def __init__(self, client: AsyncLlamaAPI) -> None:
+class AsyncLlamaAPIClientWithRawResponse:
+    def __init__(self, client: AsyncLlamaAPIClient) -> None:
         self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
         self.models = models.AsyncModelsResourceWithRawResponse(client.models)
         self.moderations = moderations.AsyncModerationsResourceWithRawResponse(client.moderations)
 
 
-class LlamaAPIWithStreamedResponse:
-    def __init__(self, client: LlamaAPI) -> None:
+class LlamaAPIClientWithStreamedResponse:
+    def __init__(self, client: LlamaAPIClient) -> None:
         self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
         self.models = models.ModelsResourceWithStreamingResponse(client.models)
         self.moderations = moderations.ModerationsResourceWithStreamingResponse(client.moderations)
 
 
-class AsyncLlamaAPIWithStreamedResponse:
-    def __init__(self, client: AsyncLlamaAPI) -> None:
+class AsyncLlamaAPIClientWithStreamedResponse:
+    def __init__(self, client: AsyncLlamaAPIClient) -> None:
         self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
         self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
         self.moderations = moderations.AsyncModerationsResourceWithStreamingResponse(client.moderations)
 
 
-Client = LlamaAPI
+Client = LlamaAPIClient
 
-AsyncClient = AsyncLlamaAPI
+AsyncClient = AsyncLlamaAPIClient
