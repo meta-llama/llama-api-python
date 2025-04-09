@@ -3,7 +3,7 @@ name = "llama_api"
 version = "0.0.1-alpha.0"
 description = "The official Python library for the llama-api API"
 dynamic = ["readme"]
-license = "Apache-2.0"
+license = "MIT"
 authors = [
 { name = "Llama API", email = "dev-feedback@llama-api.com" },
 ]
@@ -30,12 +30,12 @@ classifiers = [
   "Operating System :: POSIX :: Linux",
   "Operating System :: Microsoft :: Windows",
   "Topic :: Software Development :: Libraries :: Python Modules",
-  "License :: OSI Approved :: Apache Software License"
+  "License :: OSI Approved :: MIT License"
 ]
 
 [project.urls]
-Homepage = "https://github.com/meta-llama/llama-api-python"
-Repository = "https://github.com/meta-llama/llama-api-python"
+Homepage = "https://github.com/stainless-sdks/llama-api-python"
+Repository = "https://github.com/stainless-sdks/llama-api-python"
 
 
 [tool.rye]
@@ -121,7 +121,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/meta-llama/llama-api-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/stainless-sdks/llama-api-python/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
