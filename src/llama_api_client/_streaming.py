@@ -12,7 +12,7 @@ import httpx
 from ._utils import extract_type_var_from_base
 
 if TYPE_CHECKING:
-    from ._client import LlamaAPI, AsyncLlamaAPI
+    from ._client import LlamaAPIClient, AsyncLlamaAPIClient
 
 
 _T = TypeVar("_T")
@@ -30,7 +30,7 @@ class Stream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: LlamaAPI,
+        client: LlamaAPIClient,
     ) -> None:
         self.response = response
         self._cast_to = cast_to
@@ -93,7 +93,7 @@ class AsyncStream(Generic[_T]):
         *,
         cast_to: type[_T],
         response: httpx.Response,
-        client: AsyncLlamaAPI,
+        client: AsyncLlamaAPIClient,
     ) -> None:
         self.response = response
         self._cast_to = cast_to

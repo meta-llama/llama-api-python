@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class LlamaAPIError(Exception):
+class LlamaAPIClientError(Exception):
     pass
 
 
-class APIError(LlamaAPIError):
+class APIError(LlamaAPIClientError):
     message: str
     request: httpx.Request
 
