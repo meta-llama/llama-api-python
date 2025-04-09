@@ -6,11 +6,10 @@ from typing import Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from .message_text_content_item_param import MessageTextContentItemParam
-from .message_reasoning_content_item_param import MessageReasoningContentItemParam
 
 __all__ = ["CompletionMessageParam", "Content", "ToolCall", "ToolCallFunction"]
 
-Content: TypeAlias = Union[str, MessageTextContentItemParam, MessageReasoningContentItemParam]
+Content: TypeAlias = Union[str, MessageTextContentItemParam]
 
 
 class ToolCallFunction(TypedDict, total=False):

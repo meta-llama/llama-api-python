@@ -16,5 +16,5 @@ class MessageImageContentItemParam(TypedDict, total=False):
     image_url: Required[ImageURL]
     """Contains either an image URL or a data URL for a base64 encoded image."""
 
-    type: Required[Literal["image"]]
+    type: Required[Literal["image_url"]]
     """Discriminator type of the content item. Always "image" """
