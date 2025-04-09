@@ -21,19 +21,19 @@ import pytest
 from respx import MockRouter
 from pydantic import ValidationError
 
-from llama_api import LlamaAPI, AsyncLlamaAPI, APIResponseValidationError
-from llama_api._types import Omit
-from llama_api._utils import maybe_transform
-from llama_api._models import BaseModel, FinalRequestOptions
-from llama_api._constants import RAW_RESPONSE_HEADER
-from llama_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
-from llama_api._base_client import (
+from yanxi0830_api import Yanxi0830API, AsyncYanxi0830API, APIResponseValidationError
+from yanxi0830_api._types import Omit
+from yanxi0830_api._utils import maybe_transform
+from yanxi0830_api._models import BaseModel, FinalRequestOptions
+from yanxi0830_api._constants import RAW_RESPONSE_HEADER
+from yanxi0830_api._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from yanxi0830_api._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
     BaseClient,
     make_request_options,
 )
-from llama_api.types.chat.completion_create_params import CompletionCreateParamsNonStreaming
+from yanxi0830_api.types.chat.completion_create_params import CompletionCreateParamsNonStreaming
 
 from .utils import update_env
 
@@ -51,7 +51,7 @@ def _low_retry_timeout(*_args: Any, **_kwargs: Any) -> float:
     return 0.1
 
 
-def _get_open_connections(client: LlamaAPI | AsyncLlamaAPI) -> int:
+def _get_open_connections(client: Yanxi0830API | AsyncYanxi0830API) -> int:
     transport = client._client._transport
     assert isinstance(transport, httpx.HTTPTransport) or isinstance(transport, httpx.AsyncHTTPTransport)
 
@@ -59,8 +59,8 @@ def _get_open_connections(client: LlamaAPI | AsyncLlamaAPI) -> int:
     return len(pool._requests)
 
 
-class TestLlamaAPI:
-    client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestYanxi0830API:
+    client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     def test_raw_response(self, respx_mock: MockRouter) -> None:
@@ -107,7 +107,7 @@ class TestLlamaAPI:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = LlamaAPI(
+        client = Yanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -141,7 +141,7 @@ class TestLlamaAPI:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = LlamaAPI(
+        client = Yanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -232,10 +232,10 @@ class TestLlamaAPI:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "llama_api/_legacy_response.py",
-                        "llama_api/_response.py",
+                        "yanxi0830_api/_legacy_response.py",
+                        "yanxi0830_api/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "llama_api/_compat.py",
+                        "yanxi0830_api/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -266,7 +266,7 @@ class TestLlamaAPI:
         assert timeout == httpx.Timeout(100.0)
 
     def test_client_timeout_option(self) -> None:
-        client = LlamaAPI(
+        client = Yanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -277,7 +277,7 @@ class TestLlamaAPI:
     def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         with httpx.Client(timeout=None) as http_client:
-            client = LlamaAPI(
+            client = Yanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -287,7 +287,7 @@ class TestLlamaAPI:
 
         # no timeout given to the httpx client should not use the httpx default
         with httpx.Client() as http_client:
-            client = LlamaAPI(
+            client = Yanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -297,7 +297,7 @@ class TestLlamaAPI:
 
         # explicitly passing the default timeout currently results in it being ignored
         with httpx.Client(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = LlamaAPI(
+            client = Yanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -308,7 +308,7 @@ class TestLlamaAPI:
     async def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             async with httpx.AsyncClient() as http_client:
-                LlamaAPI(
+                Yanxi0830API(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -316,14 +316,14 @@ class TestLlamaAPI:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = LlamaAPI(
+        client = Yanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = LlamaAPI(
+        client2 = Yanxi0830API(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -337,12 +337,12 @@ class TestLlamaAPI:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with update_env(**{"LLAMA_API_KEY": Omit()}):
-            client2 = LlamaAPI(base_url=base_url, api_key=None, _strict_response_validation=True)
+            client2 = Yanxi0830API(base_url=base_url, api_key=None, _strict_response_validation=True)
 
         with pytest.raises(
             TypeError,
@@ -356,7 +356,7 @@ class TestLlamaAPI:
         assert request2.headers.get("Authorization") is None
 
     def test_default_query_option(self) -> None:
-        client = LlamaAPI(
+        client = Yanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -470,7 +470,7 @@ class TestLlamaAPI:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, client: LlamaAPI) -> None:
+    def test_multipart_repeating_array(self, client: Yanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -557,7 +557,9 @@ class TestLlamaAPI:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = LlamaAPI(base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True)
+        client = Yanxi0830API(
+            base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
+        )
         assert client.base_url == "https://example.com/from_init/"
 
         client.base_url = "https://example.com/from_setter"  # type: ignore[assignment]
@@ -565,15 +567,17 @@ class TestLlamaAPI:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(LLAMA_API_BASE_URL="http://localhost:5000/from/env"):
-            client = LlamaAPI(api_key=api_key, _strict_response_validation=True)
+        with update_env(YANXI0830_API_BASE_URL="http://localhost:5000/from/env"):
+            client = Yanxi0830API(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            LlamaAPI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            LlamaAPI(
+            Yanxi0830API(
+                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+            ),
+            Yanxi0830API(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -582,7 +586,7 @@ class TestLlamaAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: LlamaAPI) -> None:
+    def test_base_url_trailing_slash(self, client: Yanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -595,8 +599,10 @@ class TestLlamaAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            LlamaAPI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            LlamaAPI(
+            Yanxi0830API(
+                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+            ),
+            Yanxi0830API(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -605,7 +611,7 @@ class TestLlamaAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: LlamaAPI) -> None:
+    def test_base_url_no_trailing_slash(self, client: Yanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -618,8 +624,10 @@ class TestLlamaAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            LlamaAPI(base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True),
-            LlamaAPI(
+            Yanxi0830API(
+                base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
+            ),
+            Yanxi0830API(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -628,7 +636,7 @@ class TestLlamaAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: LlamaAPI) -> None:
+    def test_absolute_request_url(self, client: Yanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -639,7 +647,7 @@ class TestLlamaAPI:
         assert request.url == "https://myapi.com/foo"
 
     def test_copied_client_does_not_close_http(self) -> None:
-        client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -650,7 +658,7 @@ class TestLlamaAPI:
         assert not client.is_closed()
 
     def test_client_context_manager(self) -> None:
-        client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -671,7 +679,9 @@ class TestLlamaAPI:
 
     def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None))
+            Yanxi0830API(
+                base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
+            )
 
     @pytest.mark.respx(base_url=base_url)
     def test_received_text_for_expected_json(self, respx_mock: MockRouter) -> None:
@@ -680,12 +690,12 @@ class TestLlamaAPI:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             strict_client.get("/foo", cast_to=Model)
 
-        client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -713,14 +723,14 @@ class TestLlamaAPI:
     )
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -749,7 +759,7 @@ class TestLlamaAPI:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
@@ -779,12 +789,12 @@ class TestLlamaAPI:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     def test_retries_taken(
         self,
-        client: LlamaAPI,
+        client: Yanxi0830API,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -818,10 +828,10 @@ class TestLlamaAPI:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_omit_retry_count_header(
-        self, client: LlamaAPI, failures_before_success: int, respx_mock: MockRouter
+        self, client: Yanxi0830API, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -850,10 +860,10 @@ class TestLlamaAPI:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     def test_overwrite_retry_count_header(
-        self, client: LlamaAPI, failures_before_success: int, respx_mock: MockRouter
+        self, client: Yanxi0830API, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = client.with_options(max_retries=4)
 
@@ -882,8 +892,8 @@ class TestLlamaAPI:
         assert response.http_request.headers.get("x-stainless-retry-count") == "42"
 
 
-class TestAsyncLlamaAPI:
-    client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+class TestAsyncYanxi0830API:
+    client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
@@ -932,7 +942,7 @@ class TestAsyncLlamaAPI:
         assert isinstance(self.client.timeout, httpx.Timeout)
 
     def test_copy_default_headers(self) -> None:
-        client = AsyncLlamaAPI(
+        client = AsyncYanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         assert client.default_headers["X-Foo"] == "bar"
@@ -966,7 +976,7 @@ class TestAsyncLlamaAPI:
             client.copy(set_default_headers={}, default_headers={"X-Foo": "Bar"})
 
     def test_copy_default_query(self) -> None:
-        client = AsyncLlamaAPI(
+        client = AsyncYanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"foo": "bar"}
         )
         assert _get_params(client)["foo"] == "bar"
@@ -1057,10 +1067,10 @@ class TestAsyncLlamaAPI:
                         # to_raw_response_wrapper leaks through the @functools.wraps() decorator.
                         #
                         # removing the decorator fixes the leak for reasons we don't understand.
-                        "llama_api/_legacy_response.py",
-                        "llama_api/_response.py",
+                        "yanxi0830_api/_legacy_response.py",
+                        "yanxi0830_api/_response.py",
                         # pydantic.BaseModel.model_dump || pydantic.BaseModel.dict leak memory for some reason.
-                        "llama_api/_compat.py",
+                        "yanxi0830_api/_compat.py",
                         # Standard library leaks we don't care about.
                         "/logging/__init__.py",
                     ]
@@ -1091,7 +1101,7 @@ class TestAsyncLlamaAPI:
         assert timeout == httpx.Timeout(100.0)
 
     async def test_client_timeout_option(self) -> None:
-        client = AsyncLlamaAPI(
+        client = AsyncYanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, timeout=httpx.Timeout(0)
         )
 
@@ -1102,7 +1112,7 @@ class TestAsyncLlamaAPI:
     async def test_http_client_timeout_option(self) -> None:
         # custom timeout given to the httpx client should be used
         async with httpx.AsyncClient(timeout=None) as http_client:
-            client = AsyncLlamaAPI(
+            client = AsyncYanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1112,7 +1122,7 @@ class TestAsyncLlamaAPI:
 
         # no timeout given to the httpx client should not use the httpx default
         async with httpx.AsyncClient() as http_client:
-            client = AsyncLlamaAPI(
+            client = AsyncYanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1122,7 +1132,7 @@ class TestAsyncLlamaAPI:
 
         # explicitly passing the default timeout currently results in it being ignored
         async with httpx.AsyncClient(timeout=HTTPX_DEFAULT_TIMEOUT) as http_client:
-            client = AsyncLlamaAPI(
+            client = AsyncYanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, http_client=http_client
             )
 
@@ -1133,7 +1143,7 @@ class TestAsyncLlamaAPI:
     def test_invalid_http_client(self) -> None:
         with pytest.raises(TypeError, match="Invalid `http_client` arg"):
             with httpx.Client() as http_client:
-                AsyncLlamaAPI(
+                AsyncYanxi0830API(
                     base_url=base_url,
                     api_key=api_key,
                     _strict_response_validation=True,
@@ -1141,14 +1151,14 @@ class TestAsyncLlamaAPI:
                 )
 
     def test_default_headers_option(self) -> None:
-        client = AsyncLlamaAPI(
+        client = AsyncYanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_headers={"X-Foo": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("x-foo") == "bar"
         assert request.headers.get("x-stainless-lang") == "python"
 
-        client2 = AsyncLlamaAPI(
+        client2 = AsyncYanxi0830API(
             base_url=base_url,
             api_key=api_key,
             _strict_response_validation=True,
@@ -1162,12 +1172,12 @@ class TestAsyncLlamaAPI:
         assert request.headers.get("x-stainless-lang") == "my-overriding-header"
 
     def test_validate_headers(self) -> None:
-        client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
         with update_env(**{"LLAMA_API_KEY": Omit()}):
-            client2 = AsyncLlamaAPI(base_url=base_url, api_key=None, _strict_response_validation=True)
+            client2 = AsyncYanxi0830API(base_url=base_url, api_key=None, _strict_response_validation=True)
 
         with pytest.raises(
             TypeError,
@@ -1181,7 +1191,7 @@ class TestAsyncLlamaAPI:
         assert request2.headers.get("Authorization") is None
 
     def test_default_query_option(self) -> None:
-        client = AsyncLlamaAPI(
+        client = AsyncYanxi0830API(
             base_url=base_url, api_key=api_key, _strict_response_validation=True, default_query={"query_param": "bar"}
         )
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
@@ -1295,7 +1305,7 @@ class TestAsyncLlamaAPI:
         params = dict(request.url.params)
         assert params == {"foo": "2"}
 
-    def test_multipart_repeating_array(self, async_client: AsyncLlamaAPI) -> None:
+    def test_multipart_repeating_array(self, async_client: AsyncYanxi0830API) -> None:
         request = async_client._build_request(
             FinalRequestOptions.construct(
                 method="get",
@@ -1382,7 +1392,7 @@ class TestAsyncLlamaAPI:
         assert response.foo == 2
 
     def test_base_url_setter(self) -> None:
-        client = AsyncLlamaAPI(
+        client = AsyncYanxi0830API(
             base_url="https://example.com/from_init", api_key=api_key, _strict_response_validation=True
         )
         assert client.base_url == "https://example.com/from_init/"
@@ -1392,17 +1402,17 @@ class TestAsyncLlamaAPI:
         assert client.base_url == "https://example.com/from_setter/"
 
     def test_base_url_env(self) -> None:
-        with update_env(LLAMA_API_BASE_URL="http://localhost:5000/from/env"):
-            client = AsyncLlamaAPI(api_key=api_key, _strict_response_validation=True)
+        with update_env(YANXI0830_API_BASE_URL="http://localhost:5000/from/env"):
+            client = AsyncYanxi0830API(api_key=api_key, _strict_response_validation=True)
             assert client.base_url == "http://localhost:5000/from/env/"
 
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1411,7 +1421,7 @@ class TestAsyncLlamaAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_trailing_slash(self, client: AsyncLlamaAPI) -> None:
+    def test_base_url_trailing_slash(self, client: AsyncYanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1424,10 +1434,10 @@ class TestAsyncLlamaAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1436,7 +1446,7 @@ class TestAsyncLlamaAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_base_url_no_trailing_slash(self, client: AsyncLlamaAPI) -> None:
+    def test_base_url_no_trailing_slash(self, client: AsyncYanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1449,10 +1459,10 @@ class TestAsyncLlamaAPI:
     @pytest.mark.parametrize(
         "client",
         [
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url="http://localhost:5000/custom/path/", api_key=api_key, _strict_response_validation=True
             ),
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url="http://localhost:5000/custom/path/",
                 api_key=api_key,
                 _strict_response_validation=True,
@@ -1461,7 +1471,7 @@ class TestAsyncLlamaAPI:
         ],
         ids=["standard", "custom http client"],
     )
-    def test_absolute_request_url(self, client: AsyncLlamaAPI) -> None:
+    def test_absolute_request_url(self, client: AsyncYanxi0830API) -> None:
         request = client._build_request(
             FinalRequestOptions(
                 method="post",
@@ -1472,7 +1482,7 @@ class TestAsyncLlamaAPI:
         assert request.url == "https://myapi.com/foo"
 
     async def test_copied_client_does_not_close_http(self) -> None:
-        client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         assert not client.is_closed()
 
         copied = client.copy()
@@ -1484,7 +1494,7 @@ class TestAsyncLlamaAPI:
         assert not client.is_closed()
 
     async def test_client_context_manager(self) -> None:
-        client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
         async with client as c2:
             assert c2 is client
             assert not c2.is_closed()
@@ -1506,7 +1516,7 @@ class TestAsyncLlamaAPI:
 
     async def test_client_max_retries_validation(self) -> None:
         with pytest.raises(TypeError, match=r"max_retries cannot be None"):
-            AsyncLlamaAPI(
+            AsyncYanxi0830API(
                 base_url=base_url, api_key=api_key, _strict_response_validation=True, max_retries=cast(Any, None)
             )
 
@@ -1518,12 +1528,12 @@ class TestAsyncLlamaAPI:
 
         respx_mock.get("/foo").mock(return_value=httpx.Response(200, text="my-custom-format"))
 
-        strict_client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        strict_client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         with pytest.raises(APIResponseValidationError):
             await strict_client.get("/foo", cast_to=Model)
 
-        client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=False)
+        client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=False)
 
         response = await client.get("/foo", cast_to=Model)
         assert isinstance(response, str)  # type: ignore[unreachable]
@@ -1552,14 +1562,14 @@ class TestAsyncLlamaAPI:
     @mock.patch("time.time", mock.MagicMock(return_value=1696004797))
     @pytest.mark.asyncio
     async def test_parse_retry_after_header(self, remaining_retries: int, retry_after: str, timeout: float) -> None:
-        client = AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=True)
+        client = AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=True)
 
         headers = httpx.Headers({"retry-after": retry_after})
         options = FinalRequestOptions(method="get", url="/foo", max_retries=3)
         calculated = client._calculate_retry_timeout(remaining_retries, options, headers)
         assert calculated == pytest.approx(timeout, 0.5 * 0.875)  # pyright: ignore[reportUnknownMemberType]
 
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_timeout_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(side_effect=httpx.TimeoutException("Test timeout error"))
@@ -1588,7 +1598,7 @@ class TestAsyncLlamaAPI:
 
         assert _get_open_connections(self.client) == 0
 
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     async def test_retrying_status_errors_doesnt_leak(self, respx_mock: MockRouter) -> None:
         respx_mock.post("/v1/chat/completions").mock(return_value=httpx.Response(500))
@@ -1618,13 +1628,13 @@ class TestAsyncLlamaAPI:
         assert _get_open_connections(self.client) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     @pytest.mark.parametrize("failure_mode", ["status", "exception"])
     async def test_retries_taken(
         self,
-        async_client: AsyncLlamaAPI,
+        async_client: AsyncYanxi0830API,
         failures_before_success: int,
         failure_mode: Literal["status", "exception"],
         respx_mock: MockRouter,
@@ -1658,11 +1668,11 @@ class TestAsyncLlamaAPI:
         assert int(response.http_request.headers.get("x-stainless-retry-count")) == failures_before_success
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_omit_retry_count_header(
-        self, async_client: AsyncLlamaAPI, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncYanxi0830API, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1691,11 +1701,11 @@ class TestAsyncLlamaAPI:
         assert len(response.http_request.headers.get_list("x-stainless-retry-count")) == 0
 
     @pytest.mark.parametrize("failures_before_success", [0, 2, 4])
-    @mock.patch("llama_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
+    @mock.patch("yanxi0830_api._base_client.BaseClient._calculate_retry_timeout", _low_retry_timeout)
     @pytest.mark.respx(base_url=base_url)
     @pytest.mark.asyncio
     async def test_overwrite_retry_count_header(
-        self, async_client: AsyncLlamaAPI, failures_before_success: int, respx_mock: MockRouter
+        self, async_client: AsyncYanxi0830API, failures_before_success: int, respx_mock: MockRouter
     ) -> None:
         client = async_client.with_options(max_retries=4)
 
@@ -1734,8 +1744,8 @@ class TestAsyncLlamaAPI:
         import nest_asyncio
         import threading
 
-        from llama_api._utils import asyncify
-        from llama_api._base_client import get_platform
+        from yanxi0830_api._utils import asyncify
+        from yanxi0830_api._base_client import get_platform
 
         async def test_main() -> None:
             result = await asyncify(get_platform)()

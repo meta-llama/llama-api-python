@@ -7,14 +7,14 @@ from typing import TYPE_CHECKING, Iterator, AsyncIterator
 import pytest
 from pytest_asyncio import is_async_test
 
-from llama_api import LlamaAPI, AsyncLlamaAPI
+from yanxi0830_api import Yanxi0830API, AsyncYanxi0830API
 
 if TYPE_CHECKING:
     from _pytest.fixtures import FixtureRequest
 
 pytest.register_assert_rewrite("tests.utils")
 
-logging.getLogger("llama_api").setLevel(logging.DEBUG)
+logging.getLogger("yanxi0830_api").setLevel(logging.DEBUG)
 
 
 # automatically add `pytest.mark.asyncio()` to all of our async tests
@@ -32,20 +32,20 @@ api_key = "My API Key"
 
 
 @pytest.fixture(scope="session")
-def client(request: FixtureRequest) -> Iterator[LlamaAPI]:
+def client(request: FixtureRequest) -> Iterator[Yanxi0830API]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    with LlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    with Yanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client
 
 
 @pytest.fixture(scope="session")
-async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncLlamaAPI]:
+async def async_client(request: FixtureRequest) -> AsyncIterator[AsyncYanxi0830API]:
     strict = getattr(request, "param", True)
     if not isinstance(strict, bool):
         raise TypeError(f"Unexpected fixture parameter type {type(strict)}, expected {bool}")
 
-    async with AsyncLlamaAPI(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
+    async with AsyncYanxi0830API(base_url=base_url, api_key=api_key, _strict_response_validation=strict) as client:
         yield client

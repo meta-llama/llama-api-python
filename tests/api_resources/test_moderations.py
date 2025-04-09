@@ -7,9 +7,9 @@ from typing import Any, cast
 
 import pytest
 
-from llama_api import LlamaAPI, AsyncLlamaAPI
 from tests.utils import assert_matches_type
-from llama_api.types import ModerationCreateResponse
+from yanxi0830_api import Yanxi0830API, AsyncYanxi0830API
+from yanxi0830_api.types import ModerationCreateResponse
 
 base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 
@@ -19,7 +19,7 @@ class TestModerations:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create(self, client: LlamaAPI) -> None:
+    def test_method_create(self, client: Yanxi0830API) -> None:
         moderation = client.moderations.create(
             messages=[
                 {
@@ -32,7 +32,7 @@ class TestModerations:
 
     @pytest.mark.skip()
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaAPI) -> None:
+    def test_method_create_with_all_params(self, client: Yanxi0830API) -> None:
         moderation = client.moderations.create(
             messages=[
                 {
@@ -46,7 +46,7 @@ class TestModerations:
 
     @pytest.mark.skip()
     @parametrize
-    def test_raw_response_create(self, client: LlamaAPI) -> None:
+    def test_raw_response_create(self, client: Yanxi0830API) -> None:
         response = client.moderations.with_raw_response.create(
             messages=[
                 {
@@ -63,7 +63,7 @@ class TestModerations:
 
     @pytest.mark.skip()
     @parametrize
-    def test_streaming_response_create(self, client: LlamaAPI) -> None:
+    def test_streaming_response_create(self, client: Yanxi0830API) -> None:
         with client.moderations.with_streaming_response.create(
             messages=[
                 {
@@ -86,7 +86,7 @@ class TestAsyncModerations:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaAPI) -> None:
+    async def test_method_create(self, async_client: AsyncYanxi0830API) -> None:
         moderation = await async_client.moderations.create(
             messages=[
                 {
@@ -99,7 +99,7 @@ class TestAsyncModerations:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaAPI) -> None:
+    async def test_method_create_with_all_params(self, async_client: AsyncYanxi0830API) -> None:
         moderation = await async_client.moderations.create(
             messages=[
                 {
@@ -113,7 +113,7 @@ class TestAsyncModerations:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaAPI) -> None:
+    async def test_raw_response_create(self, async_client: AsyncYanxi0830API) -> None:
         response = await async_client.moderations.with_raw_response.create(
             messages=[
                 {
@@ -130,7 +130,7 @@ class TestAsyncModerations:
 
     @pytest.mark.skip()
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaAPI) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncYanxi0830API) -> None:
         async with async_client.moderations.with_streaming_response.create(
             messages=[
                 {

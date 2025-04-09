@@ -292,8 +292,6 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreateChatCompletionResponse | Stream[CreateChatCompletionResponseStreamChunk]:
-        if stream:
-            extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._post(
             "/v1/chat/completions",
             body=maybe_transform(
@@ -582,8 +580,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
-        if stream:
-            extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
             "/v1/chat/completions",
             body=await async_maybe_transform(

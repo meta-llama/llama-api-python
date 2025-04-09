@@ -7,9 +7,9 @@ import pytest
 import pydantic
 from pydantic import Field
 
-from llama_api._utils import PropertyInfo
-from llama_api._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
-from llama_api._models import BaseModel, construct_type
+from yanxi0830_api._utils import PropertyInfo
+from yanxi0830_api._compat import PYDANTIC_V2, parse_obj, model_dump, model_json
+from yanxi0830_api._models import BaseModel, construct_type
 
 
 class BasicModel(BaseModel):

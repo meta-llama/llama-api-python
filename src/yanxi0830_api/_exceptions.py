@@ -18,11 +18,11 @@ __all__ = [
 ]
 
 
-class LlamaAPIError(Exception):
+class Yanxi0830APIError(Exception):
     pass
 
 
-class APIError(LlamaAPIError):
+class APIError(Yanxi0830APIError):
     message: str
     request: httpx.Request
 
