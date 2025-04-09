@@ -55,7 +55,14 @@ class Stream(Generic[_T]):
         iterator = self._iter_events()
 
         for sse in iterator:
-            yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+            if sse.event == "start":
+                continue
+
+            if sse.event == "progress":
+                continue
+
+            if sse.event == "complete":
+                break
 
         # Ensure the entire stream is consumed
         for _sse in iterator:
@@ -119,7 +126,14 @@ class AsyncStream(Generic[_T]):
         iterator = self._iter_events()
 
         async for sse in iterator:
-            yield process_data(data=sse.json(), cast_to=cast_to, response=response)
+            if sse.event == "start":
+                continue
+
+            if sse.event == "progress":
+                continue
+
+            if sse.event == "complete":
+                break
 
         # Ensure the entire stream is consumed
         async for _sse in iterator:
