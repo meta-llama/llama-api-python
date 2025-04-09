@@ -104,8 +104,6 @@ class LlamaAPI(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self._default_stream_cls = Stream
-
         self.chat = chat.ChatResource(self)
         self.models = models.ModelsResource(self)
         self.moderations = moderations.ModerationsResource(self)
@@ -286,8 +284,6 @@ class AsyncLlamaAPI(AsyncAPIClient):
             custom_query=default_query,
             _strict_response_validation=_strict_response_validation,
         )
-
-        self._default_stream_cls = AsyncStream
 
         self.chat = chat.AsyncChatResource(self)
         self.models = models.AsyncModelsResource(self)
