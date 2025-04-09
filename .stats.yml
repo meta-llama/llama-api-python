@@ -1,2 +1,4 @@
-configured_endpoints: 3
-openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/llama-api%2Fllama-api-2ab08fa17e6d6421319de9c627c29dea402ab71bc4101257cd64e70e684d13b7.yml
+configured_endpoints: 4
+openapi_spec_url: https://storage.googleapis.com/stainless-sdk-openapi-specs/meta%2Fllama-api-35e445051d504ac78eb5e995d6174c09b76626c29346e164a5b3007eb0954ed7.yml
+openapi_spec_hash: b5a4d68b30718166a1041e7b60ec8c34
+config_hash: 96c028217daca9991ceb63a9d479daff

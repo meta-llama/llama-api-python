@@ -1,8 +1,8 @@
 # type: ignore
 
-from llama_api import LlamaAPI
+from llama_api_client import LlamaAPIClient
 
-client = LlamaAPI()
+client = LlamaAPIClient()
 
 # Safe Prompt
 response = client.moderations.create(
