@@ -5,11 +5,10 @@ from typing_extensions import Literal, TypeAlias
 
 from .._models import BaseModel
 from .message_text_content_item import MessageTextContentItem
-from .message_reasoning_content_item import MessageReasoningContentItem
 
 __all__ = ["CompletionMessage", "Content", "ToolCall", "ToolCallFunction"]
 
-Content: TypeAlias = Union[str, MessageTextContentItem, MessageReasoningContentItem]
+Content: TypeAlias = Union[str, MessageTextContentItem]
 
 
 class ToolCallFunction(BaseModel):
