@@ -52,7 +52,7 @@ class TestCompletions:
                 "type": "json_schema",
             },
             stream=False,
-            temperature=0.6,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -66,7 +66,7 @@ class TestCompletions:
                 }
             ],
             top_k=0,
-            top_p=0.9,
+            top_p=0,
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
@@ -144,7 +144,7 @@ class TestCompletions:
                 },
                 "type": "json_schema",
             },
-            temperature=0.6,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -158,7 +158,7 @@ class TestCompletions:
                 }
             ],
             top_k=0,
-            top_p=0.9,
+            top_p=0,
         )
         completion_stream.response.close()
 
@@ -240,7 +240,7 @@ class TestAsyncCompletions:
                 "type": "json_schema",
             },
             stream=False,
-            temperature=0.6,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -254,7 +254,7 @@ class TestAsyncCompletions:
                 }
             ],
             top_k=0,
-            top_p=0.9,
+            top_p=0,
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
@@ -332,7 +332,7 @@ class TestAsyncCompletions:
                 },
                 "type": "json_schema",
             },
-            temperature=0.6,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -346,7 +346,7 @@ class TestAsyncCompletions:
                 }
             ],
             top_k=0,
-            top_p=0.9,
+            top_p=0,
         )
         await completion_stream.response.aclose()
 
