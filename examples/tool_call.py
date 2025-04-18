@@ -59,7 +59,7 @@ def run(stream: bool = False) -> None:
                         f"Using tool_id={chunk.event.delta.id} with name={chunk.event.delta.function.name}",
                     )
                     tool_call["function"]["name"] = chunk.event.delta.function.name
-                elif chunk.event.delta.function.arguments:
+                if chunk.event.delta.function.arguments:
                     tool_call["function"][
                         "arguments"
                     ] += chunk.event.delta.function.arguments
