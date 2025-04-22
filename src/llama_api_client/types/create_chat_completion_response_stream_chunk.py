@@ -13,7 +13,7 @@ __all__ = [
     "EventDeltaTextDelta",
     "EventDeltaToolCallDelta",
     "EventDeltaToolCallDeltaFunction",
-    "Metric",
+    "EventMetric",
 ]
 
 
@@ -50,6 +50,14 @@ EventDelta: TypeAlias = Annotated[
 ]
 
 
+class EventMetric(BaseModel):
+    metric: str
+
+    value: float
+
+    unit: Optional[str] = None
+
+
 class Event(BaseModel):
     delta: EventDelta
     """Content generated since last event.
@@ -57,8 +65,10 @@ class Event(BaseModel):
     This can be one or more tokens, or a tool call.
     """
 
-    event_type: Literal["start", "complete", "progress"]
+    event_type: Literal["start", "complete", "progress", "metrics"]
     """Type of the event"""
+
+    metrics: Optional[List[EventMetric]] = None
 
     stop_reason: Optional[Literal["stop", "tool_calls", "length"]] = None
     """The reason why we stopped.
@@ -69,16 +79,6 @@ class Event(BaseModel):
     """
 
 
-class Metric(BaseModel):
-    metric: str
-
-    value: float
-
-    unit: Optional[str] = None
-
-
 class CreateChatCompletionResponseStreamChunk(BaseModel):
     event: Event
     """The event containing the new content"""
-
-    metrics: Optional[List[Metric]] = None
