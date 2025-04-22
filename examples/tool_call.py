@@ -38,7 +38,7 @@ def run(stream: bool = False) -> None:
     ]
 
     response = client.chat.completions.create(
-        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
+        model="Llama-3.3-70B-Instruct",
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
@@ -49,8 +49,9 @@ def run(stream: bool = False) -> None:
     completion_message = None
     if stream:
         tool_call = {"function": {"arguments": ""}}
+
+        stop_reason = None
         for chunk in response:
-            stop_reason = None
             if chunk.event.delta.type == "tool_call":
                 if chunk.event.delta.id:
                     tool_call["id"] = chunk.event.delta.id
@@ -65,7 +66,7 @@ def run(stream: bool = False) -> None:
                     ] += chunk.event.delta.function.arguments
                     print(chunk.event.delta.function.arguments, end="", flush=True)
 
-            if chunk.event.stop_reason:
+            if chunk.event.stop_reason is not None:
                 stop_reason = chunk.event.stop_reason
 
         completion_message = {
@@ -97,7 +98,7 @@ def run(stream: bool = False) -> None:
             )
 
     response = client.chat.completions.create(
-        model="Llama-4-Maverick-17B-128E-Instruct-FP8",
+        model="Llama-3.3-70B-Instruct",
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
