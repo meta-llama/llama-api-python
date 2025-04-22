@@ -6,6 +6,9 @@ from llama_api_client import LlamaAPIClient
 
 client = LlamaAPIClient()
 
+MODEL = "Llama-3.3-70B-Instruct"
+# MODEL = "Llama-4-Maverick-17B-128E-Instruct-FP8"
+
 
 def get_weather(location: str) -> str:
     return f"The weather in {location} is sunny."
@@ -38,7 +41,7 @@ def run(stream: bool = False) -> None:
     ]
 
     response = client.chat.completions.create(
-        model="Llama-3.3-70B-Instruct",
+        model=MODEL,
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
@@ -98,7 +101,7 @@ def run(stream: bool = False) -> None:
             )
 
     response = client.chat.completions.create(
-        model="Llama-3.3-70B-Instruct",
+        model=MODEL,
         messages=messages,
         tools=tools,
         max_completion_tokens=2048,
