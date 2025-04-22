@@ -2,7 +2,7 @@
 
 from __future__ import annotations
 
-from typing import Dict, Union, Iterable, Optional
+from typing import Dict, Union, Iterable
 from typing_extensions import Literal, Required, TypeAlias, TypedDict
 
 from ..message_param import MessageParam
@@ -30,7 +30,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     model: Required[str]
     """The identifier of the model to use."""
 
-    max_completion_tokens: Optional[int]
+    max_completion_tokens: int
     """The maximum number of tokens to generate."""
 
     repetition_penalty: float
@@ -45,7 +45,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     response.
     """
 
-    temperature: Optional[float]
+    temperature: float
     """Controls randomness of the response by setting a temperature.
 
     Higher value leads to more creative responses. Lower values will make the
@@ -71,7 +71,7 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     top_k: int
     """Only sample from the top K options for each subsequent token."""
 
-    top_p: Optional[float]
+    top_p: float
     """
     Controls diversity of the response by setting a probability threshold when
     choosing the next token.
@@ -140,7 +140,7 @@ class ToolFunction(TypedDict, total=False):
     Omitting `parameters` defines a function with an empty parameter list.
     """
 
-    strict: Optional[bool]
+    strict: bool
     """Whether to enable strict schema adherence when generating the function call.
 
     If set to true, the model will follow the exact schema defined in the

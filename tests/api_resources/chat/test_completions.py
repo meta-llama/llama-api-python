@@ -42,8 +42,8 @@ class TestCompletions:
                 }
             ],
             model="model",
-            max_completion_tokens=256,
-            repetition_penalty=0,
+            max_completion_tokens=1,
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "name",
@@ -52,7 +52,7 @@ class TestCompletions:
                 "type": "json_schema",
             },
             stream=False,
-            temperature=1,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -66,7 +66,7 @@ class TestCompletions:
                 }
             ],
             top_k=0,
-            top_p=1,
+            top_p=0,
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
@@ -135,8 +135,8 @@ class TestCompletions:
             ],
             model="model",
             stream=True,
-            max_completion_tokens=256,
-            repetition_penalty=0,
+            max_completion_tokens=1,
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "name",
@@ -144,7 +144,7 @@ class TestCompletions:
                 },
                 "type": "json_schema",
             },
-            temperature=1,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -158,7 +158,7 @@ class TestCompletions:
                 }
             ],
             top_k=0,
-            top_p=1,
+            top_p=0,
         )
         completion_stream.response.close()
 
@@ -230,8 +230,8 @@ class TestAsyncCompletions:
                 }
             ],
             model="model",
-            max_completion_tokens=256,
-            repetition_penalty=0,
+            max_completion_tokens=1,
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "name",
@@ -240,7 +240,7 @@ class TestAsyncCompletions:
                 "type": "json_schema",
             },
             stream=False,
-            temperature=1,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -254,7 +254,7 @@ class TestAsyncCompletions:
                 }
             ],
             top_k=0,
-            top_p=1,
+            top_p=0,
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
@@ -323,8 +323,8 @@ class TestAsyncCompletions:
             ],
             model="model",
             stream=True,
-            max_completion_tokens=256,
-            repetition_penalty=0,
+            max_completion_tokens=1,
+            repetition_penalty=1,
             response_format={
                 "json_schema": {
                     "name": "name",
@@ -332,7 +332,7 @@ class TestAsyncCompletions:
                 },
                 "type": "json_schema",
             },
-            temperature=1,
+            temperature=0,
             tool_choice="none",
             tools=[
                 {
@@ -346,7 +346,7 @@ class TestAsyncCompletions:
                 }
             ],
             top_k=0,
-            top_p=1,
+            top_p=0,
         )
         await completion_stream.response.aclose()
 
