@@ -53,7 +53,6 @@ class TestCompletions:
             },
             stream=False,
             temperature=0,
-            tool_choice="none",
             tools=[
                 {
                     "function": {
@@ -145,7 +144,6 @@ class TestCompletions:
                 "type": "json_schema",
             },
             temperature=0,
-            tool_choice="none",
             tools=[
                 {
                     "function": {
@@ -241,7 +239,6 @@ class TestAsyncCompletions:
             },
             stream=False,
             temperature=0,
-            tool_choice="none",
             tools=[
                 {
                     "function": {
@@ -333,7 +330,6 @@ class TestAsyncCompletions:
                 "type": "json_schema",
             },
             temperature=0,
-            tool_choice="none",
             tools=[
                 {
                     "function": {

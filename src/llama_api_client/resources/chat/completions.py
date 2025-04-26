@@ -8,11 +8,7 @@ from typing_extensions import Literal, overload
 import httpx
 
 from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
-from ..._utils import (
-    required_args,
-    maybe_transform,
-    async_maybe_transform,
-)
+from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
 from ..._response import (
@@ -62,7 +58,6 @@ class CompletionsResource(SyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -97,16 +92,6 @@ class CompletionsResource(SyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
-          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
-              not call any tool and instead generates a message. `auto` means the model can
-              pick between generating a message or calling one or more tools. `required` means
-              the model must call one or more tools. Specifying a particular tool via
-              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
-              call that tool.
-
-              `none` is the default when no tools are present. `auto` is the default if tools
-              are present.
-
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
@@ -135,7 +120,6 @@ class CompletionsResource(SyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -170,16 +154,6 @@ class CompletionsResource(SyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
-          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
-              not call any tool and instead generates a message. `auto` means the model can
-              pick between generating a message or calling one or more tools. `required` means
-              the model must call one or more tools. Specifying a particular tool via
-              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
-              call that tool.
-
-              `none` is the default when no tools are present. `auto` is the default if tools
-              are present.
-
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
@@ -208,7 +182,6 @@ class CompletionsResource(SyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -243,16 +216,6 @@ class CompletionsResource(SyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
-          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
-              not call any tool and instead generates a message. `auto` means the model can
-              pick between generating a message or calling one or more tools. `required` means
-              the model must call one or more tools. Specifying a particular tool via
-              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
-              call that tool.
-
-              `none` is the default when no tools are present. `auto` is the default if tools
-              are present.
-
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
@@ -281,7 +244,6 @@ class CompletionsResource(SyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -305,7 +267,6 @@ class CompletionsResource(SyncAPIResource):
                     "response_format": response_format,
                     "stream": stream,
                     "temperature": temperature,
-                    "tool_choice": tool_choice,
                     "tools": tools,
                     "top_k": top_k,
                     "top_p": top_p,
@@ -354,7 +315,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -389,16 +349,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
-          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
-              not call any tool and instead generates a message. `auto` means the model can
-              pick between generating a message or calling one or more tools. `required` means
-              the model must call one or more tools. Specifying a particular tool via
-              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
-              call that tool.
-
-              `none` is the default when no tools are present. `auto` is the default if tools
-              are present.
-
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
@@ -427,7 +377,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -462,16 +411,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
-          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
-              not call any tool and instead generates a message. `auto` means the model can
-              pick between generating a message or calling one or more tools. `required` means
-              the model must call one or more tools. Specifying a particular tool via
-              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
-              call that tool.
-
-              `none` is the default when no tools are present. `auto` is the default if tools
-              are present.
-
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
@@ -500,7 +439,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -535,16 +473,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
-          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
-              not call any tool and instead generates a message. `auto` means the model can
-              pick between generating a message or calling one or more tools. `required` means
-              the model must call one or more tools. Specifying a particular tool via
-              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
-              call that tool.
-
-              `none` is the default when no tools are present. `auto` is the default if tools
-              are present.
-
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
@@ -573,7 +501,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
@@ -597,7 +524,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "response_format": response_format,
                     "stream": stream,
                     "temperature": temperature,
-                    "tool_choice": tool_choice,
                     "tools": tools,
                     "top_k": top_k,
                     "top_p": top_p,
