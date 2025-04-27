@@ -6,21 +6,16 @@ The Llama API Client Python library provides convenient access to the Llama API 
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
-It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.llama-api.com](https://docs.llama-api.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [https://llama.developer.meta.com/docs/](https://llama.developer.meta.com/docs/). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-# install from this staging repo
-pip install git+ssh://git@github.com/meta-llama/llama-api-python.git
+pip install llama-api-client
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://app.stainless.com/docs/guides/publish), this will become: `pip install --pre llama_api_client`
 
 ## Usage
 
