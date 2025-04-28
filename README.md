@@ -99,8 +99,8 @@ stream = client.chat.completions.create(
     model="model",
     stream=True,
 )
-for create_chat_completion_response in stream:
-    print(create_chat_completion_response.completion_message)
+for chunk in stream:
+    print(chunk.event.delta.text, end="", flush=True)
 ```
 
 The async client uses the exact same interface.
@@ -120,8 +120,8 @@ stream = await client.chat.completions.create(
     model="model",
     stream=True,
 )
-async for create_chat_completion_response in stream:
-    print(create_chat_completion_response.completion_message)
+async for chunk in stream:
+    print(chunk.event.delta.text, end="", flush=True)
 ```
 
 ## Using types
