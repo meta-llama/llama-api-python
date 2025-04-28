@@ -6,7 +6,6 @@ from llama_api_client import LlamaAPIClient
 
 client = LlamaAPIClient()
 
-# MODEL = "Llama-3.3-70B-Instruct"
 MODEL = "Llama-4-Maverick-17B-128E-Instruct-FP8"
 
 
