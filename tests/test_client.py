@@ -26,7 +26,12 @@ from llama_api_client._types import Omit
 from llama_api_client._utils import maybe_transform
 from llama_api_client._models import BaseModel, FinalRequestOptions
 from llama_api_client._constants import RAW_RESPONSE_HEADER
-from llama_api_client._exceptions import APIStatusError, APITimeoutError, APIResponseValidationError
+from llama_api_client._exceptions import (
+    APIStatusError,
+    APITimeoutError,
+    LlamaAPIClientError,
+    APIResponseValidationError,
+)
 from llama_api_client._base_client import (
     DEFAULT_TIMEOUT,
     HTTPX_DEFAULT_TIMEOUT,
@@ -341,19 +346,10 @@ class TestLlamaAPIClient:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with update_env(**{"LLAMA_API_KEY": Omit()}):
-            client2 = LlamaAPIClient(base_url=base_url, api_key=None, _strict_response_validation=True)
-
-        with pytest.raises(
-            TypeError,
-            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
-        ):
-            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-
-        request2 = client2._build_request(
-            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
-        )
-        assert request2.headers.get("Authorization") is None
+        with pytest.raises(LlamaAPIClientError):
+            with update_env(**{"LLAMA_API_KEY": Omit()}):
+                client2 = LlamaAPIClient(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = LlamaAPIClient(
@@ -1176,19 +1172,10 @@ class TestAsyncLlamaAPIClient:
         request = client._build_request(FinalRequestOptions(method="get", url="/foo"))
         assert request.headers.get("Authorization") == f"Bearer {api_key}"
 
-        with update_env(**{"LLAMA_API_KEY": Omit()}):
-            client2 = AsyncLlamaAPIClient(base_url=base_url, api_key=None, _strict_response_validation=True)
-
-        with pytest.raises(
-            TypeError,
-            match="Could not resolve authentication method. Expected the api_key to be set. Or for the `Authorization` headers to be explicitly omitted",
-        ):
-            client2._build_request(FinalRequestOptions(method="get", url="/foo"))
-
-        request2 = client2._build_request(
-            FinalRequestOptions(method="get", url="/foo", headers={"Authorization": Omit()})
-        )
-        assert request2.headers.get("Authorization") is None
+        with pytest.raises(LlamaAPIClientError):
+            with update_env(**{"LLAMA_API_KEY": Omit()}):
+                client2 = AsyncLlamaAPIClient(base_url=base_url, api_key=None, _strict_response_validation=True)
+            _ = client2
 
     def test_default_query_option(self) -> None:
         client = AsyncLlamaAPIClient(
