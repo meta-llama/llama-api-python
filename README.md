@@ -429,4 +429,4 @@ Python 3.8 or higher.
 See [the contributing documentation](./CONTRIBUTING.md).
 
 ## License
-Llama API is MIT licensed, as found in the LICENSE file.
+Llama API Python SDK is MIT licensed, as found in the LICENSE file.
