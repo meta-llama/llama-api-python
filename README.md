@@ -11,8 +11,6 @@ and offers both synchronous and asynchronous clients powered by [httpx](https://
 
 The REST API documentation can be found on [https://llama.developer.meta.com/docs](https://llama.developer.meta.com/docs). The full API of this library can be found in [api.md](api.md).
 
-It is generated with [Stainless](https://www.stainless.com/).
-
 ## Installation
 
 ```sh
