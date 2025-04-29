@@ -67,7 +67,7 @@ class ModelsResource(SyncAPIResource):
         if not model:
             raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
         return self._get(
-            f"/v1/models/{model}",
+            f"/models/{model}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -89,7 +89,7 @@ class ModelsResource(SyncAPIResource):
         one.
         """
         return self._get(
-            "/v1/models",
+            "/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,
@@ -145,7 +145,7 @@ class AsyncModelsResource(AsyncAPIResource):
         if not model:
             raise ValueError(f"Expected a non-empty value for `model` but received {model!r}")
         return await self._get(
-            f"/v1/models/{model}",
+            f"/models/{model}",
             options=make_request_options(
                 extra_headers=extra_headers, extra_query=extra_query, extra_body=extra_body, timeout=timeout
             ),
@@ -167,7 +167,7 @@ class AsyncModelsResource(AsyncAPIResource):
         one.
         """
         return await self._get(
-            "/v1/models",
+            "/models",
             options=make_request_options(
                 extra_headers=extra_headers,
                 extra_query=extra_query,

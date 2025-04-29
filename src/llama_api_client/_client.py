@@ -91,7 +91,7 @@ class LlamaAPIClient(SyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("LLAMA_API_CLIENT_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.llama.com"
+            base_url = f"https://api.llama.com/v1"
 
         super().__init__(
             version=__version__,
@@ -263,7 +263,7 @@ class AsyncLlamaAPIClient(AsyncAPIClient):
         if base_url is None:
             base_url = os.environ.get("LLAMA_API_CLIENT_BASE_URL")
         if base_url is None:
-            base_url = f"https://api.llama.com"
+            base_url = f"https://api.llama.com/v1"
 
         super().__init__(
             version=__version__,

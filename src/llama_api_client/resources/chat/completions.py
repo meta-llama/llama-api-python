@@ -257,7 +257,7 @@ class CompletionsResource(SyncAPIResource):
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._post(
-            "/v1/chat/completions",
+            "/chat/completions",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -514,7 +514,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         if stream:
             extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
-            "/v1/chat/completions",
+            "/chat/completions",
             body=await async_maybe_transform(
                 {
                     "messages": messages,
