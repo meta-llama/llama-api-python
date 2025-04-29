@@ -73,7 +73,7 @@ class ModerationsResource(SyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return self._post(
-            "/v1/moderations",
+            "/moderations",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -137,7 +137,7 @@ class AsyncModerationsResource(AsyncAPIResource):
           timeout: Override the client-level default timeout for this request, in seconds
         """
         return await self._post(
-            "/v1/moderations",
+            "/moderations",
             body=await async_maybe_transform(
                 {
                     "messages": messages,

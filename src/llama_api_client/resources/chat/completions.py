@@ -255,7 +255,7 @@ class CompletionsResource(SyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreateChatCompletionResponse | Stream[CreateChatCompletionResponseStreamChunk]:
         return self._post(
-            "/v1/chat/completions",
+            "/chat/completions",
             body=maybe_transform(
                 {
                     "messages": messages,
@@ -510,7 +510,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
         return await self._post(
-            "/v1/chat/completions",
+            "/chat/completions",
             body=await async_maybe_transform(
                 {
                     "messages": messages,
