@@ -1,0 +1,92 @@
+name: Run Examples
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:  # Allows manual triggering
+  schedule:
+    - cron: '0 * * * *' # every hour
+
+jobs:
+  chat:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      run: |
+        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+        pip install -e .
+    - name: Run chat examples
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
+        python examples/chat.py
+        python examples/async_chat.py
+
+  vision:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      run: |
+        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+        pip install -e .
+    - name: Run vision example
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
+        python examples/vision.py
+
+  structured:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      run: |
+        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+        pip install -e .
+    - name: Run structured example
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
+        python examples/structured.py
+
+  tool_call:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+    - name: Install dependencies
+      env:
+        GITHUB_TOKEN: ${{ secrets.MY_GITHUB_TOKEN }}
+      run: |
+        git config --global url."https://x-access-token:${GITHUB_TOKEN}@github.com/".insteadOf "https://github.com/"
+        pip install -e .
+    - name: Run tool_call example
+      env:
+        LLAMA_API_KEY: ${{ secrets.LLAMA_API_KEY }}
+      run: |
+        python examples/tool_call.py
