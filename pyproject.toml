@@ -5,7 +5,7 @@ description = "The official Python library for the llama-api-client API"
 dynamic = ["readme"]
 license = "MIT"
 authors = [
-{ name = "Llama API Client", email = "dev-feedback@llama-api.com" },
+{ name = "Llama API Client", email = "support@llama.developer.meta.com" },
 ]
 dependencies = [
     "httpx>=0.23.0, <1",

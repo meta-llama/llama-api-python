@@ -20,7 +20,7 @@ or products provided by Llama API Client, please follow the respective company's
 
 ### Llama API Client Terms and Policies
 
-Please contact dev-feedback@llama-api.com for any questions or concerns regarding the security of our services.
+Please contact support@llama.developer.meta.com for any questions or concerns regarding the security of our services.
 
 ---
 

@@ -33,13 +33,13 @@ class ToolCall(BaseModel):
 
 
 class CompletionMessage(BaseModel):
-    content: Content
-    """The content of the model's response."""
-
     role: Literal["assistant"]
     """Must be "assistant" to identify this as the model's response"""
 
-    stop_reason: Literal["stop", "tool_calls", "length"]
+    content: Optional[Content] = None
+    """The content of the model's response."""
+
+    stop_reason: Optional[Literal["stop", "tool_calls", "length"]] = None
     """The reason why we stopped.
 
     Options are: - "stop": The model reached a natural stopping point. -

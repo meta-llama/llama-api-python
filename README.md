@@ -10,7 +10,7 @@ It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [docs.llama-api.com](https://docs.llama-api.com). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [llama.developer.meta.com](https://llama.developer.meta.com/docs). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -43,7 +43,7 @@ create_chat_completion_response = client.chat.completions.create(
     ],
     model="model",
 )
-print(create_chat_completion_response.completion_message)
+print(create_chat_completion_response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -75,7 +75,7 @@ async def main() -> None:
         ],
         model="model",
     )
-    print(create_chat_completion_response.completion_message)
+    print(create_chat_completion_response.id)
 
 
 asyncio.run(main())
@@ -103,7 +103,7 @@ stream = client.chat.completions.create(
     stream=True,
 )
 for create_chat_completion_response in stream:
-    print(create_chat_completion_response.completion_message)
+    print(create_chat_completion_response.id)
 ```
 
 The async client uses the exact same interface.
@@ -124,7 +124,7 @@ stream = await client.chat.completions.create(
     stream=True,
 )
 async for create_chat_completion_response in stream:
-    print(create_chat_completion_response.completion_message)
+    print(create_chat_completion_response.id)
 ```
 
 ## Using types
@@ -293,7 +293,7 @@ response = client.chat.completions.with_raw_response.create(
 print(response.headers.get('X-My-Header'))
 
 completion = response.parse()  # get the object that `chat.completions.create()` would have returned
-print(completion.completion_message)
+print(completion.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api_client/_response.py) object.

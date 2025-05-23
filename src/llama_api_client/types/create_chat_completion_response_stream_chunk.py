@@ -82,3 +82,6 @@ class Event(BaseModel):
 class CreateChatCompletionResponseStreamChunk(BaseModel):
     event: Event
     """The event containing the new content"""
+
+    id: Optional[str] = None
+    """The unique identifier of the chat completion request."""
