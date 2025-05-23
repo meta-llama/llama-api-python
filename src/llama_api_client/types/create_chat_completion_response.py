@@ -20,4 +20,7 @@ class CreateChatCompletionResponse(BaseModel):
     completion_message: CompletionMessage
     """The complete response message"""
 
+    id: Optional[str] = None
+    """The unique identifier of the chat completion request."""
+
     metrics: Optional[List[Metric]] = None
