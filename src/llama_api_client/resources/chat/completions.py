@@ -58,9 +58,11 @@ class CompletionsResource(SyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -92,12 +94,24 @@ class CompletionsResource(SyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
+          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
+              not call any tool and instead generates a message. `auto` means the model can
+              pick between generating a message or calling one or more tools. `required` means
+              the model must call one or more tools. Specifying a particular tool via
+              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+              call that tool.
+
+              `none` is the default when no tools are present. `auto` is the default if tools
+              are present.
+
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
 
           top_p: Controls diversity of the response by setting a probability threshold when
               choosing the next token.
+
+          user: A unique identifier representing your application end-user for monitoring abuse.
 
           extra_headers: Send extra headers
 
@@ -120,9 +134,11 @@ class CompletionsResource(SyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -154,12 +170,24 @@ class CompletionsResource(SyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
+          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
+              not call any tool and instead generates a message. `auto` means the model can
+              pick between generating a message or calling one or more tools. `required` means
+              the model must call one or more tools. Specifying a particular tool via
+              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+              call that tool.
+
+              `none` is the default when no tools are present. `auto` is the default if tools
+              are present.
+
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
 
           top_p: Controls diversity of the response by setting a probability threshold when
               choosing the next token.
+
+          user: A unique identifier representing your application end-user for monitoring abuse.
 
           extra_headers: Send extra headers
 
@@ -182,9 +210,11 @@ class CompletionsResource(SyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -216,12 +246,24 @@ class CompletionsResource(SyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
+          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
+              not call any tool and instead generates a message. `auto` means the model can
+              pick between generating a message or calling one or more tools. `required` means
+              the model must call one or more tools. Specifying a particular tool via
+              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+              call that tool.
+
+              `none` is the default when no tools are present. `auto` is the default if tools
+              are present.
+
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
 
           top_p: Controls diversity of the response by setting a probability threshold when
               choosing the next token.
+
+          user: A unique identifier representing your application end-user for monitoring abuse.
 
           extra_headers: Send extra headers
 
@@ -244,9 +286,11 @@ class CompletionsResource(SyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -267,9 +311,11 @@ class CompletionsResource(SyncAPIResource):
                     "response_format": response_format,
                     "stream": stream,
                     "temperature": temperature,
+                    "tool_choice": tool_choice,
                     "tools": tools,
                     "top_k": top_k,
                     "top_p": top_p,
+                    "user": user,
                 },
                 completion_create_params.CompletionCreateParamsStreaming
                 if stream
@@ -315,9 +361,11 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -349,12 +397,24 @@ class AsyncCompletionsResource(AsyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
+          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
+              not call any tool and instead generates a message. `auto` means the model can
+              pick between generating a message or calling one or more tools. `required` means
+              the model must call one or more tools. Specifying a particular tool via
+              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+              call that tool.
+
+              `none` is the default when no tools are present. `auto` is the default if tools
+              are present.
+
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
 
           top_p: Controls diversity of the response by setting a probability threshold when
               choosing the next token.
+
+          user: A unique identifier representing your application end-user for monitoring abuse.
 
           extra_headers: Send extra headers
 
@@ -377,9 +437,11 @@ class AsyncCompletionsResource(AsyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -411,12 +473,24 @@ class AsyncCompletionsResource(AsyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
+          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
+              not call any tool and instead generates a message. `auto` means the model can
+              pick between generating a message or calling one or more tools. `required` means
+              the model must call one or more tools. Specifying a particular tool via
+              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+              call that tool.
+
+              `none` is the default when no tools are present. `auto` is the default if tools
+              are present.
+
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
 
           top_p: Controls diversity of the response by setting a probability threshold when
               choosing the next token.
+
+          user: A unique identifier representing your application end-user for monitoring abuse.
 
           extra_headers: Send extra headers
 
@@ -439,9 +513,11 @@ class AsyncCompletionsResource(AsyncAPIResource):
         repetition_penalty: float | NotGiven = NOT_GIVEN,
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -473,12 +549,24 @@ class AsyncCompletionsResource(AsyncAPIResource):
               to more creative responses. Lower values will make the response more focused and
               deterministic.
 
+          tool_choice: Controls which (if any) tool is called by the model. `none` means the model will
+              not call any tool and instead generates a message. `auto` means the model can
+              pick between generating a message or calling one or more tools. `required` means
+              the model must call one or more tools. Specifying a particular tool via
+              `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+              call that tool.
+
+              `none` is the default when no tools are present. `auto` is the default if tools
+              are present.
+
           tools: List of tool definitions available to the model
 
           top_k: Only sample from the top K options for each subsequent token.
 
           top_p: Controls diversity of the response by setting a probability threshold when
               choosing the next token.
+
+          user: A unique identifier representing your application end-user for monitoring abuse.
 
           extra_headers: Send extra headers
 
@@ -501,9 +589,11 @@ class AsyncCompletionsResource(AsyncAPIResource):
         response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
         stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
         temperature: float | NotGiven = NOT_GIVEN,
+        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
         tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
         top_k: int | NotGiven = NOT_GIVEN,
         top_p: float | NotGiven = NOT_GIVEN,
+        user: str | NotGiven = NOT_GIVEN,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
@@ -524,9 +614,11 @@ class AsyncCompletionsResource(AsyncAPIResource):
                     "response_format": response_format,
                     "stream": stream,
                     "temperature": temperature,
+                    "tool_choice": tool_choice,
                     "tools": tools,
                     "top_k": top_k,
                     "top_p": top_p,
+                    "user": user,
                 },
                 completion_create_params.CompletionCreateParamsStreaming
                 if stream

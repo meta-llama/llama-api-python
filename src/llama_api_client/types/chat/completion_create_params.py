@@ -13,6 +13,9 @@ __all__ = [
     "ResponseFormatJsonSchemaResponseFormat",
     "ResponseFormatJsonSchemaResponseFormatJsonSchema",
     "ResponseFormatTextResponseFormat",
+    "ToolChoice",
+    "ToolChoiceChatCompletionNamedToolChoice",
+    "ToolChoiceChatCompletionNamedToolChoiceFunction",
     "Tool",
     "ToolFunction",
     "CompletionCreateParamsNonStreaming",
@@ -49,6 +52,19 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     response more focused and deterministic.
     """
 
+    tool_choice: ToolChoice
+    """
+    Controls which (if any) tool is called by the model. `none` means the model will
+    not call any tool and instead generates a message. `auto` means the model can
+    pick between generating a message or calling one or more tools. `required` means
+    the model must call one or more tools. Specifying a particular tool via
+    `{"type": "function", "function": {"name": "my_function"}}` forces the model to
+    call that tool.
+
+    `none` is the default when no tools are present. `auto` is the default if tools
+    are present.
+    """
+
     tools: Iterable[Tool]
     """List of tool definitions available to the model"""
 
@@ -59,6 +75,11 @@ class CompletionCreateParamsBase(TypedDict, total=False):
     """
     Controls diversity of the response by setting a probability threshold when
     choosing the next token.
+    """
+
+    user: str
+    """
+    A unique identifier representing your application end-user for monitoring abuse.
     """
 
 
@@ -87,6 +108,21 @@ class ResponseFormatTextResponseFormat(TypedDict, total=False):
 
 
 ResponseFormat: TypeAlias = Union[ResponseFormatJsonSchemaResponseFormat, ResponseFormatTextResponseFormat]
+
+
+class ToolChoiceChatCompletionNamedToolChoiceFunction(TypedDict, total=False):
+    name: Required[str]
+    """The name of the function to call."""
+
+
+class ToolChoiceChatCompletionNamedToolChoice(TypedDict, total=False):
+    function: Required[ToolChoiceChatCompletionNamedToolChoiceFunction]
+
+    type: Required[Literal["function"]]
+    """The type of the tool. Currently, only `function` is supported."""
+
+
+ToolChoice: TypeAlias = Union[Literal["none", "auto", "required"], ToolChoiceChatCompletionNamedToolChoice]
 
 
 class ToolFunction(TypedDict, total=False):
