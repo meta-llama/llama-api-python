@@ -1,6 +1,6 @@
 # Llama API Client Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/llama_api_client.svg)](https://pypi.org/project/llama_api_client/)
+[![PyPI version](<https://img.shields.io/pypi/v/llama_api_client.svg?label=pypi%20(stable)>)](https://pypi.org/project/llama_api_client/)
 
 The Llama API Client Python library provides convenient access to the Llama API Client REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
