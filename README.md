@@ -83,6 +83,46 @@ asyncio.run(main())
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
 
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from this staging repo
+pip install 'llama_api_client[aiohttp] @ git+ssh://git@github.com/stainless-sdks/llama-api-python.git'
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from llama_api_client import DefaultAioHttpClient
+from llama_api_client import AsyncLlamaAPIClient
+
+
+async def main() -> None:
+    async with AsyncLlamaAPIClient(
+        api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        create_chat_completion_response = await client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+        print(create_chat_completion_response.id)
+
+
+asyncio.run(main())
+```
+
 ## Streaming responses
 
 We provide support for streaming responses using Server Side Events (SSE).
