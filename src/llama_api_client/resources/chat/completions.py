@@ -34,7 +34,7 @@ class CompletionsResource(SyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/meta-llama/llama-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/stainless-sdks/llama-api-python#accessing-raw-response-data-eg-headers
         """
         return CompletionsResourceWithRawResponse(self)
 
@@ -43,7 +43,7 @@ class CompletionsResource(SyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/meta-llama/llama-api-python#with_streaming_response
+        For more information, see https://www.github.com/stainless-sdks/llama-api-python#with_streaming_response
         """
         return CompletionsResourceWithStreamingResponse(self)
 
@@ -298,8 +298,6 @@ class CompletionsResource(SyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreateChatCompletionResponse | Stream[CreateChatCompletionResponseStreamChunk]:
-        if stream:
-            extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return self._post(
             "/chat/completions",
             body=maybe_transform(
@@ -337,7 +335,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         This property can be used as a prefix for any HTTP method call to return
         the raw response object instead of the parsed content.
 
-        For more information, see https://www.github.com/meta-llama/llama-api-python#accessing-raw-response-data-eg-headers
+        For more information, see https://www.github.com/stainless-sdks/llama-api-python#accessing-raw-response-data-eg-headers
         """
         return AsyncCompletionsResourceWithRawResponse(self)
 
@@ -346,7 +344,7 @@ class AsyncCompletionsResource(AsyncAPIResource):
         """
         An alternative to `.with_raw_response` that doesn't eagerly read the response body.
 
-        For more information, see https://www.github.com/meta-llama/llama-api-python#with_streaming_response
+        For more information, see https://www.github.com/stainless-sdks/llama-api-python#with_streaming_response
         """
         return AsyncCompletionsResourceWithStreamingResponse(self)
 
@@ -601,8 +599,6 @@ class AsyncCompletionsResource(AsyncAPIResource):
         extra_body: Body | None = None,
         timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
     ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
-        if stream:
-            extra_headers = {"Accept": "text/event-stream", **(extra_headers or {})}
         return await self._post(
             "/chat/completions",
             body=await async_maybe_transform(

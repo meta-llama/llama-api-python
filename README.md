@@ -1,21 +1,26 @@
 # Llama API Client Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/llama_api_client.svg)](https://pypi.org/project/llama_api_client/)
+[![PyPI version](<https://img.shields.io/pypi/v/llama_api_client.svg?label=pypi%20(stable)>)](https://pypi.org/project/llama_api_client/)
 
 The Llama API Client Python library provides convenient access to the Llama API Client REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [https://llama.developer.meta.com/docs](https://llama.developer.meta.com/docs). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [llama.developer.meta.com](https://llama.developer.meta.com/docs). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
 ```sh
-pip install llama-api-client
+# install from this staging repo
+pip install git+ssh://git@github.com/stainless-sdks/llama-api-python.git
 ```
+
+> [!NOTE]
+> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install --pre llama_api_client`
 
 ## Usage
 
@@ -38,7 +43,7 @@ create_chat_completion_response = client.chat.completions.create(
     ],
     model="model",
 )
-print(create_chat_completion_response.completion_message)
+print(create_chat_completion_response.id)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -70,13 +75,53 @@ async def main() -> None:
         ],
         model="model",
     )
-    print(create_chat_completion_response.completion_message)
+    print(create_chat_completion_response.id)
 
 
 asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from this staging repo
+pip install 'llama_api_client[aiohttp] @ git+ssh://git@github.com/stainless-sdks/llama-api-python.git'
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from llama_api_client import DefaultAioHttpClient
+from llama_api_client import AsyncLlamaAPIClient
+
+
+async def main() -> None:
+    async with AsyncLlamaAPIClient(
+        api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        create_chat_completion_response = await client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+        print(create_chat_completion_response.id)
+
+
+asyncio.run(main())
+```
 
 ## Streaming responses
 
@@ -97,8 +142,8 @@ stream = client.chat.completions.create(
     model="model",
     stream=True,
 )
-for chunk in stream:
-    print(chunk.event.delta.text, end="", flush=True)
+for create_chat_completion_response in stream:
+    print(create_chat_completion_response.id)
 ```
 
 The async client uses the exact same interface.
@@ -118,8 +163,8 @@ stream = await client.chat.completions.create(
     model="model",
     stream=True,
 )
-async for chunk in stream:
-    print(chunk.event.delta.text, end="", flush=True)
+async for create_chat_completion_response in stream:
+    print(create_chat_completion_response.id)
 ```
 
 ## Using types
@@ -212,7 +257,7 @@ client.with_options(max_retries=5).chat.completions.create(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from llama_api_client import LlamaAPIClient
@@ -288,12 +333,12 @@ response = client.chat.completions.with_raw_response.create(
 print(response.headers.get('X-My-Header'))
 
 completion = response.parse()  # get the object that `chat.completions.create()` would have returned
-print(completion.completion_message)
+print(completion.id)
 ```
 
-These methods return an [`APIResponse`](https://github.com/meta-llama/llama-api-python/tree/main/src/llama_api_client/_response.py) object.
+These methods return an [`APIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api_client/_response.py) object.
 
-The async client returns an [`AsyncAPIResponse`](https://github.com/meta-llama/llama-api-python/tree/main/src/llama_api_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
+The async client returns an [`AsyncAPIResponse`](https://github.com/stainless-sdks/llama-api-python/tree/main/src/llama_api_client/_response.py) with the same structure, the only difference being `await`able methods for reading the response content.
 
 #### `.with_streaming_response`
 
@@ -405,7 +450,7 @@ This package generally follows [SemVer](https://semver.org/spec/v2.0.0.html) con
 
 We take backwards-compatibility seriously and work hard to ensure you can rely on a smooth upgrade experience.
 
-We are keen for your feedback; please open an [issue](https://www.github.com/meta-llama/llama-api-python/issues) with questions, bugs, or suggestions.
+We are keen for your feedback; please open an [issue](https://www.github.com/stainless-sdks/llama-api-python/issues) with questions, bugs, or suggestions.
 
 ### Determining the installed version
 
@@ -425,6 +470,3 @@ Python 3.8 or higher.
 ## Contributing
 
 See [the contributing documentation](./CONTRIBUTING.md).
-
-## License
-Llama API Python SDK is MIT licensed, as found in the LICENSE file.
