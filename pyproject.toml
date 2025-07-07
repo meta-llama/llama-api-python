@@ -1,6 +1,6 @@
 [project]
 name = "llama_api_client"
-version = "0.1.2"
+version = "0.0.1-alpha.0"
 description = "The official Python library for the llama-api-client API"
 dynamic = ["readme"]
 license = "MIT"
@@ -34,8 +34,8 @@ classifiers = [
 ]
 
 [project.urls]
-Homepage = "https://github.com/meta-llama/llama-api-python"
-Repository = "https://github.com/meta-llama/llama-api-python"
+Homepage = "https://github.com/stainless-sdks/llama-api-python"
+Repository = "https://github.com/stainless-sdks/llama-api-python"
 
 [project.optional-dependencies]
 aiohttp = ["aiohttp", "httpx_aiohttp>=0.1.6"]
@@ -124,7 +124,7 @@ path = "README.md"
 [[tool.hatch.metadata.hooks.fancy-pypi-readme.substitutions]]
 # replace relative links with absolute links
 pattern = '\[(.+?)\]\(((?!https?://)\S+?)\)'
-replacement = '[\1](https://github.com/meta-llama/llama-api-python/tree/main/\g<2>)'
+replacement = '[\1](https://github.com/stainless-sdks/llama-api-python/tree/main/\g<2>)'
 
 [tool.pytest.ini_options]
 testpaths = ["tests"]
