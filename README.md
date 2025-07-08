@@ -15,12 +15,8 @@ The REST API documentation can be found on [llama.developer.meta.com](https://ll
 ## Installation
 
 ```sh
-# install from the production repo
-pip install git+ssh://git@github.com/meta-llama/llama-api-python.git
+pip install llama-api-client
 ```
-
-> [!NOTE]
-> Once this package is [published to PyPI](https://www.stainless.com/docs/guides/publish), this will become: `pip install llama_api_client`
 
 ## Usage
 
@@ -43,7 +39,7 @@ create_chat_completion_response = client.chat.completions.create(
     ],
     model="model",
 )
-print(create_chat_completion_response.id)
+print(create_chat_completion_response.completion_message)
 ```
 
 While you can provide an `api_key` keyword argument,
@@ -75,7 +71,7 @@ async def main() -> None:
         ],
         model="model",
     )
-    print(create_chat_completion_response.id)
+    print(create_chat_completion_response.completion_message)
 
 
 asyncio.run(main())
@@ -117,7 +113,7 @@ async def main() -> None:
             ],
             model="model",
         )
-        print(create_chat_completion_response.id)
+        print(create_chat_completion_response.completion_message)
 
 
 asyncio.run(main())
@@ -142,8 +138,8 @@ stream = client.chat.completions.create(
     model="model",
     stream=True,
 )
-for create_chat_completion_response in stream:
-    print(create_chat_completion_response.id)
+for chunk in stream:
+    print(chunk.event.delta.text, end="", flush=True)
 ```
 
 The async client uses the exact same interface.
@@ -163,8 +159,8 @@ stream = await client.chat.completions.create(
     model="model",
     stream=True,
 )
-async for create_chat_completion_response in stream:
-    print(create_chat_completion_response.id)
+async for chunk in stream:
+    print(chunk.event.delta.text, end="", flush=True)
 ```
 
 ## Using types
@@ -470,3 +466,6 @@ Python 3.8 or higher.
 ## Contributing
 
 See [the contributing documentation](./CONTRIBUTING.md).
+
+## License
+Llama API Python SDK is MIT licensed, as found in the LICENSE file.
