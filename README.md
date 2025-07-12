@@ -1,15 +1,17 @@
 # Llama API Client Python API library
 
-[![PyPI version](https://img.shields.io/pypi/v/llama_api_client.svg)](https://pypi.org/project/llama_api_client/)
+<!-- prettier-ignore -->
+[![PyPI version](https://img.shields.io/pypi/v/llama_api_client.svg?label=pypi%20(stable))](https://pypi.org/project/llama_api_client/)
 
 The Llama API Client Python library provides convenient access to the Llama API Client REST API from any Python 3.8+
 application. The library includes type definitions for all request params and response fields,
 and offers both synchronous and asynchronous clients powered by [httpx](https://github.com/encode/httpx).
 
+It is generated with [Stainless](https://www.stainless.com/).
 
 ## Documentation
 
-The REST API documentation can be found on [https://llama.developer.meta.com/docs](https://llama.developer.meta.com/docs). The full API of this library can be found in [api.md](api.md).
+The REST API documentation can be found on [llama.developer.meta.com](https://llama.developer.meta.com/docs). The full API of this library can be found in [api.md](api.md).
 
 ## Installation
 
@@ -77,6 +79,46 @@ asyncio.run(main())
 ```
 
 Functionality between the synchronous and asynchronous clients is otherwise identical.
+
+### With aiohttp
+
+By default, the async client uses `httpx` for HTTP requests. However, for improved concurrency performance you may also use `aiohttp` as the HTTP backend.
+
+You can enable this by installing `aiohttp`:
+
+```sh
+# install from the production repo
+pip install 'llama_api_client[aiohttp] @ git+ssh://git@github.com/meta-llama/llama-api-python.git'
+```
+
+Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
+
+```python
+import os
+import asyncio
+from llama_api_client import DefaultAioHttpClient
+from llama_api_client import AsyncLlamaAPIClient
+
+
+async def main() -> None:
+    async with AsyncLlamaAPIClient(
+        api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
+        http_client=DefaultAioHttpClient(),
+    ) as client:
+        create_chat_completion_response = await client.chat.completions.create(
+            messages=[
+                {
+                    "content": "string",
+                    "role": "user",
+                }
+            ],
+            model="model",
+        )
+        print(create_chat_completion_response.completion_message)
+
+
+asyncio.run(main())
+```
 
 ## Streaming responses
 
@@ -212,7 +254,7 @@ client.with_options(max_retries=5).chat.completions.create(
 ### Timeouts
 
 By default requests time out after 1 minute. You can configure this with a `timeout` option,
-which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/#fine-tuning-the-configuration) object:
+which accepts a float or an [`httpx.Timeout`](https://www.python-httpx.org/advanced/timeouts/#fine-tuning-the-configuration) object:
 
 ```python
 from llama_api_client import LlamaAPIClient
@@ -288,7 +330,7 @@ response = client.chat.completions.with_raw_response.create(
 print(response.headers.get('X-My-Header'))
 
 completion = response.parse()  # get the object that `chat.completions.create()` would have returned
-print(completion.completion_message)
+print(completion.id)
 ```
 
 These methods return an [`APIResponse`](https://github.com/meta-llama/llama-api-python/tree/main/src/llama_api_client/_response.py) object.
