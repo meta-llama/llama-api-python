@@ -94,7 +94,6 @@ pip install 'llama_api_client[aiohttp] @ git+ssh://git@github.com/meta-llama/lla
 Then you can enable it by instantiating the client with `http_client=DefaultAioHttpClient()`:
 
 ```python
-import os
 import asyncio
 from llama_api_client import DefaultAioHttpClient
 from llama_api_client import AsyncLlamaAPIClient
@@ -102,7 +101,7 @@ from llama_api_client import AsyncLlamaAPIClient
 
 async def main() -> None:
     async with AsyncLlamaAPIClient(
-        api_key=os.environ.get("LLAMA_API_KEY"),  # This is the default and can be omitted
+        api_key="My API Key",
         http_client=DefaultAioHttpClient(),
     ) as client:
         create_chat_completion_response = await client.chat.completions.create(
