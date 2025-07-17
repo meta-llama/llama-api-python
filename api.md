@@ -5,7 +5,6 @@ Types:
 ```python
 from llama_api_client.types import (
     CompletionMessage,
-    CreateChatCompletionRequest,
     CreateChatCompletionResponse,
     CreateChatCompletionResponseStreamChunk,
     Message,
