@@ -17,7 +17,7 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestCompletions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_overload_1(self, client: LlamaAPIClient) -> None:
         completion = client.chat.completions.create(
@@ -31,7 +31,7 @@ class TestCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_1(self, client: LlamaAPIClient) -> None:
         completion = client.chat.completions.create(
@@ -71,7 +71,7 @@ class TestCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create_overload_1(self, client: LlamaAPIClient) -> None:
         response = client.chat.completions.with_raw_response.create(
@@ -89,7 +89,7 @@ class TestCompletions:
         completion = response.parse()
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_1(self, client: LlamaAPIClient) -> None:
         with client.chat.completions.with_streaming_response.create(
@@ -109,7 +109,7 @@ class TestCompletions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_overload_2(self, client: LlamaAPIClient) -> None:
         completion_stream = client.chat.completions.create(
@@ -124,7 +124,7 @@ class TestCompletions:
         )
         completion_stream.response.close()
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_method_create_with_all_params_overload_2(self, client: LlamaAPIClient) -> None:
         completion_stream = client.chat.completions.create(
@@ -164,7 +164,7 @@ class TestCompletions:
         )
         completion_stream.response.close()
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_raw_response_create_overload_2(self, client: LlamaAPIClient) -> None:
         response = client.chat.completions.with_raw_response.create(
@@ -182,7 +182,7 @@ class TestCompletions:
         stream = response.parse()
         stream.close()
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_streaming_response_create_overload_2(self, client: LlamaAPIClient) -> None:
         with client.chat.completions.with_streaming_response.create(
@@ -209,7 +209,7 @@ class TestAsyncCompletions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
         completion = await async_client.chat.completions.create(
@@ -223,7 +223,7 @@ class TestAsyncCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
         completion = await async_client.chat.completions.create(
@@ -263,7 +263,7 @@ class TestAsyncCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
@@ -281,7 +281,7 @@ class TestAsyncCompletions:
         completion = await response.parse()
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
@@ -301,7 +301,7 @@ class TestAsyncCompletions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
         completion_stream = await async_client.chat.completions.create(
@@ -316,7 +316,7 @@ class TestAsyncCompletions:
         )
         await completion_stream.response.aclose()
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
         completion_stream = await async_client.chat.completions.create(
@@ -356,7 +356,7 @@ class TestAsyncCompletions:
         )
         await completion_stream.response.aclose()
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
         response = await async_client.chat.completions.with_raw_response.create(
@@ -374,7 +374,7 @@ class TestAsyncCompletions:
         stream = await response.parse()
         await stream.close()
 
-    @pytest.mark.skip()
+    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
         async with async_client.chat.completions.with_streaming_response.create(
