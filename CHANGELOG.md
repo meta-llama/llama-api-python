@@ -1,5 +1,16 @@
 # Changelog
 
+## 0.2.1 (2025-08-22)
+
+Full Changelog: [v0.2.0...v0.2.1](https://github.com/meta-llama/llama-api-python/compare/v0.2.0...v0.2.1)
+
+### Chores
+
+* **internal:** codegen related update ([cae389f](https://github.com/meta-llama/llama-api-python/commit/cae389f98552280557b2f73d0b146e159764a5a9))
+* **internal:** update comment in script ([20ab448](https://github.com/meta-llama/llama-api-python/commit/20ab4484b71a0e9c555d28de0b8fbd59246851ac))
+* update @stainless-api/prism-cli to v5.15.0 ([8e77df5](https://github.com/meta-llama/llama-api-python/commit/8e77df5e5778b55bda86a38735fb1426ae3a02a4))
+* update github action ([3dab72d](https://github.com/meta-llama/llama-api-python/commit/3dab72dc5b6fc8ad8f9b9d72f25e155a7e22a857))
+
 ## 0.2.0 (2025-08-07)
 
 Full Changelog: [v0.1.2...v0.2.0](https://github.com/meta-llama/llama-api-python/compare/v0.1.2...v0.2.0)
