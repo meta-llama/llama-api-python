@@ -9,6 +9,7 @@ from typing_extensions import Self, Protocol, TypeGuard, override, get_origin, r
 
 import httpx
 
+from ._exceptions import APIError
 from ._utils import extract_type_var_from_base
 
 if TYPE_CHECKING:
@@ -55,6 +56,12 @@ class Stream(Generic[_T]):
         iterator = self._iter_events()
 
         for sse in iterator:
+            if sse.event == "error":
+                raise APIError(
+                    message=sse.data,
+                    request=response.request,
+                    body=sse.json(),
+                )
             yield process_data(data=sse.json(), cast_to=cast_to, response=response)
 
         # Ensure the entire stream is consumed
@@ -119,6 +126,12 @@ class AsyncStream(Generic[_T]):
         iterator = self._iter_events()
 
         async for sse in iterator:
+            if sse.event == "error":
+                raise APIError(
+                    message=sse.data,
+                    request=response.request,
+                    body=sse.json(),
+                )
             yield process_data(data=sse.json(), cast_to=cast_to, response=response)
 
         # Ensure the entire stream is consumed
@@ -286,7 +299,24 @@ class SSEDecoder:
             except (TypeError, ValueError):
                 pass
         else:
-            pass  # Field is ignored.
+            # custom patch to handle midstream errors
+            try:
+                _ = json.loads(line)
+                sse = ServerSentEvent(
+                    event="error",
+                    data=line,
+                    id=self._last_event_id,
+                    retry=self._retry,
+                )
+
+                # NOTE: as per the SSE spec, do not reset last_event_id.
+                self._event = None
+                self._data = []
+                self._retry = None
+
+                return sse
+            except json.JSONDecodeError:
+                pass
 
         return None
 
