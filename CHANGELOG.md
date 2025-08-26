@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.3.0 (2025-08-26)
+
+Full Changelog: [v0.2.0...v0.3.0](https://github.com/meta-llama/llama-api-python/compare/v0.2.0...v0.3.0)
+
+### Features
+
+* custom patch to handle exception during stream chunk ([7549f0b](https://github.com/meta-llama/llama-api-python/commit/7549f0b38d85143f984191bf9ff1f353f787fa50))
+
+
+### Chores
+
+* **internal:** change ci workflow machines ([37dd39f](https://github.com/meta-llama/llama-api-python/commit/37dd39fe156f7ed0f36101d014a4983498a10a27))
+* **internal:** codegen related update ([cae389f](https://github.com/meta-llama/llama-api-python/commit/cae389f98552280557b2f73d0b146e159764a5a9))
+* **internal:** update comment in script ([20ab448](https://github.com/meta-llama/llama-api-python/commit/20ab4484b71a0e9c555d28de0b8fbd59246851ac))
+* run lint ([dc7d5a7](https://github.com/meta-llama/llama-api-python/commit/dc7d5a768eccf8c9d6faaac3585e7e09a611db02))
+* update @stainless-api/prism-cli to v5.15.0 ([8e77df5](https://github.com/meta-llama/llama-api-python/commit/8e77df5e5778b55bda86a38735fb1426ae3a02a4))
+* update github action ([3dab72d](https://github.com/meta-llama/llama-api-python/commit/3dab72dc5b6fc8ad8f9b9d72f25e155a7e22a857))
+
 ## 0.2.0 (2025-08-07)
 
 Full Changelog: [v0.1.2...v0.2.0](https://github.com/meta-llama/llama-api-python/compare/v0.1.2...v0.2.0)
