@@ -9,8 +9,8 @@ from typing_extensions import Self, Protocol, TypeGuard, override, get_origin, r
 
 import httpx
 
-from ._exceptions import APIError
 from ._utils import extract_type_var_from_base
+from ._exceptions import APIError
 
 if TYPE_CHECKING:
     from ._client import LlamaAPIClient, AsyncLlamaAPIClient
