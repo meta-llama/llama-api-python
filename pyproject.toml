@@ -1,6 +1,6 @@
 [project]
 name = "llama_api_client"
-version = "0.3.0"
+version = "0.3.1"
 description = "The official Python library for the llama-api-client API"
 dynamic = ["readme"]
 license = "MIT"
@@ -148,6 +148,7 @@ exclude = [
     "_dev",
     ".venv",
     ".nox",
+    ".git",
 ]
 
 reportImplicitOverride = true
