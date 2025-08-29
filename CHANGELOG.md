@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.3.1 (2025-08-29)
+
+Full Changelog: [v0.3.0...v0.3.1](https://github.com/meta-llama/llama-api-python/compare/v0.3.0...v0.3.1)
+
+### Bug Fixes
+
+* avoid newer type syntax ([b9bfeb3](https://github.com/meta-llama/llama-api-python/commit/b9bfeb3df2528b0c77017e9b1b50bcd54bf731bb))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([909f85f](https://github.com/meta-llama/llama-api-python/commit/909f85f12cb61ee164764bca656c0b574b0bcd2a))
+* **internal:** update pyright exclude list ([203a1a1](https://github.com/meta-llama/llama-api-python/commit/203a1a1d8a74ece63939e25ec0a1b91c42706119))
+
 ## 0.3.0 (2025-08-26)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/meta-llama/llama-api-python/compare/v0.2.0...v0.3.0)
