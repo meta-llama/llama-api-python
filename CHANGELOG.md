@@ -1,5 +1,28 @@
 # Changelog
 
+## 0.4.0 (2025-09-16)
+
+Full Changelog: [v0.3.0...v0.4.0](https://github.com/meta-llama/llama-api-python/compare/v0.3.0...v0.4.0)
+
+### Features
+
+* improve future compat with pydantic v3 ([648fe7b](https://github.com/meta-llama/llama-api-python/commit/648fe7be582adb6c50f73d24b32f6c9abdf88d73))
+* **types:** replace List[str] with SequenceNotStr in params ([565a26d](https://github.com/meta-llama/llama-api-python/commit/565a26da9736a27ec88e1139e70569e3ba084b3a))
+
+
+### Bug Fixes
+
+* avoid newer type syntax ([b9bfeb3](https://github.com/meta-llama/llama-api-python/commit/b9bfeb3df2528b0c77017e9b1b50bcd54bf731bb))
+
+
+### Chores
+
+* **internal:** add Sequence related utils ([909f85f](https://github.com/meta-llama/llama-api-python/commit/909f85f12cb61ee164764bca656c0b574b0bcd2a))
+* **internal:** move mypy configurations to `pyproject.toml` file ([68106c6](https://github.com/meta-llama/llama-api-python/commit/68106c6af940f1cbbbafae6dc0de999e1f853325))
+* **internal:** update pydantic dependency ([9ad2fea](https://github.com/meta-llama/llama-api-python/commit/9ad2fea856c3470b20b89ddd033614eee40c0ea0))
+* **internal:** update pyright exclude list ([203a1a1](https://github.com/meta-llama/llama-api-python/commit/203a1a1d8a74ece63939e25ec0a1b91c42706119))
+* **tests:** simplify `get_platform` test ([21f3cd5](https://github.com/meta-llama/llama-api-python/commit/21f3cd5b775c2963be3d13ccfc59273c163fdfbc))
+
 ## 0.3.0 (2025-08-26)
 
 Full Changelog: [v0.2.0...v0.3.0](https://github.com/meta-llama/llama-api-python/compare/v0.2.0...v0.3.0)
