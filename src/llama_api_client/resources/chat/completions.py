@@ -7,7 +7,7 @@ from typing_extensions import Literal, overload
 
 import httpx
 
-from ..._types import NOT_GIVEN, Body, Query, Headers, NotGiven
+from ..._types import Body, Omit, Query, Headers, NotGiven, omit, not_given
 from ..._utils import required_args, maybe_transform, async_maybe_transform
 from ..._compat import cached_property
 from ..._resource import SyncAPIResource, AsyncAPIResource
@@ -53,22 +53,22 @@ class CompletionsResource(SyncAPIResource):
         *,
         messages: Iterable[MessageParam],
         model: str,
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatCompletionResponse:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -130,21 +130,21 @@ class CompletionsResource(SyncAPIResource):
         messages: Iterable[MessageParam],
         model: str,
         stream: Literal[True],
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> Stream[CreateChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -206,21 +206,21 @@ class CompletionsResource(SyncAPIResource):
         messages: Iterable[MessageParam],
         model: str,
         stream: bool,
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatCompletionResponse | Stream[CreateChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -281,22 +281,22 @@ class CompletionsResource(SyncAPIResource):
         *,
         messages: Iterable[MessageParam],
         model: str,
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatCompletionResponse | Stream[CreateChatCompletionResponseStreamChunk]:
         return self._post(
             "/chat/completions",
@@ -354,22 +354,22 @@ class AsyncCompletionsResource(AsyncAPIResource):
         *,
         messages: Iterable[MessageParam],
         model: str,
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        stream: Literal[False] | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatCompletionResponse:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -431,21 +431,21 @@ class AsyncCompletionsResource(AsyncAPIResource):
         messages: Iterable[MessageParam],
         model: str,
         stream: Literal[True],
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> AsyncStream[CreateChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -507,21 +507,21 @@ class AsyncCompletionsResource(AsyncAPIResource):
         messages: Iterable[MessageParam],
         model: str,
         stream: bool,
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
         """
         Generate a chat completion for the given messages using the specified model.
@@ -582,22 +582,22 @@ class AsyncCompletionsResource(AsyncAPIResource):
         *,
         messages: Iterable[MessageParam],
         model: str,
-        max_completion_tokens: int | NotGiven = NOT_GIVEN,
-        repetition_penalty: float | NotGiven = NOT_GIVEN,
-        response_format: completion_create_params.ResponseFormat | NotGiven = NOT_GIVEN,
-        stream: Literal[False] | Literal[True] | NotGiven = NOT_GIVEN,
-        temperature: float | NotGiven = NOT_GIVEN,
-        tool_choice: completion_create_params.ToolChoice | NotGiven = NOT_GIVEN,
-        tools: Iterable[completion_create_params.Tool] | NotGiven = NOT_GIVEN,
-        top_k: int | NotGiven = NOT_GIVEN,
-        top_p: float | NotGiven = NOT_GIVEN,
-        user: str | NotGiven = NOT_GIVEN,
+        max_completion_tokens: int | Omit = omit,
+        repetition_penalty: float | Omit = omit,
+        response_format: completion_create_params.ResponseFormat | Omit = omit,
+        stream: Literal[False] | Literal[True] | Omit = omit,
+        temperature: float | Omit = omit,
+        tool_choice: completion_create_params.ToolChoice | Omit = omit,
+        tools: Iterable[completion_create_params.Tool] | Omit = omit,
+        top_k: int | Omit = omit,
+        top_p: float | Omit = omit,
+        user: str | Omit = omit,
         # Use the following arguments if you need to pass additional parameters to the API that aren't available via kwargs.
         # The extra values given here take precedence over values defined on the client or passed to this method.
         extra_headers: Headers | None = None,
         extra_query: Query | None = None,
         extra_body: Body | None = None,
-        timeout: float | httpx.Timeout | None | NotGiven = NOT_GIVEN,
+        timeout: float | httpx.Timeout | None | NotGiven = not_given,
     ) -> CreateChatCompletionResponse | AsyncStream[CreateChatCompletionResponseStreamChunk]:
         return await self._post(
             "/chat/completions",
