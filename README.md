@@ -182,8 +182,19 @@ from llama_api_client import LlamaAPIClient
 
 client = LlamaAPIClient()
 
+num_bytes = Path("/path/to/file").stat().st_size
+
+# 1. initiate upload session
+r = client.uploads.create(
+    bytes=num_bytes,
+    filename="simpleqa.jsonl",
+    mime_type="application/jsonl",
+    purpose="messages_finetune",
+)
+
+# 2. upload part
 client.uploads.part(
-    upload_id="upload_id",
+    upload_id=r.id,
     data=Path("/path/to/file"),
 )
 ```
