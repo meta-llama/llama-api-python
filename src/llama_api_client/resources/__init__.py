@@ -16,6 +16,14 @@ from .models import (
     ModelsResourceWithStreamingResponse,
     AsyncModelsResourceWithStreamingResponse,
 )
+from .uploads import (
+    UploadsResource,
+    AsyncUploadsResource,
+    UploadsResourceWithRawResponse,
+    AsyncUploadsResourceWithRawResponse,
+    UploadsResourceWithStreamingResponse,
+    AsyncUploadsResourceWithStreamingResponse,
+)
 from .moderations import (
     ModerationsResource,
     AsyncModerationsResource,
@@ -38,6 +46,12 @@ __all__ = [
     "AsyncModelsResourceWithRawResponse",
     "ModelsResourceWithStreamingResponse",
     "AsyncModelsResourceWithStreamingResponse",
+    "UploadsResource",
+    "AsyncUploadsResource",
+    "UploadsResourceWithRawResponse",
+    "AsyncUploadsResourceWithRawResponse",
+    "UploadsResourceWithStreamingResponse",
+    "AsyncUploadsResourceWithStreamingResponse",
     "ModerationsResource",
     "AsyncModerationsResource",
     "ModerationsResourceWithRawResponse",
