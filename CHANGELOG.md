@@ -1,5 +1,20 @@
 # Changelog
 
+## 0.5.0 (2025-10-01)
+
+Full Changelog: [v0.4.0...v0.5.0](https://github.com/meta-llama/llama-api-python/compare/v0.4.0...v0.5.0)
+
+### Features
+
+* **api:** manual updates ([73a8579](https://github.com/meta-llama/llama-api-python/commit/73a85795b197c6ed820c18b88f8eac028e92ea20))
+* file upload readme ([061b2cb](https://github.com/meta-llama/llama-api-python/commit/061b2cb1f03cc56c46f4f84d3b2feda1c54b0ed4))
+
+
+### Chores
+
+* do not install brew dependencies in ./scripts/bootstrap by default ([b0bf238](https://github.com/meta-llama/llama-api-python/commit/b0bf238b86c81b39a199b46e5ed03e6768d3e5ad))
+* **types:** change optional parameter type from NotGiven to Omit ([19b3fdb](https://github.com/meta-llama/llama-api-python/commit/19b3fdbf3e0aa7d72e52b9b99f831fe2de0fbb04))
+
 ## 0.4.0 (2025-09-16)
 
 Full Changelog: [v0.3.0...v0.4.0](https://github.com/meta-llama/llama-api-python/compare/v0.3.0...v0.4.0)
