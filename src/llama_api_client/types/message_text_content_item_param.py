@@ -8,6 +8,8 @@ __all__ = ["MessageTextContentItemParam"]
 
 
 class MessageTextContentItemParam(TypedDict, total=False):
+    """A text content item"""
+
     text: Required[str]
     """Text content"""
 

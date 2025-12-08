@@ -11,6 +11,8 @@ __all__ = ["SystemMessageParam"]
 
 
 class SystemMessageParam(TypedDict, total=False):
+    """A system message providing instructions or context to the model."""
+
     content: Required[Union[str, Iterable[MessageTextContentItemParam]]]
     """The content of the system message."""
 

@@ -14,6 +14,8 @@ ContentArrayOfContentItem: TypeAlias = Union[MessageTextContentItemParam, Messag
 
 
 class UserMessageParam(TypedDict, total=False):
+    """A message from the user in a chat conversation."""
+
     content: Required[Union[str, Iterable[ContentArrayOfContentItem]]]
     """The content of the user message, which can include text and other media."""
 

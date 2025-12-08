@@ -8,6 +8,8 @@ __all__ = ["MessageTextContentItem"]
 
 
 class MessageTextContentItem(BaseModel):
+    """A text content item"""
+
     text: str
     """Text content"""
 

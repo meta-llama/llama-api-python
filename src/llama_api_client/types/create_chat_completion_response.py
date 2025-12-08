@@ -17,6 +17,8 @@ class Metric(BaseModel):
 
 
 class CreateChatCompletionResponse(BaseModel):
+    """Response from a chat completion request."""
+
     completion_message: CompletionMessage
     """The complete response message"""
 
