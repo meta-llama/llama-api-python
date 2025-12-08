@@ -11,6 +11,8 @@ __all__ = ["ToolResponseMessageParam"]
 
 
 class ToolResponseMessageParam(TypedDict, total=False):
+    """A message representing the result of a tool invocation."""
+
     content: Required[Union[str, Iterable[MessageTextContentItemParam]]]
     """The content of the user message, which can include text and other media."""
 

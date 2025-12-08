@@ -8,11 +8,15 @@ __all__ = ["MessageImageContentItemParam", "ImageURL"]
 
 
 class ImageURL(TypedDict, total=False):
+    """Contains either an image URL or a data URL for a base64 encoded image."""
+
     url: Required[str]
     """Either a URL of the image or the base64 encoded image data."""
 
 
 class MessageImageContentItemParam(TypedDict, total=False):
+    """A image content item"""
+
     image_url: Required[ImageURL]
     """Contains either an image URL or a data URL for a base64 encoded image."""
 

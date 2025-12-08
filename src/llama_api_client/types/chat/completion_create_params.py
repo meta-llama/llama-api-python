@@ -84,6 +84,8 @@ class CompletionCreateParamsBase(TypedDict, total=False):
 
 
 class ResponseFormatJsonSchemaResponseFormatJsonSchema(TypedDict, total=False):
+    """The JSON schema the response should conform to."""
+
     name: Required[str]
     """The name of the response format."""
 
@@ -95,6 +97,8 @@ class ResponseFormatJsonSchemaResponseFormatJsonSchema(TypedDict, total=False):
 
 
 class ResponseFormatJsonSchemaResponseFormat(TypedDict, total=False):
+    """Configuration for JSON schema-guided response generation."""
+
     json_schema: Required[ResponseFormatJsonSchemaResponseFormatJsonSchema]
     """The JSON schema the response should conform to."""
 
@@ -103,6 +107,8 @@ class ResponseFormatJsonSchemaResponseFormat(TypedDict, total=False):
 
 
 class ResponseFormatTextResponseFormat(TypedDict, total=False):
+    """Configuration for text-guided response generation."""
+
     type: Required[Literal["text"]]
     """The type of response format being defined. Always `text`."""
 
@@ -116,6 +122,11 @@ class ToolChoiceChatCompletionNamedToolChoiceFunction(TypedDict, total=False):
 
 
 class ToolChoiceChatCompletionNamedToolChoice(TypedDict, total=False):
+    """Specifies a tool the model should use.
+
+    Use to force the model to call a specific function.
+    """
+
     function: Required[ToolChoiceChatCompletionNamedToolChoiceFunction]
 
     type: Required[Literal["function"]]

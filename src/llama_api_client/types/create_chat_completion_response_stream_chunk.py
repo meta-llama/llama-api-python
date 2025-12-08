@@ -59,6 +59,8 @@ class EventMetric(BaseModel):
 
 
 class Event(BaseModel):
+    """The event containing the new content"""
+
     delta: EventDelta
     """Content generated since last event.
 
@@ -80,6 +82,8 @@ class Event(BaseModel):
 
 
 class CreateChatCompletionResponseStreamChunk(BaseModel):
+    """A chunk of a streamed chat completion response."""
+
     event: Event
     """The event containing the new content"""
 
