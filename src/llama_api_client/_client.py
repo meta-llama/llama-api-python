@@ -3,7 +3,7 @@
 from __future__ import annotations
 
 import os
-from typing import Any, Mapping
+from typing import TYPE_CHECKING, Any, Mapping
 from typing_extensions import Self, override
 
 import httpx
@@ -20,8 +20,8 @@ from ._types import (
     not_given,
 )
 from ._utils import is_given, get_async_library
+from ._compat import cached_property
 from ._version import __version__
-from .resources import models, uploads, moderations
 from ._streaming import Stream as Stream, AsyncStream as AsyncStream
 from ._exceptions import APIStatusError, LlamaAPIClientError
 from ._base_client import (
@@ -29,7 +29,13 @@ from ._base_client import (
     SyncAPIClient,
     AsyncAPIClient,
 )
-from .resources.chat import chat
+
+if TYPE_CHECKING:
+    from .resources import chat, models, uploads, moderations
+    from .resources.models import ModelsResource, AsyncModelsResource
+    from .resources.uploads import UploadsResource, AsyncUploadsResource
+    from .resources.chat.chat import ChatResource, AsyncChatResource
+    from .resources.moderations import ModerationsResource, AsyncModerationsResource
 
 __all__ = [
     "Timeout",
@@ -44,13 +50,6 @@ __all__ = [
 
 
 class LlamaAPIClient(SyncAPIClient):
-    chat: chat.ChatResource
-    models: models.ModelsResource
-    uploads: uploads.UploadsResource
-    moderations: moderations.ModerationsResource
-    with_raw_response: LlamaAPIClientWithRawResponse
-    with_streaming_response: LlamaAPIClientWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -105,12 +104,37 @@ class LlamaAPIClient(SyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.chat = chat.ChatResource(self)
-        self.models = models.ModelsResource(self)
-        self.uploads = uploads.UploadsResource(self)
-        self.moderations = moderations.ModerationsResource(self)
-        self.with_raw_response = LlamaAPIClientWithRawResponse(self)
-        self.with_streaming_response = LlamaAPIClientWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> ChatResource:
+        from .resources.chat import ChatResource
+
+        return ChatResource(self)
+
+    @cached_property
+    def models(self) -> ModelsResource:
+        from .resources.models import ModelsResource
+
+        return ModelsResource(self)
+
+    @cached_property
+    def uploads(self) -> UploadsResource:
+        from .resources.uploads import UploadsResource
+
+        return UploadsResource(self)
+
+    @cached_property
+    def moderations(self) -> ModerationsResource:
+        from .resources.moderations import ModerationsResource
+
+        return ModerationsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> LlamaAPIClientWithRawResponse:
+        return LlamaAPIClientWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> LlamaAPIClientWithStreamedResponse:
+        return LlamaAPIClientWithStreamedResponse(self)
 
     @property
     @override
@@ -218,13 +242,6 @@ class LlamaAPIClient(SyncAPIClient):
 
 
 class AsyncLlamaAPIClient(AsyncAPIClient):
-    chat: chat.AsyncChatResource
-    models: models.AsyncModelsResource
-    uploads: uploads.AsyncUploadsResource
-    moderations: moderations.AsyncModerationsResource
-    with_raw_response: AsyncLlamaAPIClientWithRawResponse
-    with_streaming_response: AsyncLlamaAPIClientWithStreamedResponse
-
     # client options
     api_key: str
 
@@ -279,12 +296,37 @@ class AsyncLlamaAPIClient(AsyncAPIClient):
             _strict_response_validation=_strict_response_validation,
         )
 
-        self.chat = chat.AsyncChatResource(self)
-        self.models = models.AsyncModelsResource(self)
-        self.uploads = uploads.AsyncUploadsResource(self)
-        self.moderations = moderations.AsyncModerationsResource(self)
-        self.with_raw_response = AsyncLlamaAPIClientWithRawResponse(self)
-        self.with_streaming_response = AsyncLlamaAPIClientWithStreamedResponse(self)
+    @cached_property
+    def chat(self) -> AsyncChatResource:
+        from .resources.chat import AsyncChatResource
+
+        return AsyncChatResource(self)
+
+    @cached_property
+    def models(self) -> AsyncModelsResource:
+        from .resources.models import AsyncModelsResource
+
+        return AsyncModelsResource(self)
+
+    @cached_property
+    def uploads(self) -> AsyncUploadsResource:
+        from .resources.uploads import AsyncUploadsResource
+
+        return AsyncUploadsResource(self)
+
+    @cached_property
+    def moderations(self) -> AsyncModerationsResource:
+        from .resources.moderations import AsyncModerationsResource
+
+        return AsyncModerationsResource(self)
+
+    @cached_property
+    def with_raw_response(self) -> AsyncLlamaAPIClientWithRawResponse:
+        return AsyncLlamaAPIClientWithRawResponse(self)
+
+    @cached_property
+    def with_streaming_response(self) -> AsyncLlamaAPIClientWithStreamedResponse:
+        return AsyncLlamaAPIClientWithStreamedResponse(self)
 
     @property
     @override
@@ -392,35 +434,127 @@ class AsyncLlamaAPIClient(AsyncAPIClient):
 
 
 class LlamaAPIClientWithRawResponse:
+    _client: LlamaAPIClient
+
     def __init__(self, client: LlamaAPIClient) -> None:
-        self.chat = chat.ChatResourceWithRawResponse(client.chat)
-        self.models = models.ModelsResourceWithRawResponse(client.models)
-        self.uploads = uploads.UploadsResourceWithRawResponse(client.uploads)
-        self.moderations = moderations.ModerationsResourceWithRawResponse(client.moderations)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithRawResponse:
+        from .resources.chat import ChatResourceWithRawResponse
+
+        return ChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithRawResponse:
+        from .resources.models import ModelsResourceWithRawResponse
+
+        return ModelsResourceWithRawResponse(self._client.models)
+
+    @cached_property
+    def uploads(self) -> uploads.UploadsResourceWithRawResponse:
+        from .resources.uploads import UploadsResourceWithRawResponse
+
+        return UploadsResourceWithRawResponse(self._client.uploads)
+
+    @cached_property
+    def moderations(self) -> moderations.ModerationsResourceWithRawResponse:
+        from .resources.moderations import ModerationsResourceWithRawResponse
+
+        return ModerationsResourceWithRawResponse(self._client.moderations)
 
 
 class AsyncLlamaAPIClientWithRawResponse:
+    _client: AsyncLlamaAPIClient
+
     def __init__(self, client: AsyncLlamaAPIClient) -> None:
-        self.chat = chat.AsyncChatResourceWithRawResponse(client.chat)
-        self.models = models.AsyncModelsResourceWithRawResponse(client.models)
-        self.uploads = uploads.AsyncUploadsResourceWithRawResponse(client.uploads)
-        self.moderations = moderations.AsyncModerationsResourceWithRawResponse(client.moderations)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithRawResponse:
+        from .resources.chat import AsyncChatResourceWithRawResponse
+
+        return AsyncChatResourceWithRawResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithRawResponse:
+        from .resources.models import AsyncModelsResourceWithRawResponse
+
+        return AsyncModelsResourceWithRawResponse(self._client.models)
+
+    @cached_property
+    def uploads(self) -> uploads.AsyncUploadsResourceWithRawResponse:
+        from .resources.uploads import AsyncUploadsResourceWithRawResponse
+
+        return AsyncUploadsResourceWithRawResponse(self._client.uploads)
+
+    @cached_property
+    def moderations(self) -> moderations.AsyncModerationsResourceWithRawResponse:
+        from .resources.moderations import AsyncModerationsResourceWithRawResponse
+
+        return AsyncModerationsResourceWithRawResponse(self._client.moderations)
 
 
 class LlamaAPIClientWithStreamedResponse:
+    _client: LlamaAPIClient
+
     def __init__(self, client: LlamaAPIClient) -> None:
-        self.chat = chat.ChatResourceWithStreamingResponse(client.chat)
-        self.models = models.ModelsResourceWithStreamingResponse(client.models)
-        self.uploads = uploads.UploadsResourceWithStreamingResponse(client.uploads)
-        self.moderations = moderations.ModerationsResourceWithStreamingResponse(client.moderations)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.ChatResourceWithStreamingResponse:
+        from .resources.chat import ChatResourceWithStreamingResponse
+
+        return ChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.ModelsResourceWithStreamingResponse:
+        from .resources.models import ModelsResourceWithStreamingResponse
+
+        return ModelsResourceWithStreamingResponse(self._client.models)
+
+    @cached_property
+    def uploads(self) -> uploads.UploadsResourceWithStreamingResponse:
+        from .resources.uploads import UploadsResourceWithStreamingResponse
+
+        return UploadsResourceWithStreamingResponse(self._client.uploads)
+
+    @cached_property
+    def moderations(self) -> moderations.ModerationsResourceWithStreamingResponse:
+        from .resources.moderations import ModerationsResourceWithStreamingResponse
+
+        return ModerationsResourceWithStreamingResponse(self._client.moderations)
 
 
 class AsyncLlamaAPIClientWithStreamedResponse:
+    _client: AsyncLlamaAPIClient
+
     def __init__(self, client: AsyncLlamaAPIClient) -> None:
-        self.chat = chat.AsyncChatResourceWithStreamingResponse(client.chat)
-        self.models = models.AsyncModelsResourceWithStreamingResponse(client.models)
-        self.uploads = uploads.AsyncUploadsResourceWithStreamingResponse(client.uploads)
-        self.moderations = moderations.AsyncModerationsResourceWithStreamingResponse(client.moderations)
+        self._client = client
+
+    @cached_property
+    def chat(self) -> chat.AsyncChatResourceWithStreamingResponse:
+        from .resources.chat import AsyncChatResourceWithStreamingResponse
+
+        return AsyncChatResourceWithStreamingResponse(self._client.chat)
+
+    @cached_property
+    def models(self) -> models.AsyncModelsResourceWithStreamingResponse:
+        from .resources.models import AsyncModelsResourceWithStreamingResponse
+
+        return AsyncModelsResourceWithStreamingResponse(self._client.models)
+
+    @cached_property
+    def uploads(self) -> uploads.AsyncUploadsResourceWithStreamingResponse:
+        from .resources.uploads import AsyncUploadsResourceWithStreamingResponse
+
+        return AsyncUploadsResourceWithStreamingResponse(self._client.uploads)
+
+    @cached_property
+    def moderations(self) -> moderations.AsyncModerationsResourceWithStreamingResponse:
+        from .resources.moderations import AsyncModerationsResourceWithStreamingResponse
+
+        return AsyncModerationsResourceWithStreamingResponse(self._client.moderations)
 
 
 Client = LlamaAPIClient
