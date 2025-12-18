@@ -1,5 +1,41 @@
 # Changelog
 
+## 0.6.0 (2025-12-18)
+
+Full Changelog: [v0.5.0...v0.6.0](https://github.com/meta-llama/llama-api-python/compare/v0.5.0...v0.6.0)
+
+### Features
+
+* **api:** manual updates ([345a9f0](https://github.com/meta-llama/llama-api-python/commit/345a9f0554fe30991f936078a3242e44c0cca302))
+* **api:** manual updates ([a87c139](https://github.com/meta-llama/llama-api-python/commit/a87c139abe8dc412688855d2ea8226e02d3d1376))
+* **api:** manual updates ([2f2aed5](https://github.com/meta-llama/llama-api-python/commit/2f2aed50d52ca6d1e23523a6d4a2469445feb088))
+
+
+### Bug Fixes
+
+* **client:** close streams without requiring full consumption ([cb29768](https://github.com/meta-llama/llama-api-python/commit/cb29768aa1a4c3d9e8e94ef28cfa40a856618fb4))
+* compat with Python 3.14 ([009ca0d](https://github.com/meta-llama/llama-api-python/commit/009ca0d914ec813285e1f195d645871f9cd3d6df))
+* **compat:** update signatures of `model_dump` and `model_dump_json` for Pydantic v1 ([eb03850](https://github.com/meta-llama/llama-api-python/commit/eb03850c5905d443da89b71fe8306af8cf5d7062))
+* ensure streams are always closed ([4b8f9b7](https://github.com/meta-llama/llama-api-python/commit/4b8f9b7b7f63e0d72daf9bd24c3f12c424040c6d))
+* **types:** allow pyright to infer TypedDict types within SequenceNotStr ([aab06ad](https://github.com/meta-llama/llama-api-python/commit/aab06adc22ed41bd16af636c3bc94e08b9bf2c82))
+* use async_to_httpx_files in patch method ([7a5d301](https://github.com/meta-llama/llama-api-python/commit/7a5d3019d53edd2a3b92c8aa91971aa3421ae758))
+
+
+### Chores
+
+* add missing docstrings ([edaf4a2](https://github.com/meta-llama/llama-api-python/commit/edaf4a2677b2c2a5d4b89a96ac1de289430c6957))
+* bump `httpx-aiohttp` version to 0.1.9 ([29874b0](https://github.com/meta-llama/llama-api-python/commit/29874b0abe332ac6c10d44fa93088bd13a4b793f))
+* **deps:** mypy 1.18.1 has a regression, pin to 1.17 ([8c1ce31](https://github.com/meta-llama/llama-api-python/commit/8c1ce316a22980fd33b11bacb6f23d3166322f13))
+* **docs:** use environment variables for authentication in code snippets ([e04fade](https://github.com/meta-llama/llama-api-python/commit/e04fade6f4b6c8ce315e337a7f58b7b72a981a28))
+* **internal/tests:** avoid race condition with implicit client cleanup ([1b7f280](https://github.com/meta-llama/llama-api-python/commit/1b7f2809275a7c39377d5841dd77e52bad1476ed))
+* **internal:** add missing files argument to base client ([9223e75](https://github.com/meta-llama/llama-api-python/commit/9223e753f32938fc39e0866ce8f86d4fbcef37ec))
+* **internal:** codegen related update ([3b9a132](https://github.com/meta-llama/llama-api-python/commit/3b9a132f8271d76851669aedab9ee880806a83e8))
+* **internal:** detect missing future annotations with ruff ([b4cccf1](https://github.com/meta-llama/llama-api-python/commit/b4cccf14ca10e965177a0904692646da0c2892f0))
+* **internal:** grammar fix (it's -&gt; its) ([46f738d](https://github.com/meta-llama/llama-api-python/commit/46f738d2b1bf8c210607abe2d1acc46f8361895d))
+* **package:** drop Python 3.8 support ([785c446](https://github.com/meta-llama/llama-api-python/commit/785c4468206841d6c9d172b2733b0bcf053dcce6))
+* speedup initial import ([cc25ae3](https://github.com/meta-llama/llama-api-python/commit/cc25ae390cb3e10aa517638ca25ba60b9e6b8b07))
+* update lockfile ([2b01e25](https://github.com/meta-llama/llama-api-python/commit/2b01e25f540a589b7bedef48a3f18e0d4bba8d7d))
+
 ## 0.5.0 (2025-10-01)
 
 Full Changelog: [v0.4.0...v0.5.0](https://github.com/meta-llama/llama-api-python/compare/v0.4.0...v0.5.0)
