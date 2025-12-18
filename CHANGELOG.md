@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.6.1 (2025-12-18)
+
+Full Changelog: [v0.6.0...v0.6.1](https://github.com/meta-llama/llama-api-python/compare/v0.6.0...v0.6.1)
+
+### Chores
+
+* **internal:** add `--fix` argument to lint script ([4ce6387](https://github.com/meta-llama/llama-api-python/commit/4ce638727e94b36a5619357b7243d36f384bf62e))
+
 ## 0.6.0 (2025-12-18)
 
 Full Changelog: [v0.5.0...v0.6.0](https://github.com/meta-llama/llama-api-python/compare/v0.5.0...v0.6.0)
