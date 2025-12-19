@@ -124,50 +124,6 @@ async def main() -> None:
 asyncio.run(main())
 ```
 
-## Streaming responses
-
-We provide support for streaming responses using Server Side Events (SSE).
-
-```python
-from llama_api_client import LlamaAPIClient
-
-client = LlamaAPIClient()
-
-stream = client.chat.completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model="model",
-    stream=True,
-)
-for create_chat_completion_response in stream:
-    print(create_chat_completion_response.id)
-```
-
-The async client uses the exact same interface.
-
-```python
-from llama_api_client import AsyncLlamaAPIClient
-
-client = AsyncLlamaAPIClient()
-
-stream = await client.chat.completions.create(
-    messages=[
-        {
-            "content": "string",
-            "role": "user",
-        }
-    ],
-    model="model",
-    stream=True,
-)
-async for create_chat_completion_response in stream:
-    print(create_chat_completion_response.id)
-```
-
 ## Using types
 
 Nested request parameters are [TypedDicts](https://docs.python.org/3/library/typing.html#typing.TypedDict). Responses are [Pydantic models](https://docs.pydantic.dev) which also provide helper methods for things like:
