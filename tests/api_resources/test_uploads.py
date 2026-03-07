@@ -132,7 +132,7 @@ class TestUploads:
     def test_method_part(self, client: LlamaAPIClient) -> None:
         upload = client.uploads.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
         )
         assert_matches_type(UploadPartResponse, upload, path=["response"])
 
@@ -141,7 +141,7 @@ class TestUploads:
     def test_method_part_with_all_params(self, client: LlamaAPIClient) -> None:
         upload = client.uploads.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
             x_api_version="1.0.0",
             x_upload_offset=0,
         )
@@ -152,7 +152,7 @@ class TestUploads:
     def test_raw_response_part(self, client: LlamaAPIClient) -> None:
         response = client.uploads.with_raw_response.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
         )
 
         assert response.is_closed is True
@@ -165,7 +165,7 @@ class TestUploads:
     def test_streaming_response_part(self, client: LlamaAPIClient) -> None:
         with client.uploads.with_streaming_response.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -181,7 +181,7 @@ class TestUploads:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             client.uploads.with_raw_response.part(
                 upload_id="",
-                data=b"raw file contents",
+                data=b"Example data",
             )
 
 
@@ -301,7 +301,7 @@ class TestAsyncUploads:
     async def test_method_part(self, async_client: AsyncLlamaAPIClient) -> None:
         upload = await async_client.uploads.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
         )
         assert_matches_type(UploadPartResponse, upload, path=["response"])
 
@@ -310,7 +310,7 @@ class TestAsyncUploads:
     async def test_method_part_with_all_params(self, async_client: AsyncLlamaAPIClient) -> None:
         upload = await async_client.uploads.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
             x_api_version="1.0.0",
             x_upload_offset=0,
         )
@@ -321,7 +321,7 @@ class TestAsyncUploads:
     async def test_raw_response_part(self, async_client: AsyncLlamaAPIClient) -> None:
         response = await async_client.uploads.with_raw_response.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
         )
 
         assert response.is_closed is True
@@ -334,7 +334,7 @@ class TestAsyncUploads:
     async def test_streaming_response_part(self, async_client: AsyncLlamaAPIClient) -> None:
         async with async_client.uploads.with_streaming_response.part(
             upload_id="upload_id",
-            data=b"raw file contents",
+            data=b"Example data",
         ) as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -350,5 +350,5 @@ class TestAsyncUploads:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `upload_id` but received ''"):
             await async_client.uploads.with_raw_response.part(
                 upload_id="",
-                data=b"raw file contents",
+                data=b"Example data",
             )
