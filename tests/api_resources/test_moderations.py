@@ -5,7 +5,9 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from tests.utils import assert_matches_type
 from llama_api_client import LlamaAPIClient, AsyncLlamaAPIClient
@@ -17,9 +19,15 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestModerations:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_create(self, client: LlamaAPIClient) -> None:
+    def test_method_create(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         moderation = client.moderations.create(
             messages=[
                 {
@@ -30,9 +38,15 @@ class TestModerations:
         )
         assert_matches_type(ModerationCreateResponse, moderation, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_create_with_all_params(self, client: LlamaAPIClient) -> None:
+    def test_method_create_with_all_params(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         moderation = client.moderations.create(
             messages=[
                 {
@@ -44,9 +58,15 @@ class TestModerations:
         )
         assert_matches_type(ModerationCreateResponse, moderation, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_raw_response_create(self, client: LlamaAPIClient) -> None:
+    def test_raw_response_create(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         response = client.moderations.with_raw_response.create(
             messages=[
                 {
@@ -61,9 +81,15 @@ class TestModerations:
         moderation = response.parse()
         assert_matches_type(ModerationCreateResponse, moderation, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_streaming_response_create(self, client: LlamaAPIClient) -> None:
+    def test_streaming_response_create(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         with client.moderations.with_streaming_response.create(
             messages=[
                 {
@@ -86,9 +112,15 @@ class TestAsyncModerations:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_create(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_create(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         moderation = await async_client.moderations.create(
             messages=[
                 {
@@ -99,9 +131,17 @@ class TestAsyncModerations:
         )
         assert_matches_type(ModerationCreateResponse, moderation, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_create_with_all_params(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_create_with_all_params(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         moderation = await async_client.moderations.create(
             messages=[
                 {
@@ -113,9 +153,15 @@ class TestAsyncModerations:
         )
         assert_matches_type(ModerationCreateResponse, moderation, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_raw_response_create(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_raw_response_create(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         response = await async_client.moderations.with_raw_response.create(
             messages=[
                 {
@@ -130,9 +176,15 @@ class TestAsyncModerations:
         moderation = await response.parse()
         assert_matches_type(ModerationCreateResponse, moderation, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_streaming_response_create(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_streaming_response_create(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/moderations").mock(
+            return_value=httpx.Response(
+                200,
+                json={"model": "Llama-Guard", "results": [{"flagged": False, "flagged_categories": []}]},
+            )
+        )
         async with async_client.moderations.with_streaming_response.create(
             messages=[
                 {
