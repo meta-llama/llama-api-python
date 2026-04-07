@@ -17,11 +17,10 @@ dependencies = [
   "sniffio",
 ]
 
-requires-python = ">= 3.9"
+requires-python = ">= 3.10"
 classifiers = [
   "Typing :: Typed",
   "Intended Audience :: Developers",
-  "Programming Language :: Python :: 3.9",
   "Programming Language :: Python :: 3.10",
   "Programming Language :: Python :: 3.11",
   "Programming Language :: Python :: 3.12",
@@ -143,7 +142,7 @@ filterwarnings = [
 # there are a couple of flags that are still disabled by
 # default in strict mode as they are experimental and niche.
 typeCheckingMode = "strict"
-pythonVersion = "3.9"
+pythonVersion = "3.10"
 
 exclude = [
     "_dev",
@@ -213,7 +212,7 @@ ignore_missing_imports = true
 [tool.ruff]
 line-length = 120
 output-format = "grouped"
-target-version = "py38"
+target-version = "py310"
 
 [tool.ruff.format]
 docstring-code-format = true

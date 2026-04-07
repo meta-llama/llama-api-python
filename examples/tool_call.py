@@ -63,9 +63,7 @@ def run(stream: bool = False) -> None:
                     )
                     tool_call["function"]["name"] = chunk.event.delta.function.name
                 if chunk.event.delta.function.arguments:
-                    tool_call["function"][
-                        "arguments"
-                    ] += chunk.event.delta.function.arguments
+                    tool_call["function"]["arguments"] += chunk.event.delta.function.arguments
                     print(chunk.event.delta.function.arguments, end="", flush=True)
 
             if chunk.event.stop_reason is not None:
