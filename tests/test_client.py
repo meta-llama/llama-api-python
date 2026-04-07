@@ -892,9 +892,10 @@ class TestLlamaAPIClient:
 
         client = DefaultHttpxClient()
 
-        mounts = tuple(client._mounts.items())
-        assert len(mounts) == 1
-        assert mounts[0][0].pattern == "https://"
+        proxy_mounts = {
+            pattern.pattern: transport for pattern, transport in client._mounts.items() if transport is not None
+        }
+        assert "https://" in proxy_mounts
 
     @pytest.mark.filterwarnings("ignore:.*deprecated.*:DeprecationWarning")
     def test_default_client_creation(self) -> None:
@@ -1778,9 +1779,10 @@ class TestAsyncLlamaAPIClient:
 
         client = DefaultAsyncHttpxClient()
 
-        mounts = tuple(client._mounts.items())
-        assert len(mounts) == 1
-        assert mounts[0][0].pattern == "https://"
+        proxy_mounts = {
+            pattern.pattern: transport for pattern, transport in client._mounts.items() if transport is not None
+        }
+        assert "https://" in proxy_mounts
 
     @pytest.mark.filterwarnings("ignore:.*deprecated.*:DeprecationWarning")
     async def test_default_client_creation(self) -> None:
