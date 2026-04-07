@@ -14,7 +14,7 @@ dependencies = [
   "typing-extensions>=4.10, <5",
   "anyio>=3.5.0, <5",
   "distro>=1.7.0, <2",
-  "sniffio",
+  "sniffio>=1.1, <2",
 ]
 
 requires-python = ">= 3.9"
