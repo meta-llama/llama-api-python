@@ -5,7 +5,9 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from tests.utils import assert_matches_type
 from llama_api_client import LlamaAPIClient, AsyncLlamaAPIClient
@@ -17,17 +19,29 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestModels:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_retrieve(self, client: LlamaAPIClient) -> None:
+    def test_method_retrieve(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models/Llama-3.3-70B-Instruct").mock(
+            return_value=httpx.Response(
+                200,
+                json={"id": "Llama-3.3-70B-Instruct", "created": 1234567890, "object": "model", "owned_by": "meta"},
+            )
+        )
         model = client.models.retrieve(
             "Llama-3.3-70B-Instruct",
         )
         assert_matches_type(LlamaModel, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_raw_response_retrieve(self, client: LlamaAPIClient) -> None:
+    def test_raw_response_retrieve(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models/Llama-3.3-70B-Instruct").mock(
+            return_value=httpx.Response(
+                200,
+                json={"id": "Llama-3.3-70B-Instruct", "created": 1234567890, "object": "model", "owned_by": "meta"},
+            )
+        )
         response = client.models.with_raw_response.retrieve(
             "Llama-3.3-70B-Instruct",
         )
@@ -37,9 +51,15 @@ class TestModels:
         model = response.parse()
         assert_matches_type(LlamaModel, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_streaming_response_retrieve(self, client: LlamaAPIClient) -> None:
+    def test_streaming_response_retrieve(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models/Llama-3.3-70B-Instruct").mock(
+            return_value=httpx.Response(
+                200,
+                json={"id": "Llama-3.3-70B-Instruct", "created": 1234567890, "object": "model", "owned_by": "meta"},
+            )
+        )
         with client.models.with_streaming_response.retrieve(
             "Llama-3.3-70B-Instruct",
         ) as response:
@@ -51,7 +71,6 @@ class TestModels:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     def test_path_params_retrieve(self, client: LlamaAPIClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model` but received ''"):
@@ -59,15 +78,45 @@ class TestModels:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_list(self, client: LlamaAPIClient) -> None:
+    def test_method_list(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models").mock(
+            return_value=httpx.Response(
+                200,
+                json={
+                    "data": [
+                        {
+                            "id": "Llama-3.3-70B-Instruct",
+                            "created": 1234567890,
+                            "object": "model",
+                            "owned_by": "meta",
+                        }
+                    ]
+                },
+            )
+        )
         model = client.models.list()
         assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_raw_response_list(self, client: LlamaAPIClient) -> None:
+    def test_raw_response_list(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models").mock(
+            return_value=httpx.Response(
+                200,
+                json={
+                    "data": [
+                        {
+                            "id": "Llama-3.3-70B-Instruct",
+                            "created": 1234567890,
+                            "object": "model",
+                            "owned_by": "meta",
+                        }
+                    ]
+                },
+            )
+        )
         response = client.models.with_raw_response.list()
 
         assert response.is_closed is True
@@ -75,9 +124,24 @@ class TestModels:
         model = response.parse()
         assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_streaming_response_list(self, client: LlamaAPIClient) -> None:
+    def test_streaming_response_list(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models").mock(
+            return_value=httpx.Response(
+                200,
+                json={
+                    "data": [
+                        {
+                            "id": "Llama-3.3-70B-Instruct",
+                            "created": 1234567890,
+                            "object": "model",
+                            "owned_by": "meta",
+                        }
+                    ]
+                },
+            )
+        )
         with client.models.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"
@@ -93,17 +157,29 @@ class TestAsyncModels:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_retrieve(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_retrieve(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models/Llama-3.3-70B-Instruct").mock(
+            return_value=httpx.Response(
+                200,
+                json={"id": "Llama-3.3-70B-Instruct", "created": 1234567890, "object": "model", "owned_by": "meta"},
+            )
+        )
         model = await async_client.models.retrieve(
             "Llama-3.3-70B-Instruct",
         )
         assert_matches_type(LlamaModel, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_raw_response_retrieve(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_raw_response_retrieve(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models/Llama-3.3-70B-Instruct").mock(
+            return_value=httpx.Response(
+                200,
+                json={"id": "Llama-3.3-70B-Instruct", "created": 1234567890, "object": "model", "owned_by": "meta"},
+            )
+        )
         response = await async_client.models.with_raw_response.retrieve(
             "Llama-3.3-70B-Instruct",
         )
@@ -113,9 +189,15 @@ class TestAsyncModels:
         model = await response.parse()
         assert_matches_type(LlamaModel, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_streaming_response_retrieve(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models/Llama-3.3-70B-Instruct").mock(
+            return_value=httpx.Response(
+                200,
+                json={"id": "Llama-3.3-70B-Instruct", "created": 1234567890, "object": "model", "owned_by": "meta"},
+            )
+        )
         async with async_client.models.with_streaming_response.retrieve(
             "Llama-3.3-70B-Instruct",
         ) as response:
@@ -127,7 +209,6 @@ class TestAsyncModels:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
     @parametrize
     async def test_path_params_retrieve(self, async_client: AsyncLlamaAPIClient) -> None:
         with pytest.raises(ValueError, match=r"Expected a non-empty value for `model` but received ''"):
@@ -135,15 +216,45 @@ class TestAsyncModels:
                 "",
             )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_list(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_list(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models").mock(
+            return_value=httpx.Response(
+                200,
+                json={
+                    "data": [
+                        {
+                            "id": "Llama-3.3-70B-Instruct",
+                            "created": 1234567890,
+                            "object": "model",
+                            "owned_by": "meta",
+                        }
+                    ]
+                },
+            )
+        )
         model = await async_client.models.list()
         assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_raw_response_list(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_raw_response_list(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models").mock(
+            return_value=httpx.Response(
+                200,
+                json={
+                    "data": [
+                        {
+                            "id": "Llama-3.3-70B-Instruct",
+                            "created": 1234567890,
+                            "object": "model",
+                            "owned_by": "meta",
+                        }
+                    ]
+                },
+            )
+        )
         response = await async_client.models.with_raw_response.list()
 
         assert response.is_closed is True
@@ -151,9 +262,24 @@ class TestAsyncModels:
         model = await response.parse()
         assert_matches_type(ModelListResponse, model, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_streaming_response_list(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_streaming_response_list(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.get("/models").mock(
+            return_value=httpx.Response(
+                200,
+                json={
+                    "data": [
+                        {
+                            "id": "Llama-3.3-70B-Instruct",
+                            "created": 1234567890,
+                            "object": "model",
+                            "owned_by": "meta",
+                        }
+                    ]
+                },
+            )
+        )
         async with async_client.models.with_streaming_response.list() as response:
             assert not response.is_closed
             assert response.http_request.headers.get("X-Stainless-Lang") == "python"

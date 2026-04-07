@@ -5,7 +5,9 @@ from __future__ import annotations
 import os
 from typing import Any, cast
 
+import httpx
 import pytest
+from respx import MockRouter
 
 from tests.utils import assert_matches_type
 from llama_api_client import LlamaAPIClient, AsyncLlamaAPIClient
@@ -17,9 +19,14 @@ base_url = os.environ.get("TEST_API_BASE_URL", "http://127.0.0.1:4010")
 class TestCompletions:
     parametrize = pytest.mark.parametrize("client", [False, True], indirect=True, ids=["loose", "strict"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_create_overload_1(self, client: LlamaAPIClient) -> None:
+    def test_method_create_overload_1(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         completion = client.chat.completions.create(
             messages=[
                 {
@@ -31,9 +38,14 @@ class TestCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_create_with_all_params_overload_1(self, client: LlamaAPIClient) -> None:
+    def test_method_create_with_all_params_overload_1(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         completion = client.chat.completions.create(
             messages=[
                 {
@@ -71,9 +83,14 @@ class TestCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_raw_response_create_overload_1(self, client: LlamaAPIClient) -> None:
+    def test_raw_response_create_overload_1(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -89,9 +106,14 @@ class TestCompletions:
         completion = response.parse()
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_streaming_response_create_overload_1(self, client: LlamaAPIClient) -> None:
+    def test_streaming_response_create_overload_1(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -109,9 +131,16 @@ class TestCompletions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_create_overload_2(self, client: LlamaAPIClient) -> None:
+    def test_method_create_overload_2(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         completion_stream = client.chat.completions.create(
             messages=[
                 {
@@ -124,9 +153,16 @@ class TestCompletions:
         )
         completion_stream.response.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_method_create_with_all_params_overload_2(self, client: LlamaAPIClient) -> None:
+    def test_method_create_with_all_params_overload_2(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         completion_stream = client.chat.completions.create(
             messages=[
                 {
@@ -164,9 +200,16 @@ class TestCompletions:
         )
         completion_stream.response.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_raw_response_create_overload_2(self, client: LlamaAPIClient) -> None:
+    def test_raw_response_create_overload_2(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         response = client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -182,9 +225,16 @@ class TestCompletions:
         stream = response.parse()
         stream.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    def test_streaming_response_create_overload_2(self, client: LlamaAPIClient) -> None:
+    def test_streaming_response_create_overload_2(self, client: LlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         with client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -209,9 +259,14 @@ class TestAsyncCompletions:
         "async_client", [False, True, {"http_client": "aiohttp"}], indirect=True, ids=["loose", "strict", "aiohttp"]
     )
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_create_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_create_overload_1(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         completion = await async_client.chat.completions.create(
             messages=[
                 {
@@ -223,9 +278,16 @@ class TestAsyncCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_create_with_all_params_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_create_with_all_params_overload_1(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         completion = await async_client.chat.completions.create(
             messages=[
                 {
@@ -263,9 +325,16 @@ class TestAsyncCompletions:
         )
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_raw_response_create_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_raw_response_create_overload_1(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -281,9 +350,16 @@ class TestAsyncCompletions:
         completion = await response.parse()
         assert_matches_type(CreateChatCompletionResponse, completion, path=["response"])
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_streaming_response_create_overload_1(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_streaming_response_create_overload_1(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200, json={"completion_message": {"role": "assistant", "content": "hello"}, "id": "chatcmpl-123"}
+            )
+        )
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
@@ -301,9 +377,16 @@ class TestAsyncCompletions:
 
         assert cast(Any, response.is_closed) is True
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_create_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_create_overload_2(self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
@@ -316,9 +399,18 @@ class TestAsyncCompletions:
         )
         await completion_stream.response.aclose()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_method_create_with_all_params_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_method_create_with_all_params_overload_2(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         completion_stream = await async_client.chat.completions.create(
             messages=[
                 {
@@ -356,9 +448,18 @@ class TestAsyncCompletions:
         )
         await completion_stream.response.aclose()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_raw_response_create_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_raw_response_create_overload_2(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         response = await async_client.chat.completions.with_raw_response.create(
             messages=[
                 {
@@ -374,9 +475,18 @@ class TestAsyncCompletions:
         stream = await response.parse()
         await stream.close()
 
-    @pytest.mark.skip(reason="Prism tests are disabled")
+    @pytest.mark.respx(base_url=base_url)
     @parametrize
-    async def test_streaming_response_create_overload_2(self, async_client: AsyncLlamaAPIClient) -> None:
+    async def test_streaming_response_create_overload_2(
+        self, async_client: AsyncLlamaAPIClient, respx_mock: MockRouter
+    ) -> None:
+        respx_mock.post("/chat/completions").mock(
+            return_value=httpx.Response(
+                200,
+                headers={"content-type": "text/event-stream"},
+                content=b'data: {"event":{"event_type":"start","delta":{"type":"text","text":"hi"}}}\n\n',
+            )
+        )
         async with async_client.chat.completions.with_streaming_response.create(
             messages=[
                 {
